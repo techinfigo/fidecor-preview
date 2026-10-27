@@ -567,48 +567,62 @@ body {
 .t-name { font-size: 0.82rem; font-weight: 600; color: var(--black); }
 .t-city { font-size: 0.7rem; color: var(--fg-mute); }
 
-/* ── LOCATION (redesigned) ─────────── */
-.loc-section { background: var(--black); padding: 60px max(24px,env(safe-area-inset-left,0px)); padding-right: max(24px,env(safe-area-inset-right,0px)); padding-block: 60px; }
-.loc-section .s-tag { color: rgba(255,255,255,0.45); }
-.loc-section .s-tag::before { background: var(--red); }
-.loc-section .s-h2 { color: #fff; margin-bottom: 4px; }
-.loc-section .s-sub { color: rgba(255,255,255,0.4); margin-bottom: 36px; }
-.loc-layout { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 28px; align-items: stretch; }
-/* Map side */
-.loc-map { border-radius: 20px; overflow: hidden; position: relative; min-height: 380px; background: #1e1e28; display: flex; flex-direction: column; }
-.loc-map-img { flex: 1; position: relative; overflow: hidden; }
-.loc-map-img img { width: 100%; height: 100%; object-fit: cover; filter: saturate(0.6) brightness(0.75); }
-.loc-map-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.72) 0%, transparent 55%); }
-.loc-map-pin { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-60%); }
-.loc-map-pin-dot { width: 18px; height: 18px; border-radius: 50%; background: var(--red); box-shadow: 0 0 0 6px rgba(200,16,46,0.3), 0 0 0 12px rgba(200,16,46,0.1); animation: pinPulse 2s ease-out infinite; }
-@keyframes pinPulse { 0%,100%{box-shadow:0 0 0 6px rgba(200,16,46,0.3),0 0 0 12px rgba(200,16,46,0.1)} 50%{box-shadow:0 0 0 10px rgba(200,16,46,0.2),0 0 0 20px rgba(200,16,46,0.05)} }
-.loc-map-label { position: absolute; bottom: 0; left: 0; right: 0; padding: 20px 22px 18px; }
-.loc-map-addr { font-size: 0.92rem; font-weight: 700; color: #fff; margin-bottom: 4px; }
-.loc-map-city { font-size: 0.72rem; color: rgba(255,255,255,0.5); }
-.loc-map-btn { display: inline-flex; align-items: center; gap: 6px; margin-top: 12px; background: #fff; color: var(--black); font-family: 'Poppins',sans-serif; font-size: 0.76rem; font-weight: 700; border: none; border-radius: 8px; padding: 8px 16px; cursor: pointer; transition: all 0.2s; }
-.loc-map-btn:hover { background: var(--red); color: #fff; }
-/* Right info panel */
-.loc-info { display: flex; flex-direction: column; gap: 12px; }
-.loc-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 16px 18px; display: flex; align-items: center; gap: 14px; cursor: pointer; transition: all 0.2s; }
-.loc-card:hover { background: rgba(200,16,46,0.1); border-color: rgba(200,16,46,0.3); transform: translateX(4px); }
-.loc-card-ico { width: 44px; height: 44px; border-radius: 12px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
-.loc-card-ico.red { background: rgba(200,16,46,0.18); color: var(--red); }
-.loc-card-ico.green { background: rgba(37,211,102,0.15); color: #25D366; }
-.loc-card-ico.blue { background: rgba(59,130,246,0.15); color: #60a5fa; }
-.loc-card-ico.amber { background: rgba(245,158,11,0.15); color: #f59e0b; }
-.loc-card-lbl { font-size: 0.62rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(255,255,255,0.35); margin-bottom: 3px; }
-.loc-card-val { font-size: 0.86rem; font-weight: 600; color: #fff; line-height: 1.35; }
-.loc-card-hint { font-size: 0.65rem; color: rgba(255,255,255,0.35); margin-top: 2px; }
-/* Big WA CTA */
-.loc-wa-cta { background: #25D366; border-radius: 14px; padding: 18px 22px; display: flex; align-items: center; gap: 14px; cursor: pointer; transition: all 0.2s; border: none; width: 100%; font-family: 'Poppins',sans-serif; }
-.loc-wa-cta:hover { background: #1db954; transform: translateY(-2px); box-shadow: 0 10px 32px rgba(37,211,102,0.35); }
-.loc-wa-ico { width: 44px; height: 44px; border-radius: 12px; background: rgba(255,255,255,0.18); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-.loc-wa-text { text-align: left; }
-.loc-wa-title { font-size: 0.9rem; font-weight: 700; color: #fff; }
-.loc-wa-sub { font-size: 0.7rem; color: rgba(255,255,255,0.7); margin-top: 1px; }
-/* hours badge */
-.loc-hours-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 4px; }
-.loc-hour-pill { font-size: 0.62rem; font-weight: 600; background: rgba(255,255,255,0.08); border-radius: 6px; padding: 3px 8px; color: rgba(255,255,255,0.6); }
+/* ── LOCATION v17 ─────────────────── */
+.loc-section { background: var(--bg); padding: 0; overflow: hidden; }
+/* Hero photo strip */
+.loc-hero { position: relative; height: 420px; overflow: hidden; }
+.loc-hero-img { width: 100%; height: 100%; object-fit: cover; object-position: center 30%; }
+.loc-hero-overlay { position: absolute; inset: 0; background: linear-gradient(135deg, rgba(26,26,26,0.78) 0%, rgba(200,16,46,0.18) 100%); }
+.loc-hero-content { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; padding: 0 max(48px,env(safe-area-inset-left,0px) + 24px); padding-right: max(48px,env(safe-area-inset-right,0px) + 24px); }
+.loc-hero-eyebrow { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--red); margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+.loc-hero-eyebrow::before { content:''; width: 28px; height: 2px; background: var(--red); border-radius: 2px; }
+.loc-hero-title { font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 800; color: #fff; line-height: 1.1; margin-bottom: 14px; }
+.loc-hero-title em { color: var(--red); font-style: normal; }
+.loc-hero-sub { font-size: 0.9rem; color: rgba(255,255,255,0.6); max-width: 460px; line-height: 1.6; }
+/* Info strip below hero */
+.loc-body { display: grid; grid-template-columns: 1fr 1fr; }
+/* Left: contact details */
+.loc-details { background: var(--black); padding: 48px max(40px,env(safe-area-inset-left,0px) + 16px); display: flex; flex-direction: column; gap: 0; }
+.loc-det-row { display: flex; gap: 18px; align-items: flex-start; padding: 20px 0; border-bottom: 1px solid rgba(255,255,255,0.07); }
+.loc-det-row:first-child { padding-top: 0; }
+.loc-det-row:last-child { border-bottom: none; padding-bottom: 0; }
+.loc-det-ico { width: 40px; height: 40px; border-radius: 10px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255,255,255,0.1); }
+.loc-det-ico svg { opacity: 0.85; }
+.loc-det-label { font-size: 0.58rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--red); margin-bottom: 5px; }
+.loc-det-val { font-size: 0.92rem; font-weight: 600; color: #fff; line-height: 1.4; }
+.loc-det-sub { font-size: 0.72rem; color: rgba(255,255,255,0.38); margin-top: 3px; }
+/* Hours pills */
+.loc-hours { display: flex; flex-direction: column; gap: 5px; margin-top: 4px; }
+.loc-h-row { display: flex; align-items: center; gap: 8px; }
+.loc-h-day { font-size: 0.72rem; color: rgba(255,255,255,0.5); width: 64px; flex-shrink: 0; }
+.loc-h-bar { flex: 1; height: 3px; background: rgba(255,255,255,0.07); border-radius: 2px; overflow: hidden; }
+.loc-h-fill { height: 100%; background: var(--red); border-radius: 2px; }
+.loc-h-time { font-size: 0.72rem; color: rgba(255,255,255,0.65); font-weight: 600; }
+/* Right: map + WA CTA */
+.loc-right { display: flex; flex-direction: column; }
+.loc-map-wrap { flex: 1; position: relative; min-height: 240px; background: #0f0f14; overflow: hidden; }
+.loc-map-wrap img { width: 100%; height: 100%; object-fit: cover; filter: saturate(0.4) brightness(0.55) hue-rotate(200deg); }
+.loc-map-pin-wrap { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); display: flex; flex-direction: column; align-items: center; gap: 0; }
+.loc-pin-shadow { width: 28px; height: 8px; background: rgba(0,0,0,0.4); border-radius: 50%; filter: blur(3px); margin-top: 2px; }
+.loc-pin-body { width: 36px; height: 44px; position: relative; }
+.loc-pin-body svg { width: 36px; height: 44px; filter: drop-shadow(0 6px 16px rgba(200,16,46,0.6)); }
+.loc-pin-pulse { position: absolute; top: 4px; left: 50%; transform: translateX(-50%); width: 28px; height: 28px; border-radius: 50%; background: rgba(200,16,46,0.25); animation: pinRipple 1.8s ease-out infinite; }
+@keyframes pinRipple { 0%{transform:translateX(-50%) scale(1);opacity:0.8} 100%{transform:translateX(-50%) scale(2.8);opacity:0} }
+.loc-map-tag { position: absolute; bottom: 16px; left: 50%; transform: translateX(-50%); background: var(--black); border: 1px solid rgba(255,255,255,0.12); border-radius: 10px; padding: 8px 16px; white-space: nowrap; display: flex; align-items: center; gap: 8px; }
+.loc-map-tag-name { font-size: 0.78rem; font-weight: 700; color: #fff; }
+.loc-map-tag-city { font-size: 0.65rem; color: rgba(255,255,255,0.42); }
+.loc-map-tag-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--red); flex-shrink: 0; box-shadow: 0 0 0 3px rgba(200,16,46,0.25); animation: pinPulse 2s ease-in-out infinite; }
+@keyframes pinPulse { 0%,100%{box-shadow:0 0 0 3px rgba(200,16,46,0.25)} 50%{box-shadow:0 0 0 6px rgba(200,16,46,0.1)} }
+.loc-map-open-btn { position: absolute; top: 14px; right: 14px; background: #fff; border: none; border-radius: 8px; padding: 7px 13px; font-family: 'Poppins',sans-serif; font-size: 0.7rem; font-weight: 700; color: var(--black); cursor: pointer; display: flex; align-items: center; gap: 5px; transition: all 0.2s; box-shadow: 0 4px 14px rgba(0,0,0,0.3); }
+.loc-map-open-btn:hover { background: var(--red); color: #fff; }
+/* WA bar */
+.loc-wa { background: #128c3e; padding: 20px max(24px,env(safe-area-inset-right,0px) + 8px); display: flex; align-items: center; gap: 14px; cursor: pointer; border: none; width: 100%; font-family: 'Poppins',sans-serif; transition: background 0.2s; }
+.loc-wa:hover { background: #0f7a34; }
+.loc-wa-icon { width: 46px; height: 46px; border-radius: 12px; background: rgba(255,255,255,0.14); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.loc-wa-body { flex: 1; text-align: left; }
+.loc-wa-title { font-size: 0.88rem; font-weight: 700; color: #fff; }
+.loc-wa-sub { font-size: 0.68rem; color: rgba(255,255,255,0.62); margin-top: 2px; }
+.loc-wa-arrow { color: rgba(255,255,255,0.5); flex-shrink: 0; }
 
 /* ── FOOTER ────────────────────────── */
 .footer { background: var(--black); color: #fff; padding: 36px max(24px,env(safe-area-inset-left,0px)); padding-right: max(24px,env(safe-area-inset-right,0px)); padding-block: 36px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
@@ -821,9 +835,12 @@ body {
   .why-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
   .testi-grid { grid-template-columns: 1fr; }
   .fb-label { display: none; }
-  .loc-grid,.loc-layout,.vis-layout,.order-layout { grid-template-columns: 1fr; }
-  .loc-map { min-height: 280px; }
-  .loc-section { padding: 48px max(20px,env(safe-area-inset-left,0px)); padding-right: max(20px,env(safe-area-inset-right,0px)); padding-block: 48px; }
+  .loc-grid,.loc-layout,.loc-body,.vis-layout,.order-layout { grid-template-columns: 1fr; }
+  .loc-hero { height: 320px; }
+  .loc-hero-content { padding: 0 max(24px,env(safe-area-inset-left,0px) + 4px); padding-right: max(24px,env(safe-area-inset-right,0px) + 4px); }
+  .loc-details { padding: 36px max(24px,env(safe-area-inset-left,0px) + 4px); padding-right: max(24px,env(safe-area-inset-right,0px) + 4px); }
+  .loc-map-wrap { min-height: 220px; }
+  .loc-wa { padding: 18px max(20px,env(safe-area-inset-right,0px) + 4px); }
   .result-panel,.f-row,.form-2 { grid-template-columns: 1fr; }
   .app-sidebar { display: none; }
   .tabs { display: none; }
@@ -1758,86 +1775,115 @@ body {
     </div>
   </section>
 
-  <!-- LOCATION (redesigned v16) -->
+  <!-- LOCATION v17 — premium redesign -->
   <section class="loc-section" id="contactSection">
-    <div class="s-tag">Visit Us</div>
-    <h2 class="s-h2">Find Our <em>Showroom</em></h2>
-    <p class="s-sub">Come experience luxury wallpapers in person — Agra's finest design destination</p>
-    <div class="loc-layout">
 
-      <!-- MAP SIDE -->
-      <div class="loc-map">
-        <div class="loc-map-img">
-          <img src="https://images.unsplash.com/photo-1524661135-423995f22d0b?w=800&q=80&fit=crop" alt="Map of Agra">
-          <div class="loc-map-overlay"></div>
-          <div class="loc-map-pin">
-            <div class="loc-map-pin-dot"></div>
-          </div>
-          <div class="loc-map-label">
-            <div class="loc-map-addr">F&amp;I Dekor Showroom</div>
-            <div class="loc-map-city">Agra, Uttar Pradesh — 282001</div>
-            <button class="loc-map-btn" onclick="showToast('Opening F&I Dekor in Google Maps...','info');window.open('https://maps.google.com/?q=F%26I+Dekor+Agra+Wallpaper','_blank')">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-              Open in Google Maps ↗
-            </button>
-          </div>
-        </div>
+    <!-- Big hero photo with title overlay -->
+    <div class="loc-hero">
+      <img class="loc-hero-img" src="https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=1400&q=85&fit=crop" alt="F&I Dekor luxury showroom interior">
+      <div class="loc-hero-overlay"></div>
+      <div class="loc-hero-content">
+        <div class="loc-hero-eyebrow">Visit Us In Person</div>
+        <h2 class="loc-hero-title">Experience Luxury<br><em>At Our Showroom</em></h2>
+        <p class="loc-hero-sub">Step into Agra's most curated wallpaper destination. See, touch, and feel 500+ premium designs before you decide.</p>
       </div>
+    </div>
 
-      <!-- CONTACT CARDS -->
-      <div class="loc-info">
+    <!-- Two-column body: dark contact left, styled map right -->
+    <div class="loc-body">
 
-        <!-- Address -->
-        <div class="loc-card" onclick="showToast('F&I Dekor Showroom — Agra, UP 282001','info')">
-          <div class="loc-card-ico red">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      <!-- LEFT: contact details on dark bg -->
+      <div class="loc-details">
+
+        <div class="loc-det-row">
+          <div class="loc-det-ico">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="1.8" stroke-linecap="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
           </div>
           <div>
-            <div class="loc-card-lbl">Showroom Address</div>
-            <div class="loc-card-val">F&amp;I Dekor, Agra</div>
-            <div class="loc-card-hint">Uttar Pradesh — 282001</div>
+            <div class="loc-det-label">Showroom Address</div>
+            <div class="loc-det-val">F&amp;I Dekor, Agra</div>
+            <div class="loc-det-sub">Uttar Pradesh — 282001, India</div>
           </div>
         </div>
 
-        <!-- Phone -->
-        <div class="loc-card" onclick="showToast('Calling F&I Dekor — 1800-XXX-XXXX 📞','info')">
-          <div class="loc-card-ico blue">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.5 19.79 19.79 0 01.25 5.18 2 2 0 012.22 3h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 10.09a16 16 0 006 6l1.27-.63a2 2 0 012.11.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+        <div class="loc-det-row" style="cursor:pointer" onclick="showToast('Calling F&I Dekor — 1800-XXX-XXXX 📞','info')">
+          <div class="loc-det-ico">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="1.8" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.5 19.79 19.79 0 01.25 5.18 2 2 0 012.22 3h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 10.09a16 16 0 006 6l1.27-.63a2 2 0 012.11.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
           </div>
           <div>
-            <div class="loc-card-lbl">Toll-Free</div>
-            <div class="loc-card-val">1800-XXX-XXXX</div>
-            <div class="loc-card-hint">Mon–Sat · 10 AM – 7 PM · Tap to Call</div>
+            <div class="loc-det-label">Toll-Free Number</div>
+            <div class="loc-det-val">1800-XXX-XXXX</div>
+            <div class="loc-det-sub">Tap to call · Mon–Sat, 10 AM – 7 PM</div>
           </div>
         </div>
 
-        <!-- Hours -->
-        <div class="loc-card">
-          <div class="loc-card-ico amber">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        <div class="loc-det-row">
+          <div class="loc-det-ico">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
           </div>
-          <div style="flex:1">
-            <div class="loc-card-lbl">Showroom Hours</div>
-            <div class="loc-hours-row">
-              <span class="loc-hour-pill">Mon–Sat · 10 AM – 7 PM</span>
-              <span class="loc-hour-pill">Sunday · 11 AM – 5 PM</span>
+          <div>
+            <div class="loc-det-label">Opening Hours</div>
+            <div class="loc-hours">
+              <div class="loc-h-row">
+                <span class="loc-h-day">Mon – Sat</span>
+                <div class="loc-h-bar"><div class="loc-h-fill" style="width:78%"></div></div>
+                <span class="loc-h-time">10 AM – 7 PM</span>
+              </div>
+              <div class="loc-h-row">
+                <span class="loc-h-day">Sunday</span>
+                <div class="loc-h-bar"><div class="loc-h-fill" style="width:55%;background:rgba(255,255,255,0.25)"></div></div>
+                <span class="loc-h-time">11 AM – 5 PM</span>
+              </div>
             </div>
           </div>
         </div>
 
-        <!-- WhatsApp CTA -->
-        <button class="loc-wa-cta" onclick="document.getElementById('waPopup').classList.toggle('show')">
-          <div class="loc-wa-ico">
-            <svg width="24" height="24" viewBox="0 0 32 32" fill="white"><path d="M16.002 3C9.374 3 4 8.373 4 15.001c0 2.137.565 4.14 1.55 5.874L4 29l8.335-1.527A12.938 12.938 0 0016.002 28C22.627 28 28 22.627 28 16.002 28 9.374 22.627 3 16.002 3zm0 2.04c5.503 0 9.96 4.457 9.96 9.962 0 5.504-4.457 9.96-9.96 9.96a9.916 9.916 0 01-4.958-1.33l-.35-.208-3.626.664.685-3.531-.228-.362A9.917 9.917 0 016.04 15c0-5.504 4.457-9.961 9.962-9.961zm-2.718 5.17c-.203 0-.532.076-.81.38-.278.303-1.063 1.038-1.063 2.53 0 1.492 1.089 2.936 1.24 3.14.152.202 2.101 3.355 5.18 4.573 2.56.984 3.082.788 3.638.739.557-.05 1.797-.734 2.05-1.443.253-.71.253-1.317.177-1.443-.076-.127-.278-.203-.582-.354-.304-.152-1.797-.886-2.076-.987-.278-.101-.48-.152-.683.152-.202.303-.784.987-.96 1.19-.177.203-.354.228-.658.076-.303-.152-1.28-.472-2.439-1.505-.902-.804-1.511-1.796-1.688-2.1-.177-.303-.019-.467.133-.618.136-.136.304-.354.456-.531.152-.177.202-.304.303-.506.101-.203.05-.38-.025-.532-.076-.152-.665-1.65-.924-2.257-.24-.578-.487-.505-.683-.514l-.582-.01z"/></svg>
-          </div>
-          <div class="loc-wa-text">
-            <div class="loc-wa-title">Chat on WhatsApp Now</div>
-            <div class="loc-wa-sub">Instant response · Design consultation · Free quotes</div>
-          </div>
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" style="margin-left:auto;opacity:0.7"><polyline points="9 18 15 12 9 6"/></svg>
-        </button>
-
       </div>
+
+      <!-- RIGHT: dark map + WhatsApp bar stacked -->
+      <div class="loc-right">
+        <div class="loc-map-wrap">
+          <img src="https://images.unsplash.com/photo-1524661135-423995f22d0b?w=800&q=80&fit=crop" alt="Agra map">
+          <!-- Styled pin marker -->
+          <div class="loc-map-pin-wrap">
+            <div class="loc-pin-body">
+              <div class="loc-pin-pulse"></div>
+              <svg viewBox="0 0 36 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M18 0C8.06 0 0 8.06 0 18c0 13.5 18 26 18 26s18-12.5 18-26C36 8.06 27.94 0 18 0z" fill="#C8102E"/>
+                <circle cx="18" cy="17" r="7" fill="white" fill-opacity="0.95"/>
+                <circle cx="18" cy="17" r="4" fill="#C8102E"/>
+              </svg>
+            </div>
+            <div class="loc-pin-shadow"></div>
+          </div>
+          <!-- Map label tag -->
+          <div class="loc-map-tag">
+            <div class="loc-map-tag-dot"></div>
+            <div>
+              <div class="loc-map-tag-name">F&amp;I Dekor Showroom</div>
+              <div class="loc-map-tag-city">Agra, Uttar Pradesh</div>
+            </div>
+          </div>
+          <!-- Open maps button -->
+          <button class="loc-map-open-btn" onclick="showToast('Opening in Google Maps...','info');window.open('https://maps.google.com/?q=F%26I+Dekor+Agra+Wallpaper','_blank')">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Open Maps ↗
+          </button>
+        </div>
+
+        <!-- WhatsApp bar -->
+        <button class="loc-wa" onclick="document.getElementById('waPopup').classList.toggle('show')">
+          <div class="loc-wa-icon">
+            <svg width="26" height="26" viewBox="0 0 32 32" fill="white"><path d="M16.002 3C9.374 3 4 8.373 4 15.001c0 2.137.565 4.14 1.55 5.874L4 29l8.335-1.527A12.938 12.938 0 0016.002 28C22.627 28 28 22.627 28 16.002 28 9.374 22.627 3 16.002 3zm0 2.04c5.503 0 9.96 4.457 9.96 9.962 0 5.504-4.457 9.96-9.96 9.96a9.916 9.916 0 01-4.958-1.33l-.35-.208-3.626.664.685-3.531-.228-.362A9.917 9.917 0 016.04 15c0-5.504 4.457-9.961 9.962-9.961zm-2.718 5.17c-.203 0-.532.076-.81.38-.278.303-1.063 1.038-1.063 2.53 0 1.492 1.089 2.936 1.24 3.14.152.202 2.101 3.355 5.18 4.573 2.56.984 3.082.788 3.638.739.557-.05 1.797-.734 2.05-1.443.253-.71.253-1.317.177-1.443-.076-.127-.278-.203-.582-.354-.304-.152-1.797-.886-2.076-.987-.278-.101-.48-.152-.683.152-.202.303-.784.987-.96 1.19-.177.203-.354.228-.658.076-.303-.152-1.28-.472-2.439-1.505-.902-.804-1.511-1.796-1.688-2.1-.177-.303-.019-.467.133-.618.136-.136.304-.354.456-.531.152-.177.202-.304.303-.506.101-.203.05-.38-.025-.532-.076-.152-.665-1.65-.924-2.257-.24-.578-.487-.505-.683-.514l-.582-.01z"/></svg>
+          </div>
+          <div class="loc-wa-body">
+            <div class="loc-wa-title">Chat on WhatsApp</div>
+            <div class="loc-wa-sub">Instant replies · Free design consultation · Quotes in minutes</div>
+          </div>
+          <svg class="loc-wa-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </div>
+
     </div>
   </section>
 
