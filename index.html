@@ -281,94 +281,142 @@ body {
 .s-h2 em { font-style: normal; color: var(--red); }
 .s-sub { font-size: 0.88rem; color: var(--fg-dim); font-weight: 300; margin-bottom: 36px; }
 
-/* ══ HERO ══════════════════════════ */
+/* ══ HERO ACCORDION ════════════════ */
 .hero {
-  min-height: 90vh;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  align-items: center;
-  padding: 80px max(60px,env(safe-area-inset-left,0px));
-  padding-right: max(60px,env(safe-area-inset-right,0px));
   position: relative;
+  height: 92vh;
+  min-height: 560px;
+  display: flex;
   overflow: hidden;
-  background: #fff;
+  background: #111;
 }
-/* animated gradient orbs */
-.hero::before {
-  content: '';
+/* Left content pane */
+.hero-left {
   position: absolute;
-  width: 600px; height: 600px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(200,16,46,0.08) 0%, transparent 70%);
-  top: -100px; right: -100px;
-  animation: pulse 6s ease-in-out infinite;
+  left: 0; top: 0; bottom: 0;
+  width: 420px;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 52px max(44px,env(safe-area-inset-left,0px)) 52px;
+  background: linear-gradient(to right, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.6) 70%, transparent 100%);
+  pointer-events: none;
 }
-.hero::after {
-  content: '';
-  position: absolute;
-  width: 400px; height: 400px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(200,16,46,0.05) 0%, transparent 70%);
-  bottom: -50px; left: 30%;
-  animation: pulse 8s ease-in-out infinite reverse;
-}
-@keyframes pulse {
-  0%,100% { transform: scale(1); opacity: 1; }
-  50%      { transform: scale(1.15); opacity: 0.7; }
-}
-
-.hero-left { position: relative; z-index: 1; }
-.hero-badge { display: inline-flex; align-items: center; gap: 6px; background: var(--red-dim); border: 1px solid var(--border-r); border-radius: 100px; padding: 5px 14px; font-size: 0.68rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--red); margin-bottom: 20px; }
-.hero-badge .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--red); animation: blink 1.4s ease-in-out infinite; }
+.hero-left > * { pointer-events: auto; }
+.hero-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(200,16,46,0.25); border: 1px solid rgba(200,16,46,0.5); border-radius: 100px; padding: 5px 14px; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #FF6B6B; margin-bottom: 20px; width: fit-content; }
+.hero-badge .dot { width: 6px; height: 6px; border-radius: 50%; background: #FF6B6B; animation: blink 1.4s ease-in-out infinite; }
 @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
-
-.hero-h1 { font-size: clamp(2.4rem,5vw,4.2rem); font-weight: 800; line-height: 1.05; letter-spacing: -0.03em; color: var(--black); margin-bottom: 20px; }
+.hero-h1 { font-size: clamp(2rem,3.6vw,3.4rem); font-weight: 900; line-height: 1.05; letter-spacing: -0.03em; color: #fff; margin-bottom: 16px; text-shadow: 0 2px 20px rgba(0,0,0,0.4); }
 .hero-h1 .red { color: var(--red); }
 .hero-h1 .line { display: block; }
-/* text reveal animation */
 .hero-h1 .line { opacity: 0; transform: translateY(20px); animation: slideUp 0.6s forwards; }
 .hero-h1 .line:nth-child(1) { animation-delay: 0.1s; }
 .hero-h1 .line:nth-child(2) { animation-delay: 0.25s; }
 .hero-h1 .line:nth-child(3) { animation-delay: 0.4s; }
 @keyframes slideUp { to { opacity:1; transform:translateY(0); } }
+.hero-p { font-size: 0.88rem; color: rgba(255,255,255,0.72); max-width: 320px; line-height: 1.75; margin-bottom: 28px; opacity:0; animation: slideUp 0.6s 0.55s forwards; }
+.btn-row { display: flex; gap: 10px; flex-wrap: wrap; opacity:0; animation: slideUp 0.6s 0.7s forwards; }
+.trust-strip { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 28px; padding-top: 22px; border-top: 1px solid rgba(255,255,255,0.15); opacity:0; animation: slideUp 0.6s 0.85s forwards; }
+.tbadge { display: flex; align-items: center; gap: 6px; font-size: 0.7rem; color: rgba(255,255,255,0.6); font-weight: 500; }
+.tbadge .ti { color: rgba(255,255,255,0.4); }
+.tbadge strong { color: rgba(255,255,255,0.9); }
 
-.hero-p { font-size: 0.95rem; font-weight: 300; color: var(--fg-dim); max-width: 420px; line-height: 1.8; margin-bottom: 36px; opacity:0; animation: slideUp 0.6s 0.55s forwards; }
-.btn-row { display: flex; gap: 12px; flex-wrap: wrap; opacity:0; animation: slideUp 0.6s 0.7s forwards; }
-
-/* Trust badges */
-.trust-strip {
-  display: flex; gap: 20px; flex-wrap: wrap;
-  margin-top: 32px; padding-top: 28px;
-  border-top: 1px solid var(--border);
-  opacity:0; animation: slideUp 0.6s 0.85s forwards;
+/* ── ACCORDION PANELS ─────────────── */
+.acc-track {
+  display: flex;
+  width: 100%;
+  height: 100%;
 }
-.tbadge { display: flex; align-items: center; gap: 7px; font-size: 0.74rem; color: var(--fg-dim); font-weight: 500; }
-.tbadge .ti { font-size: 1rem; }
-.tbadge strong { color: var(--black); }
-
-/* Hero visual — animated wallpaper cards */
-.hero-right { position: relative; z-index: 1; height: 480px; }
-.float-cards { position: relative; width: 100%; height: 100%; }
-.fc {
-  position: absolute;
-  border-radius: 18px;
+.acc-panel {
+  position: relative;
+  flex: 1;
   overflow: hidden;
-  border: 1px solid rgba(0,0,0,0.06);
-  box-shadow: 0 8px 32px rgba(0,0,0,0.12);
-  display: flex; align-items: flex-end;
-  transition: transform 0.3s, box-shadow 0.3s;
+  cursor: pointer;
+  transition: flex 0.65s cubic-bezier(0.4,0,0.2,1);
+  min-width: 64px;
 }
-.fc:hover { transform: translateY(-6px) !important; box-shadow: 0 16px 48px rgba(0,0,0,0.2) !important; }
-.fc:nth-child(1) { width: 60%; height: 75%; top: 0; right: 0; animation: float1 6s ease-in-out infinite; }
-.fc:nth-child(2) { width: 48%; height: 55%; top: 25%; left: 0; animation: float2 7s ease-in-out infinite; }
-.fc:nth-child(3) { width: 36%; height: 38%; bottom: 0; right: 10%; animation: float3 5s ease-in-out infinite; }
-@keyframes float1 { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
-@keyframes float2 { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
-@keyframes float3 { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
-.fc-info { position: absolute; bottom: 0; left: 0; right: 0; padding: 14px; background: linear-gradient(transparent, rgba(0,0,0,0.75)); color: #fff; }
-.fc-name { font-size: 0.8rem; font-weight: 600; }
-.fc-price { font-size: 0.68rem; color: rgba(255,255,255,0.7); }
-.fc-badge { position: absolute; top: 10px; left: 10px; background: var(--red); color: #fff; font-size: 0.56rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 8px; border-radius: 5px; }
+.acc-panel.open { flex: 5; }
+.acc-img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform 0.65s cubic-bezier(0.4,0,0.2,1), filter 0.65s;
+  filter: brightness(0.55) saturate(1.1);
+}
+.acc-panel.open .acc-img {
+  transform: scale(1.04);
+  filter: brightness(0.42) saturate(1.2);
+}
+/* collapsed tab label (vertical) */
+.acc-tab {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%,-50%) rotate(-90deg);
+  white-space: nowrap;
+  color: rgba(255,255,255,0.85);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 1;
+  transition: opacity 0.3s;
+  pointer-events: none;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+  z-index: 5;
+}
+.acc-panel.open .acc-tab { opacity: 0; }
+/* panel number */
+.acc-num {
+  position: absolute;
+  top: 20px; right: 16px;
+  font-size: 0.6rem;
+  font-weight: 800;
+  color: rgba(255,255,255,0.3);
+  letter-spacing: 0.1em;
+  z-index: 5;
+  transition: opacity 0.3s;
+}
+/* panel content (shown when open) */
+.acc-content {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 36px 32px 36px 260px;
+  background: linear-gradient(transparent 0%, rgba(0,0,0,0.78) 40%, rgba(0,0,0,0.92) 100%);
+  transform: translateY(20px);
+  opacity: 0;
+  transition: all 0.4s 0.2s;
+  pointer-events: none;
+  z-index: 10;
+}
+.acc-panel.open .acc-content { opacity: 1; transform: translateY(0); pointer-events: auto; }
+.acc-tag { display: inline-flex; align-items: center; gap: 5px; background: var(--red); color: #fff; font-size: 0.6rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 3px 9px; border-radius: 5px; margin-bottom: 10px; }
+.acc-name { font-size: 1.3rem; font-weight: 800; color: #fff; margin-bottom: 5px; text-shadow: 0 2px 12px rgba(0,0,0,0.5); }
+.acc-desc { font-size: 0.78rem; color: rgba(255,255,255,0.65); margin-bottom: 18px; line-height: 1.6; }
+.acc-meta { display: flex; align-items: center; gap: 16px; margin-bottom: 18px; flex-wrap: wrap; }
+.acc-price { font-size: 1.35rem; font-weight: 900; color: #fff; }
+.acc-per { font-size: 0.72rem; color: rgba(255,255,255,0.5); font-weight: 400; }
+.acc-chip { display: flex; align-items: center; gap: 4px; background: rgba(255,255,255,0.12); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.18); border-radius: 20px; padding: 4px 11px; font-size: 0.68rem; color: rgba(255,255,255,0.8); font-weight: 500; }
+.acc-btns { display: flex; gap: 10px; flex-wrap: wrap; }
+.acc-btn-primary { background: var(--red); color: #fff; border: none; padding: 10px 22px; border-radius: 9px; font-family: 'Poppins',sans-serif; font-size: 0.78rem; font-weight: 700; cursor: pointer; transition: all 0.2s; }
+.acc-btn-primary:hover { background: var(--red-l); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(200,16,46,0.45); }
+.acc-btn-ghost { background: rgba(255,255,255,0.12); color: #fff; border: 1px solid rgba(255,255,255,0.25); padding: 10px 18px; border-radius: 9px; font-family: 'Poppins',sans-serif; font-size: 0.78rem; font-weight: 600; cursor: pointer; transition: all 0.2s; backdrop-filter: blur(8px); }
+.acc-btn-ghost:hover { background: rgba(255,255,255,0.22); }
+/* thin red line at bottom of each panel */
+.acc-panel::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: var(--red); transform: scaleX(0); transition: transform 0.4s 0.1s; transform-origin: left; z-index: 6; }
+.acc-panel.open::after { transform: scaleX(1); }
+/* progress bar */
+.acc-progress { position: absolute; bottom: 3px; left: 0; height: 3px; background: rgba(255,255,255,0.4); z-index: 7; transition: none; }
+.acc-panel.open .acc-progress { animation: accProgress 5s linear forwards; }
+@keyframes accProgress { from { width: 0 } to { width: 100% } }
+/* slide dots */
+.acc-dots { position: absolute; bottom: 24px; right: 24px; display: flex; gap: 6px; z-index: 20; }
+.acc-dot { width: 7px; height: 7px; border-radius: 50%; background: rgba(255,255,255,0.35); border: none; cursor: pointer; padding: 0; transition: all 0.25s; }
+.acc-dot.active { background: #fff; width: 22px; border-radius: 4px; }
+/* mobile: switch to top-image + content below */
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.7;transform:scale(1.12)} }
+/* kept for compat */
+.hero-right,.float-cards,.fc,.fc-info,.fc-name,.fc-price,.fc-badge { display: none; }
 
 /* ── TRUST BADGE STRIP ─────────────── */
 .badges-strip {
@@ -709,9 +757,15 @@ body {
   .nav-link { padding: 7px 10px; font-size: 0.73rem; }
 }
 @media (max-width: 900px) {
-  .hero { grid-template-columns: 1fr; }
-  .hero::before,.hero::after { display: none; }
-  .hero-right { display: none; }
+  /* accordion mobile — stack to single fullscreen panel */
+  .hero { height: 88vh; }
+  .hero-left { width: 100%; background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.5) 60%, transparent 100%); justify-content: flex-end; padding: 36px max(20px,env(safe-area-inset-left,0px)) 32px; }
+  .hero-h1 { font-size: clamp(1.7rem,7vw,2.6rem); }
+  .acc-panel:not(.open) { flex: 0; min-width: 0; overflow: hidden; opacity: 0; }
+  .acc-panel.open { flex: 1; opacity: 1; }
+  .acc-content { padding: 28px 20px 28px 20px !important; }
+  .acc-dots { bottom: 16px; right: 16px; }
+  .acc-tab { display: none; }
   .why-grid { grid-template-columns: 1fr 1fr; }
   .testi-grid { grid-template-columns: 1fr 1fr; }
   .fb-label { display: none; }
@@ -920,46 +974,165 @@ body {
 <!-- ══════════ WEBSITE ══════════ -->
 <div id="view-website" class="view active">
 
-  <!-- HERO -->
+  <!-- HERO ACCORDION -->
   <section class="hero" id="hero">
+
+    <!-- Left content overlay (always visible) -->
     <div class="hero-left">
       <div class="hero-badge"><span class="dot"></span> New Collection 2026</div>
       <h1 class="hero-h1">
         <span class="line">Transform</span>
         <span class="line">Your Walls with</span>
-        <span class="line red">F&I Dekor.</span>
+        <span class="line red">F&amp;I Dekor.</span>
       </h1>
-      <p class="hero-p">India's most trusted wallpaper brand — 500+ exclusive designs for homes, offices and luxury spaces. Based in Agra, delivering pan-India with free samples.</p>
+      <p class="hero-p">India's most trusted wallpaper brand — 500+ exclusive designs for homes, offices and luxury spaces.</p>
       <div class="btn-row">
         <button class="btn-red" onclick="exploreCollection()">Explore Collection →</button>
-        <button class="btn-outline" onclick="openSampleModal()">Request Free Sample</button>
+        <button class="btn-outline" style="color:#fff;border-color:rgba(255,255,255,0.3);background:rgba(255,255,255,0.08)" onclick="openSampleModal()">Free Sample</button>
       </div>
       <div class="trust-strip">
-        <div class="tbadge"><span class="ti"><svg width="14" height="14"><use href="#ic-shield"/></svg></span> <strong>ISO Certified</strong></div>
-        <div class="tbadge"><span class="ti"><svg width="14" height="14"><use href="#ic-truck"/></svg></span> <strong>Free Delivery</strong></div>
-        <div class="tbadge"><span class="ti"><svg width="14" height="14"><use href="#ic-gift"/></svg></span> <strong>Free Samples</strong></div>
-        <div class="tbadge"><span class="ti"><svg width="14" height="14"><use href="#ic-star"/></svg></span> <strong>4.8</strong> Rating</div>
-        <div class="tbadge"><span class="ti"><svg width="14" height="14"><use href="#ic-handshake"/></svg></span> 10K+ Customers</div>
+        <div class="tbadge"><span class="ti"><svg width="13" height="13"><use href="#ic-shield"/></svg></span> <strong>ISO</strong> Certified</div>
+        <div class="tbadge"><span class="ti"><svg width="13" height="13"><use href="#ic-star"/></svg></span> <strong>4.8</strong> Rating</div>
+        <div class="tbadge"><span class="ti"><svg width="13" height="13"><use href="#ic-handshake"/></svg></span> <strong>10K+</strong> Customers</div>
+        <div class="tbadge"><span class="ti"><svg width="13" height="13"><use href="#ic-truck"/></svg></span> <strong>Free</strong> Delivery</div>
       </div>
     </div>
-    <div class="hero-right">
-      <div class="float-cards">
-        <div class="fc" style="background:#2d0010;overflow:hidden" onclick="showToast('Crimson Rose Floral added to wishlist ❤️','success')">
-          <img src="https://images.unsplash.com/photo-1615529328331-f8917597711f?w=600&q=80" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.9" alt="Floral wallpaper living room"/>
-          <div class="fc-badge" style="position:relative;z-index:1">New</div>
-          <div class="fc-info" style="position:relative;z-index:1"><div class="fc-name">Crimson Rose Floral</div><div class="fc-price">₹950/roll</div></div>
+
+    <!-- Accordion panels -->
+    <div class="acc-track" id="accTrack">
+
+      <!-- Panel 1: Crimson Rose -->
+      <div class="acc-panel open" data-idx="0" onclick="accOpen(0)">
+        <img class="acc-img" src="https://images.unsplash.com/photo-1615529328331-f8917597711f?w=1200&q=85" alt="Crimson Rose Floral wallpaper living room"/>
+        <div class="acc-tab">Crimson Rose</div>
+        <div class="acc-num">01 / 05</div>
+        <div class="acc-content">
+          <div class="acc-tag">
+            <svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            New Arrival
+          </div>
+          <div class="acc-name">Crimson Rose Floral</div>
+          <div class="acc-desc">Lush botanical print in deep crimson — perfect for living rooms, feature walls and luxury bedrooms.</div>
+          <div class="acc-meta">
+            <div class="acc-price">₹950 <span class="acc-per">/ roll</span></div>
+            <div class="acc-chip">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Free sample available
+            </div>
+            <div class="acc-chip">In stock</div>
+          </div>
+          <div class="acc-btns">
+            <button class="acc-btn-primary" onclick="addToCartItem('Crimson Rose Floral','₹950');event.stopPropagation()">Add to Cart 🛒</button>
+            <button class="acc-btn-ghost" onclick="openSampleModal();event.stopPropagation()">Request Sample</button>
+          </div>
         </div>
-        <div class="fc" style="background:#f2ece4;overflow:hidden" onclick="showToast('Marble Classic added to wishlist ❤️','success')">
-          <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=600&q=80" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.9" alt="Marble texture wallpaper bedroom"/>
-          <div class="fc-info" style="position:relative;z-index:1;background:linear-gradient(transparent,rgba(0,0,0,0.55))"><div class="fc-name">Marble Classic</div><div class="fc-price">₹1,050/roll</div></div>
-        </div>
-        <div class="fc" style="background:#1a1a2e;overflow:hidden" onclick="showToast('Midnight Abstract added to wishlist ❤️','success')">
-          <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=600&q=80" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.85" alt="Abstract dark wallpaper room"/>
-          <div class="fc-badge" style="position:relative;z-index:1">Hot</div>
-          <div class="fc-info" style="position:relative;z-index:1"><div class="fc-name">Midnight Abstract</div><div class="fc-price">₹1,100/roll</div></div>
-        </div>
+        <div class="acc-progress"></div>
       </div>
+
+      <!-- Panel 2: Marble Classic -->
+      <div class="acc-panel" data-idx="1" onclick="accOpen(1)">
+        <img class="acc-img" src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=1200&q=85" alt="Marble Classic wallpaper bedroom"/>
+        <div class="acc-tab">Marble Classic</div>
+        <div class="acc-num">02 / 05</div>
+        <div class="acc-content">
+          <div class="acc-tag">Bestseller</div>
+          <div class="acc-name">Marble Classic White</div>
+          <div class="acc-desc">Timeless white marble texture — brings elegance to bedrooms, offices and hospitality spaces.</div>
+          <div class="acc-meta">
+            <div class="acc-price">₹1,050 <span class="acc-per">/ roll</span></div>
+            <div class="acc-chip">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Free sample available
+            </div>
+          </div>
+          <div class="acc-btns">
+            <button class="acc-btn-primary" onclick="addToCartItem('Marble Classic White','₹1,050');event.stopPropagation()">Add to Cart 🛒</button>
+            <button class="acc-btn-ghost" onclick="openSampleModal();event.stopPropagation()">Request Sample</button>
+          </div>
+        </div>
+        <div class="acc-progress"></div>
+      </div>
+
+      <!-- Panel 3: Velvet Luxe -->
+      <div class="acc-panel" data-idx="2" onclick="accOpen(2)">
+        <img class="acc-img" src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=1200&q=85" alt="Velvet texture wallpaper hotel room"/>
+        <div class="acc-tab">Velvet Luxe</div>
+        <div class="acc-num">03 / 05</div>
+        <div class="acc-content">
+          <div class="acc-tag">Premium</div>
+          <div class="acc-name">Velvet Luxe Texture</div>
+          <div class="acc-desc">Deep velvet-like texture with subtle sheen — adds warmth and sophistication to any interior.</div>
+          <div class="acc-meta">
+            <div class="acc-price">₹1,250 <span class="acc-per">/ roll</span></div>
+            <div class="acc-chip">Limited stock</div>
+          </div>
+          <div class="acc-btns">
+            <button class="acc-btn-primary" onclick="addToCartItem('Velvet Luxe Texture','₹1,250');event.stopPropagation()">Add to Cart 🛒</button>
+            <button class="acc-btn-ghost" onclick="openSampleModal();event.stopPropagation()">Request Sample</button>
+          </div>
+        </div>
+        <div class="acc-progress"></div>
+      </div>
+
+      <!-- Panel 4: Botanical Garden -->
+      <div class="acc-panel" data-idx="3" onclick="accOpen(3)">
+        <img class="acc-img" src="https://images.unsplash.com/photo-1554995207-c18c203602cb?w=1200&q=85" alt="Botanical Garden wallpaper living area"/>
+        <div class="acc-tab">Botanical</div>
+        <div class="acc-num">04 / 05</div>
+        <div class="acc-content">
+          <div class="acc-tag">Trending</div>
+          <div class="acc-name">Botanical Garden</div>
+          <div class="acc-desc">Lush tropical leaf print — fresh and calming, ideal for living areas, cafes and modern offices.</div>
+          <div class="acc-meta">
+            <div class="acc-price">₹875 <span class="acc-per">/ roll</span></div>
+            <div class="acc-chip">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Free sample available
+            </div>
+          </div>
+          <div class="acc-btns">
+            <button class="acc-btn-primary" onclick="addToCartItem('Botanical Garden','₹875');event.stopPropagation()">Add to Cart 🛒</button>
+            <button class="acc-btn-ghost" onclick="openSampleModal();event.stopPropagation()">Request Sample</button>
+          </div>
+        </div>
+        <div class="acc-progress"></div>
+      </div>
+
+      <!-- Panel 5: Midnight Abstract -->
+      <div class="acc-panel" data-idx="4" onclick="accOpen(4)">
+        <img class="acc-img" src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=1200&q=85" alt="Midnight Abstract wallpaper study room"/>
+        <div class="acc-tab">Midnight</div>
+        <div class="acc-num">05 / 05</div>
+        <div class="acc-content">
+          <div class="acc-tag">
+            <svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            Editor's Pick
+          </div>
+          <div class="acc-name">Midnight Abstract</div>
+          <div class="acc-desc">Dramatic dark abstract art — bold, moody and perfect for statement walls in studies and lounges.</div>
+          <div class="acc-meta">
+            <div class="acc-price">₹1,100 <span class="acc-per">/ roll</span></div>
+            <div class="acc-chip">In stock</div>
+          </div>
+          <div class="acc-btns">
+            <button class="acc-btn-primary" onclick="addToCartItem('Midnight Abstract','₹1,100');event.stopPropagation()">Add to Cart 🛒</button>
+            <button class="acc-btn-ghost" onclick="openSampleModal();event.stopPropagation()">Request Sample</button>
+          </div>
+        </div>
+        <div class="acc-progress"></div>
+      </div>
+
+    </div><!-- /acc-track -->
+
+    <!-- Dot navigation -->
+    <div class="acc-dots" id="accDots">
+      <button class="acc-dot active" onclick="accOpen(0);event.stopPropagation()"></button>
+      <button class="acc-dot" onclick="accOpen(1);event.stopPropagation()"></button>
+      <button class="acc-dot" onclick="accOpen(2);event.stopPropagation()"></button>
+      <button class="acc-dot" onclick="accOpen(3);event.stopPropagation()"></button>
+      <button class="acc-dot" onclick="accOpen(4);event.stopPropagation()"></button>
     </div>
+
   </section>
 
   <!-- TRUST BADGES STRIP -->
@@ -1690,6 +1863,41 @@ function _syncNavCart() {
   const b = document.getElementById('navCartBadge');
   if (b) b.textContent = _cartCount || 2;
 }
+
+/* ── ACCORDION HERO ──────────────── */
+let _accIdx = 0;
+let _accTimer = null;
+function accOpen(idx) {
+  _accIdx = idx;
+  const panels = document.querySelectorAll('.acc-panel');
+  const dots   = document.querySelectorAll('.acc-dot');
+  panels.forEach((p, i) => {
+    const wasOpen = p.classList.contains('open');
+    p.classList.toggle('open', i === idx);
+    // restart progress animation
+    if (i === idx) {
+      const prog = p.querySelector('.acc-progress');
+      if (prog) { prog.style.animation = 'none'; prog.offsetWidth; prog.style.animation = ''; }
+    }
+  });
+  dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+  // restart auto-rotate
+  clearInterval(_accTimer);
+  _accTimer = setInterval(() => accOpen((_accIdx + 1) % 5), 5000);
+}
+// start auto-rotate on load
+document.addEventListener('DOMContentLoaded', () => {
+  _accTimer = setInterval(() => accOpen((_accIdx + 1) % 5), 5000);
+});
+// pause on hover
+(function() {
+  const track = document.getElementById('accTrack');
+  if (!track) return;
+  track.addEventListener('mouseenter', () => clearInterval(_accTimer));
+  track.addEventListener('mouseleave', () => {
+    _accTimer = setInterval(() => accOpen((_accIdx + 1) % 5), 5000);
+  });
+})();
 
 function go(id, btn) {
   document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
