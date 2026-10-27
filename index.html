@@ -338,6 +338,27 @@ body {
 .fb-wa { background: #25D366; }
 .fb-call { background: var(--red); }
 
+/* ── TOAST ────────────────────────── */
+.toast-container { position: fixed; top: 80px; right: max(20px,env(safe-area-inset-right,0px)); z-index: 9999; display: flex; flex-direction: column; gap: 8px; pointer-events: none; }
+.toast { background: var(--black); color: #fff; padding: 12px 20px; border-radius: 10px; font-size: 0.82rem; font-weight: 500; display: flex; align-items: center; gap: 10px; box-shadow: 0 6px 24px rgba(0,0,0,0.25); pointer-events: all; max-width: 300px; opacity: 0; transform: translateX(20px); transition: opacity 0.3s, transform 0.3s; }
+.toast.show { opacity: 1; transform: translateX(0); }
+.toast.success { border-left: 3px solid #22c55e; }
+.toast.info { border-left: 3px solid var(--red); }
+.toast.cart { border-left: 3px solid #3b82f6; }
+.toast-icon { font-size: 1.1rem; flex-shrink: 0; }
+
+/* ── SAMPLE MODAL ─────────────────── */
+.modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 5000; display: flex; align-items: center; justify-content: center; padding: 20px; backdrop-filter: blur(4px); opacity: 0; pointer-events: none; transition: opacity 0.3s; }
+.modal-overlay.show { opacity: 1; pointer-events: all; }
+.modal-box { background: #fff; border-radius: 20px; padding: 36px; max-width: 440px; width: 100%; box-shadow: 0 24px 80px rgba(0,0,0,0.25); transform: translateY(20px) scale(0.97); transition: transform 0.3s; }
+.modal-overlay.show .modal-box { transform: translateY(0) scale(1); }
+.modal-title { font-size: 1.3rem; font-weight: 700; color: var(--black); margin-bottom: 6px; }
+.modal-sub { font-size: 0.82rem; color: var(--fg-dim); margin-bottom: 24px; }
+.modal-fields { display: flex; flex-direction: column; gap: 14px; }
+.modal-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.modal-btns { display: flex; gap: 10px; margin-top: 20px; }
+.modal-close { position: absolute; top: 16px; right: 18px; font-size: 1.4rem; cursor: pointer; color: var(--fg-mute); background: none; border: none; line-height: 1; }
+
 /* ── WHATSAPP POPUP ────────────────── */
 .wa-popup {
   position: fixed; bottom: calc(100px + env(safe-area-inset-bottom,0px)); right: max(24px,env(safe-area-inset-right,0px));
@@ -647,8 +668,8 @@ body {
       </h1>
       <p class="hero-p">India's most trusted wallpaper brand — 500+ exclusive designs for homes, offices and luxury spaces. Based in Agra, delivering pan-India with free samples.</p>
       <div class="btn-row">
-        <button class="btn-red">Explore Collection →</button>
-        <button class="btn-outline">Request Free Sample</button>
+        <button class="btn-red" onclick="exploreCollection()">Explore Collection →</button>
+        <button class="btn-outline" onclick="openSampleModal()">Request Free Sample</button>
       </div>
       <div class="trust-strip">
         <div class="tbadge"><span class="ti"><svg width="14" height="14"><use href="#ic-shield"/></svg></span> <strong>ISO Certified</strong></div>
@@ -660,17 +681,17 @@ body {
     </div>
     <div class="hero-right">
       <div class="float-cards">
-        <div class="fc" style="background:#2d0010;overflow:hidden">
-          <img src="https://images.unsplash.com/photo-1585412727339-54e4bae3bbf9?w=400&q=80" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.85" alt=""/>
+        <div class="fc" style="background:#2d0010;overflow:hidden" onclick="showToast('Crimson Rose Floral added to wishlist ❤️','success')">
+          <img src="https://images.unsplash.com/photo-1615529328331-f8917597711f?w=600&q=80" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.9" alt="Floral wallpaper living room"/>
           <div class="fc-badge" style="position:relative;z-index:1">New</div>
           <div class="fc-info" style="position:relative;z-index:1"><div class="fc-name">Crimson Rose Floral</div><div class="fc-price">₹950/roll</div></div>
         </div>
-        <div class="fc" style="background:#f2ece4;overflow:hidden">
-          <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.88" alt=""/>
+        <div class="fc" style="background:#f2ece4;overflow:hidden" onclick="showToast('Marble Classic added to wishlist ❤️','success')">
+          <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=600&q=80" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.9" alt="Marble texture wallpaper bedroom"/>
           <div class="fc-info" style="position:relative;z-index:1;background:linear-gradient(transparent,rgba(0,0,0,0.55))"><div class="fc-name">Marble Classic</div><div class="fc-price">₹1,050/roll</div></div>
         </div>
-        <div class="fc" style="background:#1a1a2e;overflow:hidden">
-          <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=400&q=80" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.82" alt=""/>
+        <div class="fc" style="background:#1a1a2e;overflow:hidden" onclick="showToast('Midnight Abstract added to wishlist ❤️','success')">
+          <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=600&q=80" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.85" alt="Abstract dark wallpaper room"/>
           <div class="fc-badge" style="position:relative;z-index:1">Hot</div>
           <div class="fc-info" style="position:relative;z-index:1"><div class="fc-name">Midnight Abstract</div><div class="fc-price">₹1,100/roll</div></div>
         </div>
@@ -731,11 +752,39 @@ body {
       <div class="col-dot" style="background:#f5e8d4" title="Brown/Stone" onclick="setCol(this)"></div>
       <div class="col-dot" style="background:#fff" title="White/Light" onclick="setCol(this)" style="border:1px solid #ddd"></div>
     </div>
-    <div class="prod-grid">
-      <div class="prod-card"><div class="prod-img" style="background:#2d0010"><div class="prod-badge">New</div><img src="https://images.unsplash.com/photo-1585412727339-54e4bae3bbf9?w=400&q=80" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;opacity:0.9" alt="Crimson Rose Floral"/></div><div class="prod-info"><div class="prod-name">Crimson Rose Floral</div><div class="prod-sub">Luxury Wallpapers</div><div class="prod-foot"><span class="prod-price">₹950/roll</span><span class="calc-link" onclick="go('calculator',null)"><svg width="12" height="12" viewBox="0 0 16 16" style="vertical-align:-1px"><use href="#ic-ruler"/></svg> Rolls needed?</span></div></div></div>
-      <div class="prod-card"><div class="prod-img" style="background:#f2ece4"><img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;opacity:0.9" alt="Marble Classic White"/></div><div class="prod-info"><div class="prod-name">Marble Classic White</div><div class="prod-sub">Classic Wallpapers</div><div class="prod-foot"><span class="prod-price">₹1,050/roll</span><span class="calc-link" onclick="go('calculator',null)"><svg width="12" height="12" viewBox="0 0 16 16" style="vertical-align:-1px"><use href="#ic-ruler"/></svg> Rolls needed?</span></div></div></div>
-      <div class="prod-card"><div class="prod-img" style="background:#1a1a2e"><div class="prod-badge">Hot</div><img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=400&q=80" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;opacity:0.85" alt="Midnight Abstract"/></div><div class="prod-info"><div class="prod-name">Midnight Abstract</div><div class="prod-sub">Modern Wallpapers</div><div class="prod-foot"><span class="prod-price">₹1,100/roll</span><span class="calc-link" onclick="go('calculator',null)"><svg width="12" height="12" viewBox="0 0 16 16" style="vertical-align:-1px"><use href="#ic-ruler"/></svg> Rolls needed?</span></div></div></div>
-      <div class="prod-card"><div class="prod-img" style="background:#e8f4e8"><img src="https://images.unsplash.com/photo-1554995207-c18c203602cb?w=400&q=80" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;opacity:0.9" alt="Botanical Garden"/></div><div class="prod-info"><div class="prod-name">Botanical Garden</div><div class="prod-sub">Nature Wallpapers</div><div class="prod-foot"><span class="prod-price">₹920/roll</span><span class="calc-link" onclick="go('calculator',null)"><svg width="12" height="12" viewBox="0 0 16 16" style="vertical-align:-1px"><use href="#ic-ruler"/></svg> Rolls needed?</span></div></div></div>
+    <div class="prod-grid" id="prodSection">
+      <div class="prod-card" onclick="openProductModal('Crimson Rose Floral','₹950/roll','Luxury floral wallpaper with hand-drawn rose motifs on a deep burgundy base. Perfect for bedrooms, dining rooms, and accent walls.')">
+        <div class="prod-img" style="background:#2d0010"><div class="prod-badge">New</div>
+          <img src="https://images.unsplash.com/photo-1615529328331-f8917597711f?w=600&q=80" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;opacity:0.9" alt="Crimson Rose Floral wallpaper on bedroom wall"/>
+        </div>
+        <div class="prod-info"><div class="prod-name">Crimson Rose Floral</div><div class="prod-sub">Luxury Wallpapers</div>
+          <div class="prod-foot"><span class="prod-price">₹950/roll</span><span class="calc-link" onclick="event.stopPropagation();go('calculator',null)"><svg width="12" height="12" viewBox="0 0 16 16" style="vertical-align:-1px"><use href="#ic-ruler"/></svg> Rolls needed?</span></div>
+        </div>
+      </div>
+      <div class="prod-card" onclick="openProductModal('Marble Classic White','₹1,050/roll','Elegant marble-effect wallpaper with soft white and grey veining. Gives any room a luxury stone finish without the cost.')">
+        <div class="prod-img" style="background:#f2ece4">
+          <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=600&q=80" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;opacity:0.9" alt="Marble wallpaper in modern living room"/>
+        </div>
+        <div class="prod-info"><div class="prod-name">Marble Classic White</div><div class="prod-sub">Classic Wallpapers</div>
+          <div class="prod-foot"><span class="prod-price">₹1,050/roll</span><span class="calc-link" onclick="event.stopPropagation();go('calculator',null)"><svg width="12" height="12" viewBox="0 0 16 16" style="vertical-align:-1px"><use href="#ic-ruler"/></svg> Rolls needed?</span></div>
+        </div>
+      </div>
+      <div class="prod-card" onclick="openProductModal('Midnight Abstract','₹1,100/roll','Bold abstract geometric wallpaper in deep navy and slate. Makes a dramatic statement in offices and contemporary living spaces.')">
+        <div class="prod-img" style="background:#1a1a2e"><div class="prod-badge">Hot</div>
+          <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=600&q=80" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;opacity:0.88" alt="Dark abstract wallpaper in luxury office"/>
+        </div>
+        <div class="prod-info"><div class="prod-name">Midnight Abstract</div><div class="prod-sub">Modern Wallpapers</div>
+          <div class="prod-foot"><span class="prod-price">₹1,100/roll</span><span class="calc-link" onclick="event.stopPropagation();go('calculator',null)"><svg width="12" height="12" viewBox="0 0 16 16" style="vertical-align:-1px"><use href="#ic-ruler"/></svg> Rolls needed?</span></div>
+        </div>
+      </div>
+      <div class="prod-card" onclick="openProductModal('Botanical Garden','₹920/roll','Lush tropical botanical print wallpaper with oversized leaves and blooms. Brings nature indoors — ideal for kids rooms, bathrooms, and hallways.')">
+        <div class="prod-img" style="background:#e8f4e8">
+          <img src="https://images.unsplash.com/photo-1554995207-c18c203602cb?w=600&q=80" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;opacity:0.9" alt="Botanical wallpaper in cozy bedroom"/>
+        </div>
+        <div class="prod-info"><div class="prod-name">Botanical Garden</div><div class="prod-sub">Nature Wallpapers</div>
+          <div class="prod-foot"><span class="prod-price">₹920/roll</span><span class="calc-link" onclick="event.stopPropagation();go('calculator',null)"><svg width="12" height="12" viewBox="0 0 16 16" style="vertical-align:-1px"><use href="#ic-ruler"/></svg> Rolls needed?</span></div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -746,12 +795,12 @@ body {
     <p class="s-sub">Drag the slider — see how F&I Dekor transforms a plain wall instantly.</p>
     <div class="ba-container ba-aspect" id="baContainer">
       <div class="ba-before" id="baBefore">
-        <img src="https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=800&q=80" style="width:100%;height:100%;object-fit:cover;filter:grayscale(0.6) brightness(0.85)" alt="Plain wall before wallpaper"/>
-        <div class="ba-placeholder-txt" style="color:rgba(0,0,0,0.7);background:rgba(255,255,255,0.55)">Plain Bare Wall</div>
+        <img src="https://images.unsplash.com/photo-1562113530-57ba467cea38?w=900&q=80" style="width:100%;height:100%;object-fit:cover;filter:grayscale(0.7) brightness(0.8) saturate(0.3)" alt="Bare plain white wall before wallpaper"/>
+        <div class="ba-placeholder-txt" style="color:rgba(0,0,0,0.8);background:rgba(255,255,255,0.65)">Plain Bare Wall</div>
         <div class="ba-lbl b">BEFORE</div>
       </div>
       <div class="ba-after" id="baAfter">
-        <img src="https://images.unsplash.com/photo-1615529328331-f8917597711f?w=800&q=80" style="width:100%;height:100%;object-fit:cover" alt="Beautiful wallpapered room after"/>
+        <img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=900&q=80" style="width:100%;height:100%;object-fit:cover" alt="Luxury wallpapered living room after F&I Dekor"/>
         <div class="ba-placeholder-txt">F&amp;I Dekor — Crimson Rose</div>
         <div class="ba-lbl a">AFTER</div>
       </div>
@@ -768,11 +817,11 @@ body {
     <h2 class="s-h2">See It in a <em>Real Room</em></h2>
     <p class="s-sub">Real rooms, real customers — transformed with F&I Dekor wallpapers and wall panels.</p>
     <div class="rooms-grid">
-      <div class="room-card"><div class="room-bg" style="height:100%"><img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=600&q=80" style="width:100%;height:100%;object-fit:cover" alt="Luxury Living Room"/></div><div class="room-overlay"><div class="room-tag">Living Room</div><div class="room-name">Crimson Luxury Lounge</div></div></div>
-      <div class="room-card"><div class="room-bg" style="height:100%"><img src="https://images.unsplash.com/photo-1505693314120-0d443867891c?w=600&q=80" style="width:100%;height:100%;object-fit:cover" alt="Marble Bedroom Suite"/></div><div class="room-overlay"><div class="room-tag">Bedroom</div><div class="room-name">Marble Classic Suite</div></div></div>
-      <div class="room-card"><div class="room-bg" style="height:100%"><img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&q=80" style="width:100%;height:100%;object-fit:cover" alt="Executive Office"/></div><div class="room-overlay"><div class="room-tag">Office</div><div class="room-name">Midnight Executive Office</div></div></div>
-      <div class="room-card"><div class="room-bg" style="height:100%"><img src="https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?w=600&q=80" style="width:100%;height:100%;object-fit:cover" alt="Kids Room"/></div><div class="room-overlay"><div class="room-tag">Kids Room</div><div class="room-name">Botanical Nursery</div></div></div>
-      <div class="room-card"><div class="room-bg" style="height:100%"><img src="https://images.unsplash.com/photo-1600566752355-35792bedcfea?w=600&q=80" style="width:100%;height:100%;object-fit:cover" alt="Stone Entrance Foyer"/></div><div class="room-overlay"><div class="room-tag">Entrance</div><div class="room-name">Stone Foyer Design</div></div></div>
+      <div class="room-card" onclick="showToast('Crimson Luxury Lounge — Book a free consultation!','info')"><div class="room-bg" style="height:100%"><img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=700&q=80" style="width:100%;height:100%;object-fit:cover" alt="Luxury living room with patterned wallpaper accent wall"/></div><div class="room-overlay"><div class="room-tag">Living Room</div><div class="room-name">Crimson Luxury Lounge</div></div></div>
+      <div class="room-card" onclick="showToast('Marble Classic Suite — Request this design!','info')"><div class="room-bg" style="height:100%"><img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=600&q=80" style="width:100%;height:100%;object-fit:cover" alt="Elegant bedroom with marble wallpaper headboard wall"/></div><div class="room-overlay"><div class="room-tag">Bedroom</div><div class="room-name">Marble Classic Suite</div></div></div>
+      <div class="room-card" onclick="showToast('Midnight Executive — Perfect for offices!','info')"><div class="room-bg" style="height:100%"><img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&q=80" style="width:100%;height:100%;object-fit:cover" alt="Modern executive office with dark accent wallpaper wall"/></div><div class="room-overlay"><div class="room-tag">Office</div><div class="room-name">Midnight Executive Office</div></div></div>
+      <div class="room-card" onclick="showToast('Botanical Nursery — Kids love it!','info')"><div class="room-bg" style="height:100%"><img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600&q=80" style="width:100%;height:100%;object-fit:cover" alt="Cozy kids room with botanical themed wallpaper"/></div><div class="room-overlay"><div class="room-tag">Kids Room</div><div class="room-name">Botanical Nursery</div></div></div>
+      <div class="room-card" onclick="showToast('Stone Foyer — First impressions matter!','info')"><div class="room-bg" style="height:100%"><img src="https://images.unsplash.com/photo-1600566752355-35792bedcfea?w=600&q=80" style="width:100%;height:100%;object-fit:cover" alt="Entrance foyer with luxury stone wall panels"/></div><div class="room-overlay"><div class="room-tag">Entrance</div><div class="room-name">Stone Foyer Design</div></div></div>
     </div>
   </section>
 
@@ -809,14 +858,14 @@ body {
       <div class="map-box">
         <div class="map-icon-big"><svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
         <div class="map-lbl">Google Maps — F&I Dekor, Agra</div>
-        <button class="btn-red" style="margin-top:14px;font-size:0.8rem;padding:10px 22px">Open in Maps</button>
+        <button class="btn-red" style="margin-top:14px;font-size:0.8rem;padding:10px 22px" onclick="showToast('Opening F&I Dekor in Google Maps...','info');window.open('https://maps.google.com/?q=Agra+Uttar+Pradesh+Wallpaper+Shop','_blank')">Open in Maps ↗</button>
       </div>
       <div class="contact-items">
-        <div class="c-item"><div class="c-ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div><div><div class="c-lbl">Address</div><div class="c-val">F&I Dekor Showroom, Agra, Uttar Pradesh — 282001</div></div></div>
-        <div class="c-item"><div class="c-ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.5 19.79 19.79 0 01.25 5.18 2 2 0 012.22 3h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 10.09a16 16 0 006 6l1.27-.63a2 2 0 012.11.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg></div><div><div class="c-lbl">Toll-Free</div><div class="c-val">1800-XXX-XXXX (10 AM – 7 PM)</div></div></div>
-        <div class="c-item"><div class="c-ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg></div><div><div class="c-lbl">WhatsApp</div><div class="c-val">+91 XXXXX XXXXX — Quick replies!</div></div></div>
+        <div class="c-item" style="cursor:pointer" onclick="showToast('Opening Google Maps — F&I Dekor, Agra','info')"><div class="c-ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div><div><div class="c-lbl">Address</div><div class="c-val">F&I Dekor Showroom, Agra, Uttar Pradesh — 282001</div></div></div>
+        <div class="c-item" style="cursor:pointer" onclick="showToast('Calling F&I Dekor — 1800-XXX-XXXX','info')"><div class="c-ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.5 19.79 19.79 0 01.25 5.18 2 2 0 012.22 3h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 10.09a16 16 0 006 6l1.27-.63a2 2 0 012.11.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg></div><div><div class="c-lbl">Toll-Free</div><div class="c-val">1800-XXX-XXXX (10 AM – 7 PM) — Tap to Call</div></div></div>
+        <div class="c-item" style="cursor:pointer" onclick="document.getElementById('waPopup').classList.toggle('show')"><div class="c-ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg></div><div><div class="c-lbl">WhatsApp</div><div class="c-val">+91 XXXXX XXXXX — Tap to open chat</div></div></div>
         <div class="c-item"><div class="c-ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><div><div class="c-lbl">Showroom Hours</div><div class="c-val">Mon–Sat 10 AM–7 PM · Sun 11 AM–5 PM</div></div></div>
-        <button class="btn-red" style="width:100%;display:flex;align-items:center;justify-content:center;gap:8px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg> Chat on WhatsApp Now</button>
+        <button class="btn-red" style="width:100%;display:flex;align-items:center;justify-content:center;gap:8px" onclick="document.getElementById('waPopup').classList.toggle('show')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg> Chat on WhatsApp Now</button>
       </div>
     </div>
   </section>
@@ -824,18 +873,18 @@ body {
   <footer class="footer">
     <div class="logo">F<span>&</span>I Dekor</div>
     <div class="footer-links">
-      <a href="#">Privacy Policy</a>
-      <a href="#">Terms</a>
-      <a href="#">Contact</a>
-      <a href="#">B2B Partners</a>
+      <a href="#" onclick="showToast('Privacy Policy — F&I Dekor (coming soon)','info');return false">Privacy Policy</a>
+      <a href="#" onclick="showToast('Terms & Conditions — F&I Dekor (coming soon)','info');return false">Terms</a>
+      <a href="#" onclick="showToast('Contact F&I Dekor — 1800-XXX-XXXX','info');return false">Contact</a>
+      <a href="#" onclick="showToast('B2B Partnerships — Contact us for dealer pricing!','info');return false">B2B Partners</a>
     </div>
     <div class="footer-copy">© 2026 F&I Dekor, Agra · All Rights Reserved</div>
   </footer>
 
   <!-- FLOAT BTNS -->
   <div class="floats" id="floats">
-    <div class="fb fb-wa" onclick="document.getElementById('waPopup').classList.toggle('show')"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg></div>
-    <div class="fb fb-call"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.5 19.79 19.79 0 01.25 5.18 2 2 0 012.22 3h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 10.09a16 16 0 006 6l1.27-.63a2 2 0 012.11.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg></div>
+    <div class="fb fb-wa" title="WhatsApp" onclick="document.getElementById('waPopup').classList.toggle('show')"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg></div>
+    <div class="fb fb-call" title="Call Us" onclick="showToast('Calling F&I Dekor — 1800-XXX-XXXX','info')"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.5 19.79 19.79 0 01.25 5.18 2 2 0 012.22 3h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 10.09a16 16 0 006 6l1.27-.63a2 2 0 012.11.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg></div>
   </div>
 
   <!-- WHATSAPP POPUP -->
@@ -849,7 +898,58 @@ body {
       </div>
     </div>
     <div class="wa-popup-msg">Hi! Need help choosing the perfect wallpaper? Chat with us — we'll help you pick the right design, calculate rolls, and arrange a free sample!</div>
-    <button class="wa-popup-btn">Start Chat on WhatsApp →</button>
+    <button class="wa-popup-btn" onclick="showToast('Opening WhatsApp chat with F&I Dekor!','success');document.getElementById('waPopup').classList.remove('show')">Start Chat on WhatsApp →</button>
+  </div>
+
+  <!-- TOAST CONTAINER -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- SAMPLE REQUEST MODAL -->
+  <div class="modal-overlay" id="sampleModal" onclick="if(event.target===this)closeSampleModal()">
+    <div class="modal-box" style="position:relative">
+      <button class="modal-close" onclick="closeSampleModal()">✕</button>
+      <div style="font-size:2rem;margin-bottom:12px">🎁</div>
+      <div class="modal-title">Request Free Samples</div>
+      <div class="modal-sub">Get up to 3 wallpaper samples delivered to your door — absolutely free!</div>
+      <div class="modal-fields">
+        <div class="modal-row">
+          <div class="f"><label class="f-label">Your Name</label><input class="f-input" type="text" placeholder="Rahul Sharma" id="sampleName"></div>
+          <div class="f"><label class="f-label">Phone</label><input class="f-input" type="tel" placeholder="+91 XXXXX XXXXX" id="samplePhone"></div>
+        </div>
+        <div class="f"><label class="f-label">City / Pincode</label><input class="f-input" type="text" placeholder="Agra, 282001" id="sampleCity"></div>
+        <div class="f"><label class="f-label">Preferred Designs (choose up to 3)</label>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:6px">
+            <label style="display:flex;align-items:center;gap:8px;font-size:0.8rem;cursor:pointer"><input type="checkbox" value="Crimson Rose"> Crimson Rose Floral</label>
+            <label style="display:flex;align-items:center;gap:8px;font-size:0.8rem;cursor:pointer"><input type="checkbox" value="Marble Classic"> Marble Classic</label>
+            <label style="display:flex;align-items:center;gap:8px;font-size:0.8rem;cursor:pointer"><input type="checkbox" value="Midnight Abstract"> Midnight Abstract</label>
+            <label style="display:flex;align-items:center;gap:8px;font-size:0.8rem;cursor:pointer"><input type="checkbox" value="Botanical Garden"> Botanical Garden</label>
+          </div>
+        </div>
+      </div>
+      <div class="modal-btns">
+        <button class="btn-red" style="flex:1" onclick="submitSampleRequest()">Send Request →</button>
+        <button class="btn-outline" onclick="closeSampleModal()">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PRODUCT DETAIL MODAL -->
+  <div class="modal-overlay" id="productModal" onclick="if(event.target===this)closeProductModal()">
+    <div class="modal-box" style="position:relative;max-width:500px">
+      <button class="modal-close" onclick="closeProductModal()">✕</button>
+      <div id="productModalImg" style="width:100%;aspect-ratio:16/9;border-radius:12px;overflow:hidden;margin-bottom:20px;background:#f0e8e0">
+        <img id="pmImg" src="" style="width:100%;height:100%;object-fit:cover" alt=""/>
+      </div>
+      <div id="pmBadge" style="display:inline-block;background:var(--red);color:#fff;font-size:0.6rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:3px 10px;border-radius:5px;margin-bottom:8px"></div>
+      <div class="modal-title" id="pmName"></div>
+      <div style="font-size:1.4rem;font-weight:800;color:var(--red);margin:6px 0" id="pmPrice"></div>
+      <div style="font-size:0.83rem;color:var(--fg-dim);line-height:1.65;margin-bottom:20px" id="pmDesc"></div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <button class="btn-red" style="flex:1" onclick="addToCart()">Add to Cart 🛒</button>
+        <button class="btn-outline-red" onclick="openSampleModal();closeProductModal()">Get Free Sample</button>
+        <button onclick="go('calculator',null);closeProductModal();showToast('Calculate rolls for this wallpaper!','info')" style="background:var(--red-dim);border:1px solid var(--border-r);color:var(--red);padding:10px 16px;border-radius:8px;font-family:Poppins,sans-serif;font-size:0.78rem;font-weight:600;cursor:pointer">Calculate Rolls</button>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -860,41 +960,41 @@ body {
       <div class="app-logo">F<span>&</span>I Dekor</div>
       <div class="app-search-bar"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="opacity:0.5;flex-shrink:0"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg> Search wallpapers, panels, decor...</div>
       <div class="app-topbar-right">
-        <div class="app-icon-btn"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg></div>
-        <div class="app-icon-btn"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></div>
-        <button class="cart-btn"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg> Cart (2)</button>
+        <div class="app-icon-btn" title="Notifications" onclick="showToast('🔔 2 new notifications — New arrivals & your order shipped!','info')" style="position:relative"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg><span style="position:absolute;top:-3px;right:-3px;width:8px;height:8px;background:var(--red);border-radius:50%;border:1.5px solid #fff"></span></div>
+        <div class="app-icon-btn" title="Wishlist" onclick="showToast('Wishlist — Your saved designs ❤️','success')"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></div>
+        <button class="cart-btn" id="cartBtn" onclick="showToast('Cart — Review your items before checkout','cart')"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg> Cart (<span id="cartCount">2</span>)</button>
       </div>
     </div>
     <div class="app-layout">
       <div class="app-sidebar">
         <div class="sidebar-section">
           <div class="sidebar-label">Main Menu</div>
-          <div class="sidebar-item active"><span class="sidebar-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span>Home</div>
-          <div class="sidebar-item"><span class="sidebar-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg></span>Catalogue</div>
-          <div class="sidebar-item"><span class="sidebar-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg></span>My Orders <span class="sidebar-count">3</span></div>
-          <div class="sidebar-item"><span class="sidebar-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></span>Wishlist</div>
+          <div class="sidebar-item active" onclick="setSidebarActive(this);showToast('Home — Browse all collections','info')"><span class="sidebar-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span>Home</div>
+          <div class="sidebar-item" onclick="setSidebarActive(this);showToast('Catalogue — 500+ wallpaper designs available','info')"><span class="sidebar-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg></span>Catalogue</div>
+          <div class="sidebar-item" onclick="setSidebarActive(this);showToast('My Orders — 3 active orders being shipped','info')"><span class="sidebar-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg></span>My Orders <span class="sidebar-count">3</span></div>
+          <div class="sidebar-item" id="sbWishlist" onclick="setSidebarActive(this);showToast('Wishlist — Your saved wallpaper designs ❤️','success')"><span class="sidebar-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></span>Wishlist <span class="sidebar-count" id="wishCount" style="display:none">0</span></div>
         </div>
         <hr class="sidebar-divider">
         <div class="sidebar-section">
           <div class="sidebar-label">Categories</div>
-          <div class="sidebar-item"><span class="sidebar-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/></svg></span>Wallpapers</div>
-          <div class="sidebar-item"><span class="sidebar-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="2" y="3" width="4" height="18" rx="1"/><rect x="8" y="3" width="4" height="18" rx="1"/><rect x="14" y="3" width="4" height="18" rx="1"/><rect x="20" y="3" width="2" height="18" rx="1"/></svg></span>PVC Wall Panels</div>
-          <div class="sidebar-item"><span class="sidebar-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="2" y="4" width="20" height="4" rx="1"/><rect x="2" y="10" width="20" height="4" rx="1"/><rect x="2" y="16" width="20" height="4" rx="1"/></svg></span>Louvers</div>
-          <div class="sidebar-item"><span class="sidebar-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><polygon points="12,2 2,19 22,19"/><path d="M7 19l5-10 5 10" opacity=".5"/></svg></span>PU Stones</div>
-          <div class="sidebar-item"><span class="sidebar-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M17 8C8 10 5.9 16.17 3.82 19.5A11.6 11.6 0 0012 22c6.37 0 10.62-5.43 9-14"/><path d="M17 8l2-4"/></svg></span>WPC Exterior</div>
-          <div class="sidebar-item"><span class="sidebar-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg></span>Other Decor</div>
+          <div class="sidebar-item" onclick="setSidebarActive(this);showToast('Wallpapers — Premium collection loaded ✓','info')"><span class="sidebar-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/></svg></span>Wallpapers</div>
+          <div class="sidebar-item" onclick="setSidebarActive(this);showToast('PVC Wall Panels — Durable & waterproof collection','info')"><span class="sidebar-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="2" y="3" width="4" height="18" rx="1"/><rect x="8" y="3" width="4" height="18" rx="1"/><rect x="14" y="3" width="4" height="18" rx="1"/><rect x="20" y="3" width="2" height="18" rx="1"/></svg></span>PVC Wall Panels</div>
+          <div class="sidebar-item" onclick="setSidebarActive(this);showToast('Louvers — Modern wooden & PVC slat panels','info')"><span class="sidebar-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="2" y="4" width="20" height="4" rx="1"/><rect x="2" y="10" width="20" height="4" rx="1"/><rect x="2" y="16" width="20" height="4" rx="1"/></svg></span>Louvers</div>
+          <div class="sidebar-item" onclick="setSidebarActive(this);showToast('PU Stones — Lightweight faux stone panels','info')"><span class="sidebar-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><polygon points="12,2 2,19 22,19"/><path d="M7 19l5-10 5 10" opacity=".5"/></svg></span>PU Stones</div>
+          <div class="sidebar-item" onclick="setSidebarActive(this);showToast('WPC Exterior — Weather-resistant panels','info')"><span class="sidebar-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M17 8C8 10 5.9 16.17 3.82 19.5A11.6 11.6 0 0012 22c6.37 0 10.62-5.43 9-14"/><path d="M17 8l2-4"/></svg></span>WPC Exterior</div>
+          <div class="sidebar-item" onclick="setSidebarActive(this);showToast('Other Decor — Accessories & finishing touches','info')"><span class="sidebar-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg></span>Other Decor</div>
         </div>
         <hr class="sidebar-divider">
         <div class="sidebar-section">
           <div class="sidebar-label">Tools</div>
-          <div class="sidebar-item"><span class="sidebar-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 002 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg></span>Wall Calculator</div>
-          <div class="sidebar-item"><span class="sidebar-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></span>Visualiser</div>
-          <div class="sidebar-item"><span class="sidebar-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span>Download Catalogue</div>
+          <div class="sidebar-item" onclick="go('calculator',null);showToast('Wall Calculator — Calculate your rolls!','info')"><span class="sidebar-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 002 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg></span>Wall Calculator</div>
+          <div class="sidebar-item" onclick="go('visualiser',null);showToast('Visualiser — See wallpaper in your room!','info')"><span class="sidebar-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></span>Visualiser</div>
+          <div class="sidebar-item" onclick="showToast('Downloading F&I Dekor catalogue... 📄','info')"><span class="sidebar-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span>Download Catalogue</div>
         </div>
         <hr class="sidebar-divider">
         <div class="sidebar-section">
-          <div class="sidebar-item"><span class="sidebar-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>My Account</div>
-          <div class="sidebar-item"><span class="sidebar-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg></span>WhatsApp Support</div>
+          <div class="sidebar-item" onclick="setSidebarActive(this);showToast('My Account — Profile & preferences','info')"><span class="sidebar-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>My Account</div>
+          <div class="sidebar-item" onclick="document.getElementById('waPopup').classList.toggle('show');showToast('Opening WhatsApp support...','success')"><span class="sidebar-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg></span>WhatsApp Support</div>
         </div>
       </div>
       <div class="app-main">
@@ -904,8 +1004,8 @@ body {
             <div class="banner-title">Premium Walls<span>Start Here.</span></div>
             <div class="banner-sub">500+ exclusive designs · Free samples available</div>
             <div style="display:flex;gap:10px;margin-top:20px">
-              <button class="btn-red" style="font-size:0.8rem;padding:10px 22px">Shop Now</button>
-              <button style="background:rgba(255,255,255,0.1);color:#fff;border:1px solid rgba(255,255,255,0.2);padding:10px 22px;border-radius:8px;font-family:'Poppins',sans-serif;font-size:0.8rem;cursor:pointer">Free Sample</button>
+              <button class="btn-red" style="font-size:0.8rem;padding:10px 22px" onclick="showToast('Browsing all 500+ wallpaper designs!','info')">Shop Now →</button>
+              <button style="background:rgba(255,255,255,0.1);color:#fff;border:1px solid rgba(255,255,255,0.2);padding:10px 22px;border-radius:8px;font-family:'Poppins',sans-serif;font-size:0.8rem;cursor:pointer" onclick="openSampleModal()">Free Sample</button>
             </div>
           </div>
           <div class="banner-right">
@@ -916,31 +1016,82 @@ body {
         </div>
         <div class="filter-row">
           <div class="filter-chips">
-            <div class="fchip active">All</div>
-            <div class="fchip">Wallpapers</div>
-            <div class="fchip">PVC Panels</div>
-            <div class="fchip">Louvers</div>
-            <div class="fchip">New Arrivals</div>
+            <div class="fchip active" onclick="setFchip(this)">All</div>
+            <div class="fchip" onclick="setFchip(this)">Wallpapers</div>
+            <div class="fchip" onclick="setFchip(this)">PVC Panels</div>
+            <div class="fchip" onclick="setFchip(this)">Louvers</div>
+            <div class="fchip" onclick="setFchip(this)">New Arrivals</div>
           </div>
           <div style="display:flex;align-items:center;gap:12px">
-            <div style="font-size:0.78rem;color:var(--fg-dim)">Sort: <strong style="color:var(--black)">Popular</strong></div>
-            <div class="view-toggle"><button class="vt-btn active">⊞</button><button class="vt-btn">≡</button></div>
+            <div style="font-size:0.78rem;color:var(--fg-dim)">Sort: <strong style="color:var(--black);cursor:pointer" onclick="showToast('Sorted by: Popular ✓','info')">Popular ▾</strong></div>
+            <div class="view-toggle"><button class="vt-btn active" onclick="setView('grid',this)">⊞</button><button class="vt-btn" onclick="setView('list',this)">≡</button></div>
           </div>
         </div>
-        <div class="app-prod-grid">
-          <div class="ap-card"><div class="ap-img" style="background:#2d0010;position:relative"><div class="ap-badge">New</div><div class="ap-wish"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></div><img src="https://images.unsplash.com/photo-1585412727339-54e4bae3bbf9?w=300&q=80" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.9" alt="Crimson Rose Floral"/></div><div class="ap-info"><div class="ap-name">Crimson Rose Floral</div><div class="ap-cat">Luxury Wallpapers</div><div class="ap-foot"><span class="ap-price">₹950/roll</span><button class="ap-add">+</button></div></div></div>
-          <div class="ap-card"><div class="ap-img" style="background:#f2ece4;position:relative"><div class="ap-wish"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></div><img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=300&q=80" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.9" alt="Marble Classic White"/></div><div class="ap-info"><div class="ap-name">Marble Classic White</div><div class="ap-cat">Classic Wallpapers</div><div class="ap-foot"><span class="ap-price">₹1,050/roll</span><button class="ap-add">+</button></div></div></div>
-          <div class="ap-card"><div class="ap-img" style="background:#1a0800;position:relative"><div class="ap-badge">Hot</div><div class="ap-wish"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></div><img src="https://images.unsplash.com/photo-1617806118233-18e1de247200?w=300&q=80" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.88" alt="Velvet Luxe Texture"/></div><div class="ap-info"><div class="ap-name">Velvet Luxe Texture</div><div class="ap-cat">Premium Wallpapers</div><div class="ap-foot"><span class="ap-price">₹1,200/roll</span><button class="ap-add">+</button></div></div></div>
-          <div class="ap-card"><div class="ap-img" style="background:#e8e8f0;position:relative"><div class="ap-wish"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></div><img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=300&q=80" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.9" alt="Geometric Modern"/></div><div class="ap-info"><div class="ap-name">Geometric Modern</div><div class="ap-cat">Modern Wallpapers</div><div class="ap-foot"><span class="ap-price">₹850/roll</span><button class="ap-add">+</button></div></div></div>
-          <div class="ap-card"><div class="ap-img" style="background:#e8f4e8;position:relative"><div class="ap-wish"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></div><img src="https://images.unsplash.com/photo-1554995207-c18c203602cb?w=300&q=80" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.9" alt="Botanical Garden"/></div><div class="ap-info"><div class="ap-name">Botanical Garden</div><div class="ap-cat">Nature Wallpapers</div><div class="ap-foot"><span class="ap-price">₹920/roll</span><button class="ap-add">+</button></div></div></div>
-          <div class="ap-card"><div class="ap-img" style="background:#1a1a2e;position:relative"><div class="ap-badge">New</div><div class="ap-wish"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></div><img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=300&q=80" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.85" alt="Midnight Abstract"/></div><div class="ap-info"><div class="ap-name">Midnight Abstract</div><div class="ap-cat">Abstract Wallpapers</div><div class="ap-foot"><span class="ap-price">₹1,100/roll</span><button class="ap-add">+</button></div></div></div>
+        <div class="app-prod-grid" id="appProdGrid">
+          <div class="ap-card" onclick="openProductModal('Crimson Rose Floral','₹950/roll','Luxury floral wallpaper with hand-drawn rose motifs on a deep burgundy base. Perfect for bedrooms and accent walls.')">
+            <div class="ap-img" style="background:#2d0010;position:relative">
+              <div class="ap-badge">New</div>
+              <div class="ap-wish" onclick="event.stopPropagation();toggleWish(this,'Crimson Rose Floral')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></div>
+              <img src="https://images.unsplash.com/photo-1615529328331-f8917597711f?w=400&q=80" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.9" alt="Crimson Rose Floral wallpaper on bedroom wall"/>
+            </div>
+            <div class="ap-info"><div class="ap-name">Crimson Rose Floral</div><div class="ap-cat">Luxury Wallpapers</div>
+              <div class="ap-foot"><span class="ap-price">₹950/roll</span><button class="ap-add" onclick="event.stopPropagation();addToCartItem('Crimson Rose Floral',950)">+</button></div>
+            </div>
+          </div>
+          <div class="ap-card" onclick="openProductModal('Marble Classic White','₹1,050/roll','Elegant marble-effect wallpaper with soft white and grey veining. Gives any room a luxury stone finish without the cost.')">
+            <div class="ap-img" style="background:#f2ece4;position:relative">
+              <div class="ap-wish" onclick="event.stopPropagation();toggleWish(this,'Marble Classic White')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></div>
+              <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400&q=80" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.9" alt="Marble wallpaper in modern living room"/>
+            </div>
+            <div class="ap-info"><div class="ap-name">Marble Classic White</div><div class="ap-cat">Classic Wallpapers</div>
+              <div class="ap-foot"><span class="ap-price">₹1,050/roll</span><button class="ap-add" onclick="event.stopPropagation();addToCartItem('Marble Classic',1050)">+</button></div>
+            </div>
+          </div>
+          <div class="ap-card" onclick="openProductModal('Velvet Luxe Texture','₹1,200/roll','Rich velvet-effect textured wallpaper in deep espresso tones. Creates drama and warmth in any premium interior.')">
+            <div class="ap-img" style="background:#1a0800;position:relative">
+              <div class="ap-badge">Hot</div>
+              <div class="ap-wish" onclick="event.stopPropagation();toggleWish(this,'Velvet Luxe Texture')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></div>
+              <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=400&q=80" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.88" alt="Dark velvet texture wallpaper in luxury room"/>
+            </div>
+            <div class="ap-info"><div class="ap-name">Velvet Luxe Texture</div><div class="ap-cat">Premium Wallpapers</div>
+              <div class="ap-foot"><span class="ap-price">₹1,200/roll</span><button class="ap-add" onclick="event.stopPropagation();addToCartItem('Velvet Luxe',1200)">+</button></div>
+            </div>
+          </div>
+          <div class="ap-card" onclick="openProductModal('Geometric Modern','₹850/roll','Clean geometric pattern wallpaper in cool grey and white. A modern, versatile design that suits any contemporary space.')">
+            <div class="ap-img" style="background:#e8e8f0;position:relative">
+              <div class="ap-wish" onclick="event.stopPropagation();toggleWish(this,'Geometric Modern')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></div>
+              <img src="https://images.unsplash.com/photo-1597696929736-6d13bed8e6a8?w=400&q=80" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.9" alt="Geometric pattern wallpaper modern room"/>
+            </div>
+            <div class="ap-info"><div class="ap-name">Geometric Modern</div><div class="ap-cat">Modern Wallpapers</div>
+              <div class="ap-foot"><span class="ap-price">₹850/roll</span><button class="ap-add" onclick="event.stopPropagation();addToCartItem('Geometric Modern',850)">+</button></div>
+            </div>
+          </div>
+          <div class="ap-card" onclick="openProductModal('Botanical Garden','₹920/roll','Lush tropical botanical print wallpaper with oversized leaves and blooms. Brings nature indoors effortlessly.')">
+            <div class="ap-img" style="background:#e8f4e8;position:relative">
+              <div class="ap-wish" onclick="event.stopPropagation();toggleWish(this,'Botanical Garden')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></div>
+              <img src="https://images.unsplash.com/photo-1554995207-c18c203602cb?w=400&q=80" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.9" alt="Botanical garden wallpaper cozy bedroom"/>
+            </div>
+            <div class="ap-info"><div class="ap-name">Botanical Garden</div><div class="ap-cat">Nature Wallpapers</div>
+              <div class="ap-foot"><span class="ap-price">₹920/roll</span><button class="ap-add" onclick="event.stopPropagation();addToCartItem('Botanical Garden',920)">+</button></div>
+            </div>
+          </div>
+          <div class="ap-card" onclick="openProductModal('Midnight Abstract','₹1,100/roll','Bold abstract geometric wallpaper in deep navy and slate. Makes a dramatic statement in offices and living spaces.')">
+            <div class="ap-img" style="background:#1a1a2e;position:relative">
+              <div class="ap-badge">New</div>
+              <div class="ap-wish" onclick="event.stopPropagation();toggleWish(this,'Midnight Abstract')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></div>
+              <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=400&q=80" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.85" alt="Dark abstract wallpaper luxury office"/>
+            </div>
+            <div class="ap-info"><div class="ap-name">Midnight Abstract</div><div class="ap-cat">Abstract Wallpapers</div>
+              <div class="ap-foot"><span class="ap-price">₹1,100/roll</span><button class="ap-add" onclick="event.stopPropagation();addToCartItem('Midnight Abstract',1100)">+</button></div>
+            </div>
+          </div>
         </div>
         <div class="pagination">
-          <button class="pg-btn">←</button>
-          <button class="pg-btn active">1</button>
-          <button class="pg-btn">2</button>
-          <button class="pg-btn">3</button>
-          <button class="pg-btn">→</button>
+          <button class="pg-btn" onclick="changePage(-1)">←</button>
+          <button class="pg-btn active" onclick="changePage(0,this)">1</button>
+          <button class="pg-btn" onclick="changePage(1,this)">2</button>
+          <button class="pg-btn" onclick="changePage(2,this)">3</button>
+          <button class="pg-btn" onclick="changePage(1)">→</button>
         </div>
       </div>
     </div>
@@ -974,7 +1125,7 @@ body {
             <div class="br hl"><span>Estimated cost</span><span id="rCost">₹17,100</span></div>
           </div>
         </div>
-        <button class="btn-red" style="align-self:flex-start;display:inline-flex;align-items:center;gap:8px"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg> Get Quote on WhatsApp →</button>
+        <button class="btn-red" style="align-self:flex-start;display:inline-flex;align-items:center;gap:8px" onclick="sendCalcWhatsApp()"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg> Get Quote on WhatsApp →</button>
       </div>
     </div>
   </div>
@@ -1008,8 +1159,8 @@ body {
           <div class="vp-range"><input type="range" id="opSlider" min="30" max="100" value="80" oninput="drawVis()"></div>
         </div>
         <div class="upload-zone"><div class="ui"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>Upload Your Room Photo<div style="font-size:0.65rem;margin-top:3px;opacity:0.5">Live feature in final version</div></div>
-        <button class="btn-red" style="width:100%">Order This Wallpaper</button>
-        <button class="btn-outline-red" style="width:100%;display:flex;align-items:center;justify-content:center;gap:8px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg> Share Preview</button>
+        <button class="btn-red" style="width:100%" onclick="go('order',null);showToast('Opening order form for '+pat.name+'!','cart')">Order This Wallpaper</button>
+        <button class="btn-outline-red" style="width:100%;display:flex;align-items:center;justify-content:center;gap:8px" onclick="showToast('Preview link copied to clipboard! 🔗','success')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg> Share Preview</button>
       </div>
     </div>
   </div>
@@ -1045,7 +1196,7 @@ body {
               <div class="f"><label class="f-label">PIN Code</label><input class="f-input" type="text" placeholder="282001"></div>
             </div>
             <div class="f"><label class="f-label">GST Number (Optional)</label><input class="f-input" type="text" placeholder="For business orders"></div>
-            <button class="btn-red" style="margin-top:8px">Continue to Payment →</button>
+            <button class="btn-red" style="margin-top:8px" onclick="showToast('Proceeding to secure payment... 🔒','cart')">Continue to Payment →</button>
           </div>
         </div>
       </div>
@@ -1055,7 +1206,7 @@ body {
         <div class="oi"><div><div class="oi-name">Marble Classic White</div><div class="oi-qty">2 rolls × ₹1,050</div></div><div class="oi-price">₹2,100</div></div>
         <div class="oi"><div><div class="oi-name">Delivery Charges</div></div><div class="oi-price" style="color:#16a34a">Free</div></div>
         <div class="ot"><span class="ot-l">Total (incl. GST)</span><span class="ot-v">₹4,950</span></div>
-        <button class="btn-red" style="width:100%;margin-top:16px">Place Order →</button>
+        <button class="btn-red" style="width:100%;margin-top:16px" onclick="showToast('🎉 Order placed! You will receive a confirmation on WhatsApp.','success')">Place Order →</button>
         <button class="btn-outline-red" style="width:100%;margin-top:8px;display:flex;align-items:center;justify-content:center;gap:8px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg> Order via WhatsApp</button>
         <div class="inv-note"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" style="vertical-align:-2px;margin-right:5px"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg> GST invoice auto-generated and sent to your WhatsApp after order is confirmed.</div>
       </div>
@@ -1075,6 +1226,173 @@ function go(id, btn) {
   const f = document.getElementById('floats');
   if (f) f.style.display = id === 'website' ? 'flex' : 'none';
   if (id === 'visualiser') setTimeout(drawVis, 80);
+}
+
+/* ── TOAST SYSTEM ─────────────────── */
+function showToast(msg, type) {
+  const container = document.getElementById('toastContainer');
+  if (!container) return;
+  const icons = { success: '✅', info: 'ℹ️', cart: '🛒', error: '❌' };
+  const t = document.createElement('div');
+  t.className = 'toast ' + (type || 'info');
+  t.innerHTML = '<span class="toast-icon">' + (icons[type] || 'ℹ️') + '</span><span>' + msg + '</span>';
+  container.appendChild(t);
+  requestAnimationFrame(() => { requestAnimationFrame(() => { t.classList.add('show'); }); });
+  setTimeout(() => {
+    t.classList.remove('show');
+    setTimeout(() => { if (t.parentNode) t.parentNode.removeChild(t); }, 350);
+  }, 3000);
+}
+
+/* ── SAMPLE MODAL ──────────────────── */
+function openSampleModal() {
+  document.getElementById('sampleModal').classList.add('show');
+}
+function closeSampleModal() {
+  document.getElementById('sampleModal').classList.remove('show');
+}
+function submitSampleRequest() {
+  const name = (document.getElementById('sampleName') || {}).value || '';
+  const phone = (document.getElementById('samplePhone') || {}).value || '';
+  if (!name.trim()) { showToast('Please enter your name','error'); return; }
+  if (!phone.trim()) { showToast('Please enter your phone number','error'); return; }
+  closeSampleModal();
+  showToast('🎁 Sample request sent! We\'ll ship to you within 3–5 days.','success');
+}
+
+/* ── PRODUCT MODAL ─────────────────── */
+let _currentProduct = {};
+function openProductModal(name, price, desc) {
+  _currentProduct = { name, price };
+  const imgs = {
+    'Crimson Rose Floral': 'https://images.unsplash.com/photo-1615529328331-f8917597711f?w=600&q=80',
+    'Marble Classic White': 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=600&q=80',
+    'Midnight Abstract': 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=600&q=80',
+    'Velvet Luxe Texture': 'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=600&q=80',
+    'Geometric Modern': 'https://images.unsplash.com/photo-1597696929736-6d13bed8e6a8?w=600&q=80',
+    'Botanical Garden': 'https://images.unsplash.com/photo-1554995207-c18c203602cb?w=600&q=80'
+  };
+  const img = imgs[name] || 'https://images.unsplash.com/photo-1615529328331-f8917597711f?w=600&q=80';
+  const pmImg = document.getElementById('pmImg');
+  if (pmImg) pmImg.src = img;
+  const pmName = document.getElementById('pmName'); if (pmName) pmName.textContent = name;
+  const pmPrice = document.getElementById('pmPrice'); if (pmPrice) pmPrice.textContent = price;
+  const pmDesc = document.getElementById('pmDesc'); if (pmDesc) pmDesc.textContent = desc;
+  document.getElementById('productModal').classList.add('show');
+}
+function closeProductModal() {
+  document.getElementById('productModal').classList.remove('show');
+}
+
+/* ── CART ──────────────────────────── */
+let _cartCount = 2;
+let _wishCount = 0;
+function addToCart() {
+  _cartCount++;
+  const cc = document.getElementById('cartCount');
+  if (cc) cc.textContent = _cartCount;
+  const cb = document.getElementById('cartBtn');
+  if (cb) cb.style.background = 'var(--red)';
+  setTimeout(() => { if (cb) cb.style.background = ''; }, 600);
+  showToast((_currentProduct.name || 'Item') + ' added to cart 🛒','cart');
+  closeProductModal();
+}
+function addToCartItem(name, price) {
+  _cartCount++;
+  const cc = document.getElementById('cartCount');
+  if (cc) cc.textContent = _cartCount;
+  showToast(name + ' added to cart! (' + _cartCount + ' items)','cart');
+}
+
+/* ── WISHLIST ──────────────────────── */
+function toggleWish(el, name) {
+  const svg = el.querySelector('svg');
+  const isWished = el.getAttribute('data-wished') === '1';
+  if (isWished) {
+    el.setAttribute('data-wished','0');
+    svg.setAttribute('fill','none'); svg.style.color = '';
+    _wishCount = Math.max(0, _wishCount - 1);
+    showToast(name + ' removed from wishlist','info');
+  } else {
+    el.setAttribute('data-wished','1');
+    svg.setAttribute('fill','#C8102E'); svg.style.color = '#C8102E';
+    _wishCount++;
+    showToast(name + ' saved to wishlist ❤️','success');
+  }
+  const wc = document.getElementById('wishCount');
+  if (wc) { wc.textContent = _wishCount; wc.style.display = _wishCount > 0 ? '' : 'none'; }
+}
+
+/* ── HERO EXPLORE ──────────────────── */
+function exploreCollection() {
+  const el = document.getElementById('prodSection');
+  if (el) el.scrollIntoView({ behavior: 'smooth' });
+  else showToast('Browsing 500+ wallpaper designs!','info');
+}
+
+/* ── APP FILTER CHIPS ──────────────── */
+function setFchip(el) {
+  if (!el) return;
+  document.querySelectorAll('.fchip').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+  showToast('Filtered: ' + el.textContent.trim() + ' ✓','info');
+}
+
+/* ── APP VIEW TOGGLE ───────────────── */
+function setView(type, btn) {
+  document.querySelectorAll('.vt-btn').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  const grid = document.getElementById('appProdGrid');
+  if (grid) {
+    if (type === 'list') {
+      grid.style.gridTemplateColumns = '1fr';
+      showToast('List view activated','info');
+    } else {
+      grid.style.gridTemplateColumns = '';
+      showToast('Grid view activated','info');
+    }
+  }
+}
+
+/* ── SIDEBAR ACTIVE ────────────────── */
+function setSidebarActive(el) {
+  document.querySelectorAll('.sidebar-item').forEach(s => s.classList.remove('active'));
+  el.classList.add('active');
+}
+
+/* ── PAGINATION ────────────────────── */
+let _currentPage = 1;
+function changePage(dir, btn) {
+  if (btn) {
+    // Direct page click
+    document.querySelectorAll('.pg-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    _currentPage = parseInt(btn.textContent) || _currentPage;
+    showToast('Page ' + _currentPage + ' — loading designs...','info');
+  } else if (dir === -1) {
+    if (_currentPage > 1) {
+      _currentPage--;
+      const btns = document.querySelectorAll('.pg-btn');
+      btns.forEach(b => b.classList.remove('active'));
+      btns[_currentPage].classList.add('active');
+      showToast('Page ' + _currentPage,'info');
+    }
+  } else if (dir === 1) {
+    if (_currentPage < 3) {
+      _currentPage++;
+      const btns = document.querySelectorAll('.pg-btn');
+      btns.forEach(b => b.classList.remove('active'));
+      btns[_currentPage].classList.add('active');
+      showToast('Page ' + _currentPage,'info');
+    }
+  }
+}
+
+/* ── CALCULATOR WHATSAPP ───────────── */
+function sendCalcWhatsApp() {
+  const rolls = document.getElementById('rRolls') ? document.getElementById('rRolls').textContent : '?';
+  const cost = document.getElementById('rCost') ? document.getElementById('rCost').textContent : '?';
+  showToast('Sending quote to WhatsApp — ' + rolls + ' rolls, ' + cost + ' 📲','success');
 }
 
 /* ── CHIP HELPERS ─────────────────── */
