@@ -253,10 +253,11 @@ body {
 }
 .nav-cta:hover .nav-cta-arrow { transform: translateX(2px); }
 
-/* prototype tab pill — kept but secondary */
-.tabs { display: flex; gap: 3px; background: var(--bg); border: 1px solid var(--border); border-radius: 10px; padding: 3px; }
-.tab { padding: 5px 13px; border-radius: 7px; border: none; background: transparent; color: var(--fg-dim); font-family: 'Poppins',sans-serif; font-size: 0.72rem; font-weight: 500; cursor: pointer; transition: all 0.18s; white-space: nowrap; }
+/* prototype tab pill — view switcher */
+.tabs { display: flex; gap: 2px; background: var(--bg); border: 1px solid var(--border); border-radius: 10px; padding: 3px; flex-shrink: 0; }
+.tab { padding: 5px 11px; border-radius: 7px; border: none; background: transparent; color: var(--fg-dim); font-family: 'Poppins',sans-serif; font-size: 0.72rem; font-weight: 500; cursor: pointer; transition: all 0.18s; white-space: nowrap; display: flex; align-items: center; gap: 4px; }
 .tab.active { background: var(--red); color: #fff; box-shadow: 0 2px 10px rgba(200,16,46,0.35); }
+.tab.active svg { stroke: #fff; }
 .tab:hover:not(.active) { color: var(--black); background: rgba(0,0,0,0.04); }
 
 /* ── VIEWS ─────────────────────────── */
@@ -830,16 +831,28 @@ body {
     <span class="logo-tag">Agra</span>
   </div>
 
-  <!-- Nav links (website sections) -->
-  <div class="nav-links">
-    <button class="nav-link active" onclick="go('website',null);scrollToSec('hero')">
-      <span class="nav-link-dot"></span>Home
+  <!-- Prototype tab switcher -->
+  <div class="tabs" id="mainTabs">
+    <button class="tab active" onclick="go('website',this)">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+      Website
     </button>
-    <button class="nav-link" onclick="go('website',null);scrollToSec('prodSection')">Collection</button>
-    <button class="nav-link" onclick="go('website',null);scrollToSec('baSection')">Before &amp; After</button>
-    <button class="nav-link" onclick="go('calculator',null)">Calculator</button>
-    <button class="nav-link" onclick="go('visualiser',null)">Visualiser</button>
-    <button class="nav-link" onclick="go('website',null);scrollToSec('contactSection')">Contact</button>
+    <button class="tab" onclick="go('app',this)">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+      App
+    </button>
+    <button class="tab" onclick="go('calculator',this)">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="10" y2="10"/><line x1="14" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="10" y2="14"/><line x1="14" y1="14" x2="16" y2="14"/><line x1="8" y1="18" x2="10" y2="18"/><line x1="14" y1="18" x2="16" y2="18"/></svg>
+      Calculator
+    </button>
+    <button class="tab" onclick="go('visualiser',this)">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+      Visualiser
+    </button>
+    <button class="tab" onclick="go('order',this)">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+      Order System
+    </button>
   </div>
 
   <!-- Right actions -->
