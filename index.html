@@ -1,0 +1,1177 @@
+<title>F&I Dekor — Premium Design Preview</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap">
+
+<style>
+:root {
+  --red:      #C8102E;
+  --red-l:    #E8193A;
+  --red-dim:  rgba(200,16,46,0.08);
+  --red-dim2: rgba(200,16,46,0.14);
+  --black:    #1A1A1A;
+  --white:    #FFFFFF;
+  --bg:       #FAFAFA;
+  --bg2:      #FFF5F6;
+  --card:     #FFFFFF;
+  --border:   #EBEBEB;
+  --border-r: rgba(200,16,46,0.2);
+  --fg:       #1A1A1A;
+  --fg-dim:   #666666;
+  --fg-mute:  #AAAAAA;
+  font-family: 'Poppins', sans-serif;
+  color-scheme: light;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: 'Poppins', sans-serif;
+  font-size: 15px;
+  overflow-x: hidden;
+}
+
+/* ── TICKER ───────────────────────── */
+.ticker-wrap {
+  background: var(--red);
+  overflow: hidden;
+  height: 36px;
+  display: flex;
+  align-items: center;
+}
+.ticker-track {
+  display: flex;
+  gap: 0;
+  animation: ticker 28s linear infinite;
+  white-space: nowrap;
+}
+.ticker-track:hover { animation-play-state: paused; }
+@keyframes ticker {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.ticker-item {
+  padding: 0 36px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: #fff;
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.ticker-dot { color: rgba(255,255,255,0.45); font-size: 0.5rem; }
+
+/* ── NAV ───────────────────────────── */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 300;
+  background: rgba(255,255,255,0.96);
+  backdrop-filter: blur(18px);
+  border-bottom: 1px solid var(--border);
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 max(28px, env(safe-area-inset-left,0px));
+  padding-right: max(28px, env(safe-area-inset-right,0px));
+  box-shadow: 0 1px 12px rgba(0,0,0,0.05);
+}
+.logo { font-size: 1.25rem; font-weight: 800; letter-spacing: -0.02em; color: var(--black); }
+.logo span { color: var(--red); }
+.tabs { display: flex; gap: 4px; background: var(--bg); border: 1px solid var(--border); border-radius: 10px; padding: 4px; }
+.tab { padding: 6px 16px; border-radius: 7px; border: none; background: transparent; color: var(--fg-dim); font-family: 'Poppins',sans-serif; font-size: 0.76rem; font-weight: 500; cursor: pointer; transition: all 0.18s; white-space: nowrap; }
+.tab.active { background: var(--red); color: #fff; box-shadow: 0 2px 10px rgba(200,16,46,0.35); }
+.tab:hover:not(.active) { color: var(--black); background: rgba(0,0,0,0.04); }
+
+/* ── VIEWS ─────────────────────────── */
+.view { display: none; }
+.view.active { display: block; }
+
+/* ── BUTTONS ───────────────────────── */
+.btn-red { background: var(--red); color: #fff; border: none; padding: 13px 28px; border-radius: 8px; font-family: 'Poppins',sans-serif; font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: all 0.2s; box-shadow: 0 4px 16px rgba(200,16,46,0.3); }
+.btn-red:hover { background: var(--red-l); transform: translateY(-1px); box-shadow: 0 8px 24px rgba(200,16,46,0.4); }
+.btn-outline { background: transparent; color: var(--black); border: 1.5px solid var(--border); padding: 13px 28px; border-radius: 8px; font-family: 'Poppins',sans-serif; font-size: 0.85rem; font-weight: 500; cursor: pointer; transition: all 0.2s; }
+.btn-outline:hover { border-color: var(--red); color: var(--red); }
+.btn-outline-red { background: transparent; color: var(--red); border: 1.5px solid var(--red); padding: 10px 22px; border-radius: 8px; font-family: 'Poppins',sans-serif; font-size: 0.82rem; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+.btn-outline-red:hover { background: var(--red); color: #fff; }
+
+/* ── SECTION HELPERS ───────────────── */
+.section { padding: 72px max(48px,env(safe-area-inset-left,0px)); padding-right: max(48px,env(safe-area-inset-right,0px)); padding-block: 72px; }
+.section-alt { background: var(--bg2); }
+.s-tag { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--red); display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+.s-tag::before { content: ''; width: 20px; height: 2px; background: var(--red); border-radius: 2px; }
+.s-h2 { font-size: clamp(1.7rem,3vw,2.6rem); font-weight: 700; letter-spacing: -0.03em; color: var(--black); margin-bottom: 8px; }
+.s-h2 em { font-style: normal; color: var(--red); }
+.s-sub { font-size: 0.88rem; color: var(--fg-dim); font-weight: 300; margin-bottom: 36px; }
+
+/* ══ HERO ══════════════════════════ */
+.hero {
+  min-height: 90vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  padding: 80px max(60px,env(safe-area-inset-left,0px));
+  padding-right: max(60px,env(safe-area-inset-right,0px));
+  position: relative;
+  overflow: hidden;
+  background: #fff;
+}
+/* animated gradient orbs */
+.hero::before {
+  content: '';
+  position: absolute;
+  width: 600px; height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(200,16,46,0.08) 0%, transparent 70%);
+  top: -100px; right: -100px;
+  animation: pulse 6s ease-in-out infinite;
+}
+.hero::after {
+  content: '';
+  position: absolute;
+  width: 400px; height: 400px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(200,16,46,0.05) 0%, transparent 70%);
+  bottom: -50px; left: 30%;
+  animation: pulse 8s ease-in-out infinite reverse;
+}
+@keyframes pulse {
+  0%,100% { transform: scale(1); opacity: 1; }
+  50%      { transform: scale(1.15); opacity: 0.7; }
+}
+
+.hero-left { position: relative; z-index: 1; }
+.hero-badge { display: inline-flex; align-items: center; gap: 6px; background: var(--red-dim); border: 1px solid var(--border-r); border-radius: 100px; padding: 5px 14px; font-size: 0.68rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--red); margin-bottom: 20px; }
+.hero-badge .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--red); animation: blink 1.4s ease-in-out infinite; }
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+.hero-h1 { font-size: clamp(2.4rem,5vw,4.2rem); font-weight: 800; line-height: 1.05; letter-spacing: -0.03em; color: var(--black); margin-bottom: 20px; }
+.hero-h1 .red { color: var(--red); }
+.hero-h1 .line { display: block; }
+/* text reveal animation */
+.hero-h1 .line { opacity: 0; transform: translateY(20px); animation: slideUp 0.6s forwards; }
+.hero-h1 .line:nth-child(1) { animation-delay: 0.1s; }
+.hero-h1 .line:nth-child(2) { animation-delay: 0.25s; }
+.hero-h1 .line:nth-child(3) { animation-delay: 0.4s; }
+@keyframes slideUp { to { opacity:1; transform:translateY(0); } }
+
+.hero-p { font-size: 0.95rem; font-weight: 300; color: var(--fg-dim); max-width: 420px; line-height: 1.8; margin-bottom: 36px; opacity:0; animation: slideUp 0.6s 0.55s forwards; }
+.btn-row { display: flex; gap: 12px; flex-wrap: wrap; opacity:0; animation: slideUp 0.6s 0.7s forwards; }
+
+/* Trust badges */
+.trust-strip {
+  display: flex; gap: 20px; flex-wrap: wrap;
+  margin-top: 32px; padding-top: 28px;
+  border-top: 1px solid var(--border);
+  opacity:0; animation: slideUp 0.6s 0.85s forwards;
+}
+.tbadge { display: flex; align-items: center; gap: 7px; font-size: 0.74rem; color: var(--fg-dim); font-weight: 500; }
+.tbadge .ti { font-size: 1rem; }
+.tbadge strong { color: var(--black); }
+
+/* Hero visual — animated wallpaper cards */
+.hero-right { position: relative; z-index: 1; height: 480px; }
+.float-cards { position: relative; width: 100%; height: 100%; }
+.fc {
+  position: absolute;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid rgba(0,0,0,0.06);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+  display: flex; align-items: flex-end;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.fc:hover { transform: translateY(-6px) !important; box-shadow: 0 16px 48px rgba(0,0,0,0.2) !important; }
+.fc:nth-child(1) { width: 60%; height: 75%; top: 0; right: 0; animation: float1 6s ease-in-out infinite; }
+.fc:nth-child(2) { width: 48%; height: 55%; top: 25%; left: 0; animation: float2 7s ease-in-out infinite; }
+.fc:nth-child(3) { width: 36%; height: 38%; bottom: 0; right: 10%; animation: float3 5s ease-in-out infinite; }
+@keyframes float1 { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+@keyframes float2 { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
+@keyframes float3 { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
+.fc-info { position: absolute; bottom: 0; left: 0; right: 0; padding: 14px; background: linear-gradient(transparent, rgba(0,0,0,0.75)); color: #fff; }
+.fc-name { font-size: 0.8rem; font-weight: 600; }
+.fc-price { font-size: 0.68rem; color: rgba(255,255,255,0.7); }
+.fc-badge { position: absolute; top: 10px; left: 10px; background: var(--red); color: #fff; font-size: 0.56rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 8px; border-radius: 5px; }
+
+/* ── TRUST BADGE STRIP ─────────────── */
+.badges-strip {
+  background: var(--black);
+  padding: 18px max(48px,env(safe-area-inset-left,0px));
+  padding-right: max(48px,env(safe-area-inset-right,0px));
+  padding-block: 18px;
+  display: flex; gap: 0; overflow: hidden;
+}
+.badges-scroll { display: flex; gap: 0; animation: badgesScroll 20s linear infinite; }
+.badge-item { display: flex; align-items: center; gap: 8px; padding: 0 32px; border-right: 1px solid rgba(255,255,255,0.1); white-space: nowrap; font-size: 0.78rem; font-weight: 500; color: rgba(255,255,255,0.8); }
+.badge-item .bi { font-size: 1.1rem; }
+.badge-item strong { color: #fff; }
+@keyframes badgesScroll { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+
+/* ── STATS ─────────────────────────── */
+.stats-bar { display: grid; grid-template-columns: repeat(4,1fr); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); background: #fff; }
+.stat { padding: 28px 24px; border-right: 1px solid var(--border); }
+.stat:last-child { border-right: none; }
+.stat-n { font-size: 2.2rem; font-weight: 800; letter-spacing: -0.03em; color: var(--black); line-height: 1; }
+.stat-n .r { color: var(--red); }
+.stat-l { font-size: 0.75rem; color: var(--fg-dim); margin-top: 4px; }
+
+/* ── CATEGORY CHIPS ───────────────── */
+.cat-chips { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 28px; }
+.cchip { padding: 7px 18px; border-radius: 100px; border: 1.5px solid var(--border); background: #fff; color: var(--fg-dim); font-family: 'Poppins',sans-serif; font-size: 0.78rem; font-weight: 500; cursor: pointer; transition: all 0.18s; }
+.cchip.active,.cchip:hover { background: var(--red); border-color: var(--red); color: #fff; }
+
+/* COLOR FILTER */
+.color-filter { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
+.cf-label { font-size: 0.72rem; font-weight: 600; color: var(--fg-dim); text-transform: uppercase; letter-spacing: 0.1em; }
+.col-dot { width: 28px; height: 28px; border-radius: 50%; cursor: pointer; border: 2.5px solid transparent; transition: all 0.18s; box-shadow: 0 2px 6px rgba(0,0,0,0.12); }
+.col-dot:hover,.col-dot.a { border-color: var(--black); transform: scale(1.15); }
+.col-dot.a { box-shadow: 0 0 0 3px rgba(0,0,0,0.15); }
+
+/* ── PRODUCT GRID ──────────────────── */
+.prod-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(210px,1fr)); gap: 16px; }
+.prod-card {
+  background: #fff; border: 1px solid var(--border); border-radius: 14px; overflow: hidden;
+  cursor: pointer; transition: all 0.22s; box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  transform-style: preserve-3d; perspective: 800px;
+}
+.prod-card:hover { border-color: var(--border-r); transform: translateY(-5px) rotateX(2deg) rotateY(-2deg); box-shadow: 0 16px 40px rgba(0,0,0,0.12); }
+.prod-img { aspect-ratio: 4/3; display: flex; align-items: center; justify-content: center; font-size: 3rem; position: relative; overflow: hidden; }
+.prod-img-inner { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 3rem; transition: transform 0.4s cubic-bezier(.34,1.56,.64,1); }
+.prod-card:hover .prod-img-inner { transform: scale(1.08); }
+.prod-badge { position: absolute; top: 8px; left: 8px; background: var(--red); color: #fff; font-size: 0.56rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 8px; border-radius: 5px; z-index: 1; }
+.prod-info { padding: 14px 16px; }
+.prod-name { font-size: 0.88rem; font-weight: 600; color: var(--black); }
+.prod-sub { font-size: 0.7rem; color: var(--fg-mute); margin-top: 2px; }
+.prod-foot { display: flex; justify-content: space-between; align-items: center; margin-top: 12px; }
+.prod-price { font-size: 0.92rem; font-weight: 700; color: var(--red); }
+.calc-link { font-size: 0.62rem; color: var(--red); font-weight: 500; cursor: pointer; border-bottom: 1px dashed var(--border-r); }
+
+/* ── BEFORE/AFTER SLIDER ───────────── */
+.ba-section { padding: 72px max(48px,env(safe-area-inset-left,0px)); padding-right: max(48px,env(safe-area-inset-right,0px)); padding-block: 72px; background: var(--black); }
+.ba-section .s-tag { color: rgba(255,255,255,0.5); }
+.ba-section .s-tag::before { background: rgba(255,255,255,0.3); }
+.ba-section .s-h2 { color: #fff; }
+.ba-section .s-sub { color: rgba(255,255,255,0.45); }
+.ba-container { position: relative; max-width: 800px; margin: 0 auto; border-radius: 20px; overflow: hidden; user-select: none; box-shadow: 0 20px 60px rgba(0,0,0,0.4); cursor: ew-resize; }
+.ba-before, .ba-after { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+.ba-before { background: linear-gradient(135deg, #e8e8e8, #c8c8c8); }
+.ba-after  { background: linear-gradient(135deg, #2d0010, #6b0026); }
+.ba-placeholder { font-size: 5rem; }
+.ba-placeholder-txt { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); font-size: 0.82rem; font-weight: 600; color: rgba(255,255,255,0.7); background: rgba(0,0,0,0.4); padding: 6px 16px; border-radius: 6px; white-space: nowrap; }
+.ba-handle {
+  position: absolute; top: 0; bottom: 0; z-index: 10;
+  display: flex; align-items: center; justify-content: center;
+  width: 3px; background: #fff; cursor: ew-resize;
+  box-shadow: 0 0 20px rgba(0,0,0,0.5);
+}
+.ba-btn {
+  width: 46px; height: 46px; border-radius: 50%;
+  background: #fff; display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.3); font-size: 1rem; font-weight: 700;
+}
+.ba-reveal { position: absolute; inset: 0; }
+.ba-aspect { aspect-ratio: 16/8; }
+/* label badges */
+.ba-lbl { position: absolute; bottom: 20px; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; padding: 5px 14px; border-radius: 6px; }
+.ba-lbl.b { left: 16px; background: rgba(0,0,0,0.5); color: #fff; }
+.ba-lbl.a { right: 16px; background: var(--red); color: #fff; }
+
+/* ── WHY GRID ──────────────────────── */
+.why-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 16px; }
+.why-card { background: #fff; border: 1px solid var(--border); border-radius: 14px; padding: 28px 22px; transition: all 0.22s; box-shadow: 0 2px 8px rgba(0,0,0,0.03); }
+.why-card:hover { border-color: var(--border-r); transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.08); }
+.why-icon { width: 50px; height: 50px; border-radius: 13px; background: var(--red-dim); border: 1px solid var(--border-r); display: flex; align-items: center; justify-content: center; font-size: 1.4rem; margin-bottom: 16px; }
+.why-t { font-size: 0.95rem; font-weight: 600; color: var(--black); margin-bottom: 7px; }
+.why-p { font-size: 0.78rem; color: var(--fg-dim); line-height: 1.65; font-weight: 300; }
+
+/* ── ROOM INSPIRATION ──────────────── */
+.rooms-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
+.room-card { border-radius: 16px; overflow: hidden; position: relative; cursor: pointer; aspect-ratio: 4/3; }
+.room-card:first-child { grid-row: span 2; aspect-ratio: unset; }
+.room-bg { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 4rem; transition: transform 0.4s; }
+.room-card:hover .room-bg { transform: scale(1.06); }
+.room-overlay { position: absolute; inset: 0; background: linear-gradient(transparent 40%, rgba(0,0,0,0.7)); display: flex; flex-direction: column; justify-content: flex-end; padding: 18px; }
+.room-tag { font-size: 0.62rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(255,255,255,0.6); margin-bottom: 4px; }
+.room-name { font-size: 0.92rem; font-weight: 700; color: #fff; }
+
+/* ── TESTIMONIALS ──────────────────── */
+.testi-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
+.tcard { background: #fff; border: 1px solid var(--border); border-radius: 14px; padding: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.03); transition: all 0.22s; }
+.tcard:hover { border-color: var(--border-r); box-shadow: 0 8px 24px rgba(0,0,0,0.07); }
+.t-stars { color: var(--red); font-size: 0.9rem; margin-bottom: 12px; }
+.t-text { font-size: 0.82rem; color: var(--fg-dim); line-height: 1.7; font-weight: 300; font-style: italic; }
+.t-author { margin-top: 16px; display: flex; align-items: center; gap: 10px; }
+.t-avatar { width: 36px; height: 36px; border-radius: 50%; background: var(--red-dim); border: 1px solid var(--border-r); display: flex; align-items: center; justify-content: center; font-size: 0.9rem; flex-shrink: 0; }
+.t-name { font-size: 0.82rem; font-weight: 600; color: var(--black); }
+.t-city { font-size: 0.7rem; color: var(--fg-mute); }
+
+/* ── LOCATION ──────────────────────── */
+.loc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
+.map-box { aspect-ratio: 4/3; background: #f0f0f0; border: 1px solid var(--border); border-radius: 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; position: relative; overflow: hidden; }
+.map-box::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(200,16,46,0.03), transparent); }
+.map-icon-big { font-size: 3.5rem; }
+.map-lbl { font-size: 0.82rem; color: var(--fg-dim); }
+.contact-items { display: flex; flex-direction: column; gap: 12px; }
+.c-item { display: flex; gap: 12px; align-items: flex-start; background: #fff; border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; transition: border-color 0.18s; box-shadow: 0 2px 6px rgba(0,0,0,0.03); }
+.c-item:hover { border-color: var(--border-r); }
+.c-ico { width: 38px; height: 38px; border-radius: 8px; flex-shrink: 0; background: var(--red-dim); border: 1px solid var(--border-r); display: flex; align-items: center; justify-content: center; font-size: 1rem; }
+.c-lbl { font-size: 0.63rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--red); font-weight: 600; }
+.c-val { font-size: 0.85rem; color: var(--black); margin-top: 2px; }
+
+/* ── FOOTER ────────────────────────── */
+.footer { background: var(--black); color: #fff; padding: 36px max(48px,env(safe-area-inset-left,0px)); padding-right: max(48px,env(safe-area-inset-right,0px)); padding-block: 36px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
+.footer .logo { color: #fff; }
+.footer .logo span { color: var(--red); }
+.footer-copy { font-size: 0.75rem; color: rgba(255,255,255,0.4); }
+.footer-links { display: flex; gap: 20px; }
+.footer-links a { font-size: 0.75rem; color: rgba(255,255,255,0.55); text-decoration: none; }
+.footer-links a:hover { color: var(--red); }
+
+/* ── FLOAT BTNS ────────────────────── */
+.floats { position: fixed; bottom: calc(24px + env(safe-area-inset-bottom,0px)); right: max(24px,env(safe-area-inset-right,0px)); display: flex; flex-direction: column; gap: 10px; z-index: 200; }
+.fb { width: 52px; height: 52px; border-radius: 50%; border: none; cursor: pointer; font-size: 1.3rem; display: flex; align-items: center; justify-content: center; transition: transform 0.2s; box-shadow: 0 6px 20px rgba(0,0,0,0.22); }
+.fb:hover { transform: scale(1.1); }
+.fb-wa { background: #25D366; }
+.fb-call { background: var(--red); }
+
+/* ── WHATSAPP POPUP ────────────────── */
+.wa-popup {
+  position: fixed; bottom: calc(100px + env(safe-area-inset-bottom,0px)); right: max(24px,env(safe-area-inset-right,0px));
+  background: #fff; border: 1px solid var(--border); border-radius: 16px;
+  padding: 18px 20px; max-width: 280px; z-index: 250;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.14);
+  animation: popupIn 0.4s cubic-bezier(.34,1.56,.64,1) forwards;
+  display: none;
+}
+.wa-popup.show { display: block; }
+@keyframes popupIn { from{opacity:0;transform:translateY(20px) scale(0.9)} to{opacity:1;transform:translateY(0) scale(1)} }
+.wa-popup-close { position: absolute; top: 10px; right: 12px; font-size: 1rem; cursor: pointer; color: var(--fg-mute); background: none; border: none; }
+.wa-popup-head { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.wa-popup-icon { width: 38px; height: 38px; border-radius: 10px; background: #25D366; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; color: #fff; flex-shrink: 0; }
+.wa-popup-title { font-size: 0.88rem; font-weight: 700; color: var(--black); }
+.wa-popup-sub { font-size: 0.72rem; color: var(--fg-dim); }
+.wa-popup-msg { font-size: 0.8rem; color: var(--fg-dim); line-height: 1.55; margin-bottom: 12px; }
+.wa-popup-btn { width: 100%; background: #25D366; color: #fff; border: none; border-radius: 8px; padding: 10px; font-family: 'Poppins',sans-serif; font-size: 0.82rem; font-weight: 600; cursor: pointer; }
+
+/* ══ APP VIEW ══════════════════════ */
+.app-view { background: var(--bg); min-height: calc(100vh - 100px); }
+.app-topbar { background: #fff; border-bottom: 1px solid var(--border); padding: 0 max(32px,env(safe-area-inset-left,0px)); padding-right: max(32px,env(safe-area-inset-right,0px)); height: 60px; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 1px 8px rgba(0,0,0,0.04); }
+.app-logo { font-size: 1.15rem; font-weight: 800; color: var(--black); }
+.app-logo span { color: var(--red); }
+.app-search-bar { flex: 1; max-width: 400px; margin: 0 32px; background: var(--bg); border: 1.5px solid var(--border); border-radius: 100px; padding: 8px 18px; display: flex; align-items: center; gap: 8px; font-size: 0.82rem; color: var(--fg-mute); }
+.app-topbar-right { display: flex; align-items: center; gap: 14px; }
+.app-icon-btn { width: 38px; height: 38px; border-radius: 50%; background: var(--bg); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 1rem; cursor: pointer; transition: all 0.18s; }
+.app-icon-btn:hover { background: var(--red-dim); border-color: var(--border-r); }
+.cart-btn { display: flex; align-items: center; gap: 8px; background: var(--red); color: #fff; padding: 8px 16px; border-radius: 8px; font-size: 0.78rem; font-weight: 600; cursor: pointer; border: none; font-family: 'Poppins',sans-serif; }
+.app-layout { display: flex; }
+.app-sidebar { width: 220px; flex-shrink: 0; background: #fff; border-right: 1px solid var(--border); min-height: calc(100vh - 124px); padding: 24px 0; }
+.sidebar-section { padding: 0 16px; margin-bottom: 6px; }
+.sidebar-label { font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--fg-mute); font-weight: 600; padding: 0 8px; margin-bottom: 6px; }
+.sidebar-item { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 8px; font-size: 0.82rem; font-weight: 500; color: var(--fg-dim); cursor: pointer; transition: all 0.18s; margin-bottom: 2px; }
+.sidebar-item:hover { background: var(--red-dim); color: var(--red); }
+.sidebar-item.active { background: var(--red-dim2); color: var(--red); font-weight: 600; }
+.sidebar-icon { font-size: 1rem; width: 20px; text-align: center; }
+.sidebar-count { margin-left: auto; background: var(--red); color: #fff; font-size: 0.6rem; font-weight: 700; padding: 2px 7px; border-radius: 100px; }
+.sidebar-divider { border: none; border-top: 1px solid var(--border); margin: 12px 16px; }
+.app-main { flex: 1; min-width: 0; padding: 28px; background: var(--bg); }
+.app-hero-banner { background: linear-gradient(135deg, var(--black) 0%, #3d0010 100%); border-radius: 16px; padding: 36px 44px; display: flex; align-items: center; justify-content: space-between; margin-bottom: 28px; overflow: hidden; position: relative; }
+.app-hero-banner::before { content: ''; position: absolute; right: -20px; top: -30px; width: 300px; height: 300px; border-radius: 50%; background: rgba(200,16,46,0.15); }
+.banner-left { position: relative; z-index: 1; }
+.banner-tag { font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.55); font-weight: 500; margin-bottom: 8px; }
+.banner-title { font-size: 1.8rem; font-weight: 800; letter-spacing: -0.03em; color: #fff; line-height: 1.1; }
+.banner-title span { color: var(--red); display: block; }
+.banner-sub { font-size: 0.82rem; color: rgba(255,255,255,0.55); margin-top: 8px; font-weight: 300; }
+.banner-right { position: relative; z-index: 1; display: flex; gap: 12px; }
+.banner-stat { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); border-radius: 12px; padding: 16px 20px; text-align: center; }
+.bs-n { font-size: 1.5rem; font-weight: 800; color: #fff; line-height: 1; }
+.bs-n span { color: var(--red); }
+.bs-l { font-size: 0.65rem; color: rgba(255,255,255,0.45); margin-top: 4px; }
+.filter-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; flex-wrap: wrap; gap: 12px; }
+.filter-chips { display: flex; gap: 8px; flex-wrap: wrap; }
+.fchip { padding: 6px 16px; border-radius: 100px; border: 1.5px solid var(--border); background: #fff; color: var(--fg-dim); font-family: 'Poppins',sans-serif; font-size: 0.75rem; font-weight: 500; cursor: pointer; transition: all 0.18s; }
+.fchip.active,.fchip:hover { background: var(--red); border-color: var(--red); color: #fff; }
+.view-toggle { display: flex; gap: 4px; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 3px; }
+.vt-btn { width: 32px; height: 32px; border-radius: 6px; border: none; background: transparent; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; transition: all 0.15s; }
+.vt-btn.active { background: #fff; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+.app-prod-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(190px,1fr)); gap: 14px; }
+.ap-card { background: #fff; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; cursor: pointer; transition: all 0.22s; box-shadow: 0 1px 6px rgba(0,0,0,0.04); }
+.ap-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); border-color: var(--border-r); }
+.ap-img { aspect-ratio: 1; position: relative; display: flex; align-items: center; justify-content: center; font-size: 2.8rem; overflow: hidden; }
+.ap-img-emoji { position: relative; z-index: 1; font-size: 2.5rem; }
+.ap-badge { position: absolute; top: 8px; left: 8px; background: var(--red); color: #fff; font-size: 0.55rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 7px; border-radius: 4px; z-index: 2; }
+.ap-wish { position: absolute; top: 8px; right: 8px; width: 28px; height: 28px; border-radius: 50%; background: rgba(255,255,255,0.9); display: flex; align-items: center; justify-content: center; font-size: 0.85rem; z-index: 2; box-shadow: 0 2px 6px rgba(0,0,0,0.1); cursor: pointer; }
+.ap-info { padding: 12px 14px; }
+.ap-name { font-size: 0.82rem; font-weight: 600; color: var(--black); }
+.ap-cat { font-size: 0.68rem; color: var(--fg-mute); margin-top: 1px; }
+.ap-foot { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; }
+.ap-price { font-size: 0.88rem; font-weight: 700; color: var(--red); }
+.ap-add { width: 28px; height: 28px; border-radius: 7px; background: var(--red); border: none; color: #fff; font-size: 1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: transform 0.15s; }
+.ap-add:hover { transform: scale(1.1); }
+.pagination { display: flex; align-items: center; justify-content: center; gap: 6px; margin-top: 28px; }
+.pg-btn { width: 36px; height: 36px; border-radius: 8px; border: 1.5px solid var(--border); background: #fff; font-family: 'Poppins',sans-serif; font-size: 0.82rem; color: var(--fg-dim); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.15s; }
+.pg-btn.active { background: var(--red); border-color: var(--red); color: #fff; }
+.pg-btn:hover:not(.active) { border-color: var(--red); color: var(--red); }
+
+/* ══ CALCULATOR ════════════════════ */
+.calc-page { padding: 56px max(48px,env(safe-area-inset-left,0px)); padding-right: max(48px,env(safe-area-inset-right,0px)); padding-block: 56px; background: var(--bg); }
+.calc-wrap { max-width: 760px; margin: 0 auto; background: #fff; border: 1px solid var(--border); border-radius: 20px; overflow: hidden; box-shadow: 0 4px 24px rgba(0,0,0,0.06); }
+.calc-head { background: linear-gradient(135deg, var(--black), #3d0010); padding: 36px 44px; color: #fff; }
+.calc-title { font-size: 1.6rem; font-weight: 700; letter-spacing: -0.03em; color: #fff; margin-top: 6px; }
+.calc-desc { font-size: 0.82rem; color: rgba(255,255,255,0.55); margin-top: 6px; font-weight: 300; }
+.calc-body { padding: 40px 44px; display: flex; flex-direction: column; gap: 24px; }
+.f-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.f { display: flex; flex-direction: column; gap: 7px; }
+.f-label { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--red); }
+.f-input { background: var(--bg); border: 1.5px solid var(--border); border-radius: 8px; padding: 11px 14px; color: var(--black); font-family: 'Poppins',sans-serif; font-size: 0.95rem; font-weight: 500; outline: none; transition: border-color 0.2s; }
+.f-input:focus { border-color: var(--red); box-shadow: 0 0 0 3px rgba(200,16,46,0.08); }
+.f-hint { font-size: 0.68rem; color: var(--fg-mute); }
+.result-panel { background: linear-gradient(135deg,var(--red-dim),rgba(200,16,46,0.04)); border: 1.5px solid var(--border-r); border-radius: 14px; padding: 28px 32px; display: grid; grid-template-columns: auto 1fr; gap: 32px; align-items: center; }
+.r-main .rl { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--fg-mute); margin-bottom: 4px; }
+.r-num { font-size: 5rem; font-weight: 800; letter-spacing: -0.05em; color: var(--red); line-height: 1; }
+.bdown { display: flex; flex-direction: column; gap: 10px; }
+.br { display: flex; justify-content: space-between; gap: 12px; font-size: 0.82rem; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+.br:last-child { border-bottom: none; padding-bottom: 0; }
+.br span:first-child { color: var(--fg-dim); }
+.br span:last-child { color: var(--black); font-weight: 600; }
+.br.hl span { color: var(--red) !important; font-weight: 700 !important; }
+
+/* ══ VISUALISER ════════════════════ */
+.vis-page { padding: 56px max(48px,env(safe-area-inset-left,0px)); padding-right: max(48px,env(safe-area-inset-right,0px)); padding-block: 56px; background: var(--bg2); }
+.vis-layout { display: grid; grid-template-columns: 1fr 300px; gap: 24px; align-items: start; }
+.vis-stage { border-radius: 16px; overflow: hidden; border: 1px solid var(--border); aspect-ratio: 16/10; position: relative; background: #f5eeea; box-shadow: 0 4px 20px rgba(0,0,0,0.07); }
+.vis-stage canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+.vis-overlay { position: absolute; bottom: 14px; left: 50%; transform: translateX(-50%); background: rgba(255,255,255,0.92); border: 1px solid var(--border-r); border-radius: 7px; padding: 6px 16px; font-size: 0.72rem; color: var(--red); white-space: nowrap; backdrop-filter: blur(8px); font-weight: 500; box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+.vis-panel { background: #fff; border: 1px solid var(--border); border-radius: 16px; padding: 24px; display: flex; flex-direction: column; gap: 22px; box-shadow: 0 2px 12px rgba(0,0,0,0.04); }
+.vp-title { font-size: 1rem; font-weight: 700; color: var(--black); }
+.swatches { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; }
+.sw { aspect-ratio: 1; border-radius: 10px; cursor: pointer; border: 2.5px solid transparent; transition: all 0.18s; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; }
+.sw.a { border-color: var(--red); box-shadow: 0 0 0 3px rgba(200,16,46,0.15); }
+.sw:hover:not(.a) { border-color: rgba(0,0,0,0.2); transform: scale(1.05); }
+.vp-label { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--red); font-weight: 600; }
+.vp-range input { width: 100%; height: 4px; -webkit-appearance: none; background: var(--border); border-radius: 2px; outline: none; margin-top: 8px; }
+.vp-range input::-webkit-slider-thumb { -webkit-appearance: none; width: 16px; height: 16px; border-radius: 50%; background: var(--red); cursor: pointer; box-shadow: 0 0 6px rgba(200,16,46,0.4); }
+.upload-zone { border: 1.5px dashed var(--border-r); border-radius: 10px; padding: 20px 14px; text-align: center; cursor: pointer; transition: all 0.18s; color: var(--fg-mute); font-size: 0.78rem; }
+.upload-zone:hover { border-color: var(--red); color: var(--red); background: var(--red-dim); }
+.upload-zone .ui { font-size: 1.8rem; margin-bottom: 5px; }
+
+/* ══ ORDER ═════════════════════════ */
+.order-page { padding: 56px max(48px,env(safe-area-inset-left,0px)); padding-right: max(48px,env(safe-area-inset-right,0px)); padding-block: 56px; background: var(--bg); }
+.order-layout { display: grid; grid-template-columns: 1fr 320px; gap: 28px; }
+.steps { display: flex; align-items: center; gap: 0; margin-bottom: 24px; }
+.ostep { display: flex; align-items: center; gap: 8px; flex: 1; font-size: 0.78rem; color: var(--fg-dim); }
+.ostep-dot { width: 30px; height: 30px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 600; border: 1.5px solid var(--border); color: var(--fg-mute); background: #fff; }
+.ostep-dot.done { background: var(--red); border-color: var(--red); color: #fff; }
+.ostep-dot.cur { border-color: var(--red); color: var(--red); font-weight: 700; }
+.ostep-line { flex: 1; height: 1px; background: var(--border); margin: 0 8px; }
+.form-card { background: #fff; border: 1px solid var(--border); border-radius: 16px; padding: 32px; box-shadow: 0 2px 12px rgba(0,0,0,0.04); }
+.form-title { font-size: 1.15rem; font-weight: 700; color: var(--black); margin-bottom: 24px; }
+.form-fields { display: flex; flex-direction: column; gap: 16px; }
+.form-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.order-sidebar { background: #fff; border: 1px solid var(--border); border-radius: 16px; padding: 24px; position: sticky; top: 80px; box-shadow: 0 2px 12px rgba(0,0,0,0.04); }
+.os-title { font-size: 1rem; font-weight: 700; color: var(--black); padding-bottom: 14px; border-bottom: 1px solid var(--border); margin-bottom: 14px; }
+.oi { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; padding: 10px 0; border-bottom: 1px solid var(--border); }
+.oi-name { font-size: 0.8rem; color: var(--black); font-weight: 500; }
+.oi-qty { font-size: 0.7rem; color: var(--fg-mute); margin-top: 2px; }
+.oi-price { font-size: 0.82rem; color: var(--black); font-weight: 600; flex-shrink: 0; }
+.ot { display: flex; justify-content: space-between; align-items: center; margin-top: 14px; padding-top: 14px; border-top: 2px solid var(--border); }
+.ot-l { font-size: 0.92rem; font-weight: 700; color: var(--black); }
+.ot-v { font-size: 1.5rem; font-weight: 800; color: var(--red); }
+.inv-note { margin-top: 14px; padding: 12px; background: var(--red-dim); border: 1px solid var(--border-r); border-radius: 8px; font-size: 0.73rem; color: var(--red); line-height: 1.5; font-weight: 500; }
+
+/* ── RESPONSIVE ────────────────────── */
+@media (max-width: 900px) {
+  .hero { grid-template-columns: 1fr; }
+  .hero::before,.hero::after { display: none; }
+  .hero-right { display: none; }
+  .why-grid { grid-template-columns: 1fr 1fr; }
+  .testi-grid { grid-template-columns: 1fr 1fr; }
+  .loc-grid,.vis-layout,.order-layout { grid-template-columns: 1fr; }
+  .result-panel,.f-row,.form-2 { grid-template-columns: 1fr; }
+  .app-sidebar { display: none; }
+  .tabs { display: none; }
+  .mob-nav { display: flex !important; }
+  .stats-bar { grid-template-columns: 1fr 1fr; }
+  .rooms-grid { grid-template-columns: 1fr 1fr; }
+  .rooms-grid .room-card:first-child { grid-row: span 1; }
+}
+@media (max-width: 560px) {
+  .why-grid,.testi-grid,.rooms-grid { grid-template-columns: 1fr; }
+  .hero { padding-inline: max(20px,env(safe-area-inset-left,0px)); }
+  .section { padding-inline: max(20px,env(safe-area-inset-left,0px)); }
+  .banner-right { display: none; }
+  .badges-strip { display: none; }
+}
+
+/* Mobile nav */
+.mob-nav { display: none; position: fixed; bottom: 0; left: 0; right: 0; background: rgba(255,255,255,0.97); backdrop-filter: blur(16px); border-top: 1px solid var(--border); padding-bottom: env(safe-area-inset-bottom,0px); z-index: 300; box-shadow: 0 -4px 16px rgba(0,0,0,0.07); }
+.mob-tab { flex: 1; padding: 10px 4px 8px; display: flex; flex-direction: column; align-items: center; gap: 2px; font-size: 0.52rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--fg-mute); border: none; background: none; cursor: pointer; font-family: 'Poppins',sans-serif; transition: color 0.18s; }
+.mob-tab.active { color: var(--red); }
+.mob-tab .mi { font-size: 1.05rem; }
+/* SVG icon helpers */
+.svg-ico { display:inline-flex; align-items:center; justify-content:center; flex-shrink:0; }
+.svg-ico svg { display:block; }
+</style>
+
+<!-- SVG ICON DEFS (reusable inline) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <!-- spark/new -->
+    <symbol id="ic-spark" viewBox="0 0 16 16"><path d="M8 1l1.5 4.5L14 7l-4.5 1.5L8 13l-1.5-4.5L2 7l4.5-1.5z" fill="currentColor"/></symbol>
+    <!-- fire/trending -->
+    <symbol id="ic-fire" viewBox="0 0 16 16"><path d="M8 1c0 3-3 4-3 7a3 3 0 006 0c0-2-1-3-1-5-1 1-2 3-2 4a1 1 0 01-2 0c0-3 2-6 2-6z" fill="currentColor"/></symbol>
+    <!-- gift -->
+    <symbol id="ic-gift" viewBox="0 0 16 16"><rect x="1" y="6" width="14" height="2" rx="1" fill="currentColor"/><rect x="2" y="8" width="12" height="6" rx="1" fill="currentColor" opacity=".6"/><path d="M5.5 6C5.5 4.5 6.5 3 8 3s2.5 1.5 2.5 3" stroke="currentColor" stroke-width="1.2" fill="none"/><path d="M8 3V6" stroke="currentColor" stroke-width="1.2"/></symbol>
+    <!-- truck/delivery -->
+    <symbol id="ic-truck" viewBox="0 0 16 16"><path d="M1 4h9v7H1z" fill="currentColor" opacity=".6"/><path d="M10 6h3l2 3v2h-5V6z" fill="currentColor"/><circle cx="3.5" cy="12" r="1.5" fill="white"/><circle cx="11.5" cy="12" r="1.5" fill="white"/></symbol>
+    <!-- star -->
+    <symbol id="ic-star" viewBox="0 0 16 16"><path d="M8 1l1.8 5H15l-4.4 3.2 1.7 5.2L8 11.3l-4.3 2.9 1.7-5.2L1 6h5.2z" fill="currentColor"/></symbol>
+    <!-- box/package -->
+    <symbol id="ic-box" viewBox="0 0 16 16"><path d="M8 1L15 5v6l-7 4-7-4V5z" fill="currentColor" opacity=".5"/><path d="M8 1L1 5l7 4 7-4z" fill="currentColor"/><line x1="8" y1="9" x2="8" y2="15" stroke="white" stroke-width="1.2"/></symbol>
+    <!-- handshake/b2b -->
+    <symbol id="ic-handshake" viewBox="0 0 16 16"><path d="M1 7l3-3h3l1 1-1 1-1-1H5L3 7l2 2 1-1 2 1 1-1 2 2-1 1-2-1-1 1-2-1-2 2-1-1z" fill="currentColor"/><path d="M15 7l-3-3h-2l-1 1" stroke="currentColor" stroke-width="1" fill="none"/></symbol>
+    <!-- shield/ISO -->
+    <symbol id="ic-shield" viewBox="0 0 16 16"><path d="M8 1l6 2.5v4C14 11 11 14 8 15 5 14 2 11 2 7.5v-4z" fill="currentColor" opacity=".2" stroke="currentColor" stroke-width="1.2"/><path d="M5.5 8l1.5 1.5 3-3" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></symbol>
+    <!-- trophy -->
+    <symbol id="ic-trophy" viewBox="0 0 16 16"><path d="M4 2h8v5a4 4 0 01-8 0V2z" fill="currentColor" opacity=".7"/><path d="M1 2h3v3a1.5 1.5 0 01-3 0V2zM12 2h3v3a1.5 1.5 0 01-3 0V2z" fill="currentColor" opacity=".4"/><rect x="6.5" y="9" width="3" height="3" fill="currentColor" opacity=".6"/><rect x="4" y="12" width="8" height="1.5" rx=".75" fill="currentColor"/></symbol>
+    <!-- clock -->
+    <symbol id="ic-clock" viewBox="0 0 16 16"><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.2" fill="none"/><path d="M8 4.5V8l2.5 2" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" fill="none"/></symbol>
+    <!-- map pin -->
+    <symbol id="ic-pin" viewBox="0 0 16 16"><path d="M8 1a5 5 0 015 5c0 3-5 9-5 9S3 9 3 6a5 5 0 015-5z" fill="currentColor" opacity=".7"/><circle cx="8" cy="6" r="1.8" fill="white"/></symbol>
+    <!-- phone -->
+    <symbol id="ic-phone" viewBox="0 0 16 16"><path d="M3 2a1 1 0 011-1h2l1.5 3.5-1.5 1a8 8 0 004.5 4.5l1-1.5L15 10v2a1 1 0 01-1 1C5 13 3 5 3 3V2z" fill="currentColor"/></symbol>
+    <!-- whatsapp chat bubble -->
+    <symbol id="ic-chat" viewBox="0 0 16 16"><path d="M8 1a7 7 0 016.5 9.5L16 15l-4.5-1.5A7 7 0 118 1z" fill="currentColor" opacity=".8"/><circle cx="5.5" cy="8" r="1" fill="white"/><circle cx="8" cy="8" r="1" fill="white"/><circle cx="10.5" cy="8" r="1" fill="white"/></symbol>
+    <!-- palette -->
+    <symbol id="ic-palette" viewBox="0 0 16 16"><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.2" fill="none"/><circle cx="5" cy="6" r="1.2" fill="currentColor"/><circle cx="8" cy="4.5" r="1.2" fill="currentColor"/><circle cx="11" cy="6" r="1.2" fill="currentColor"/><circle cx="11" cy="10" r="1.2" fill="currentColor"/><circle cx="9" cy="12" r="2" fill="currentColor" opacity=".6"/></symbol>
+    <!-- search -->
+    <symbol id="ic-search" viewBox="0 0 16 16"><circle cx="7" cy="7" r="4.5" stroke="currentColor" stroke-width="1.3" fill="none"/><line x1="10.5" y1="10.5" x2="14" y2="14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></symbol>
+    <!-- bell -->
+    <symbol id="ic-bell" viewBox="0 0 16 16"><path d="M8 1a5 5 0 015 5v3l1 1v1H2v-1l1-1V6a5 5 0 015-5z" fill="currentColor" opacity=".7"/><path d="M6.5 13a1.5 1.5 0 003 0" fill="currentColor"/></symbol>
+    <!-- heart -->
+    <symbol id="ic-heart" viewBox="0 0 16 16"><path d="M8 13S2 9 2 5a3 3 0 016-1.5A3 3 0 0114 5c0 4-6 8-6 8z" fill="currentColor"/></symbol>
+    <!-- cart -->
+    <symbol id="ic-cart" viewBox="0 0 16 16"><path d="M1 1h2l2 8h7l2-5H4" stroke="currentColor" stroke-width="1.3" fill="none" stroke-linecap="round"/><circle cx="6" cy="13" r="1.2" fill="currentColor"/><circle cx="11" cy="13" r="1.2" fill="currentColor"/></symbol>
+    <!-- home -->
+    <symbol id="ic-home" viewBox="0 0 16 16"><path d="M1 8L8 2l7 6" stroke="currentColor" stroke-width="1.3" fill="none" stroke-linecap="round"/><path d="M3 7v7h4v-4h2v4h4V7" fill="currentColor" opacity=".6"/></symbol>
+    <!-- grid/catalogue -->
+    <symbol id="ic-grid" viewBox="0 0 16 16"><rect x="1" y="1" width="6" height="6" rx="1" fill="currentColor" opacity=".7"/><rect x="9" y="1" width="6" height="6" rx="1" fill="currentColor" opacity=".7"/><rect x="1" y="9" width="6" height="6" rx="1" fill="currentColor" opacity=".5"/><rect x="9" y="9" width="6" height="6" rx="1" fill="currentColor" opacity=".5"/></symbol>
+    <!-- bag/orders -->
+    <symbol id="ic-bag" viewBox="0 0 16 16"><rect x="2" y="5" width="12" height="9" rx="1" fill="currentColor" opacity=".6"/><path d="M5 5V4a3 3 0 016 0v1" stroke="currentColor" stroke-width="1.3" fill="none"/></symbol>
+    <!-- layers/wallpaper -->
+    <symbol id="ic-layers" viewBox="0 0 16 16"><path d="M8 1l7 3.5-7 3.5L1 4.5z" fill="currentColor"/><path d="M1 8l7 3.5L15 8" stroke="currentColor" stroke-width="1.3" fill="none"/><path d="M1 11.5l7 3.5 7-3.5" stroke="currentColor" stroke-width="1.3" fill="none" opacity=".5"/></symbol>
+    <!-- ruler/calculator -->
+    <symbol id="ic-ruler" viewBox="0 0 16 16"><rect x="1" y="5" width="14" height="6" rx="1" fill="currentColor" opacity=".6" transform="rotate(-45 8 8)"/><line x1="4" y1="9" x2="4" y2="11" stroke="white" stroke-width="1.2"/><line x1="6.5" y1="7" x2="6.5" y2="9" stroke="white" stroke-width="1.2"/><line x1="9" y1="5" x2="9" y2="7" stroke="white" stroke-width="1.2"/></symbol>
+    <!-- eye/visualise -->
+    <symbol id="ic-eye" viewBox="0 0 16 16"><path d="M1 8s3-5 7-5 7 5 7 5-3 5-7 5-7-5-7-5z" stroke="currentColor" stroke-width="1.2" fill="none"/><circle cx="8" cy="8" r="2" fill="currentColor"/></symbol>
+    <!-- download -->
+    <symbol id="ic-download" viewBox="0 0 16 16"><path d="M8 1v9M5 7l3 3 3-3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" fill="none"/><path d="M2 12h12v2H2z" fill="currentColor" opacity=".6"/></symbol>
+    <!-- user -->
+    <symbol id="ic-user" viewBox="0 0 16 16"><circle cx="8" cy="5" r="3" fill="currentColor" opacity=".7"/><path d="M2 15c0-3.3 2.7-6 6-6s6 2.7 6 6" fill="currentColor" opacity=".5"/></symbol>
+    <!-- building/wall panel -->
+    <symbol id="ic-panel" viewBox="0 0 16 16"><rect x="1" y="1" width="6" height="14" rx="1" fill="currentColor" opacity=".6"/><rect x="9" y="1" width="6" height="14" rx="1" fill="currentColor" opacity=".4"/><line x1="4" y1="5" x2="4" y2="11" stroke="white" stroke-width="1"/><line x1="12" y1="5" x2="12" y2="11" stroke="white" stroke-width="1"/></symbol>
+    <!-- leaf/exterior -->
+    <symbol id="ic-leaf" viewBox="0 0 16 16"><path d="M3 13C3 7 8 2 15 2c0 7-5 12-12 11z" fill="currentColor" opacity=".7"/><path d="M3 13L8 8" stroke="currentColor" stroke-width="1.2" fill="none"/></symbol>
+    <!-- sparkles/decor -->
+    <symbol id="ic-sparkle" viewBox="0 0 16 16"><path d="M8 2l1 3h3l-2.5 2 1 3L8 8.5 5.5 10l1-3L4 5h3z" fill="currentColor"/><circle cx="13" cy="3" r="1" fill="currentColor" opacity=".5"/><circle cx="3" cy="12" r="1" fill="currentColor" opacity=".5"/></symbol>
+    <!-- louver/slat -->
+    <symbol id="ic-louver" viewBox="0 0 16 16"><rect x="1" y="2" width="14" height="2.5" rx="1" fill="currentColor" opacity=".8"/><rect x="1" y="6.5" width="14" height="2.5" rx="1" fill="currentColor" opacity=".6"/><rect x="1" y="11" width="14" height="2.5" rx="1" fill="currentColor" opacity=".4"/></symbol>
+    <!-- stone/PU -->
+    <symbol id="ic-stone" viewBox="0 0 16 16"><path d="M1 8L5 2h6l4 6-4 6H5z" fill="currentColor" opacity=".6"/><path d="M5 2l2 6-2 6M11 2l-2 6 2 6M1 8h14" stroke="white" stroke-width="0.8" fill="none"/></symbol>
+    <!-- map/location large -->
+    <symbol id="ic-map" viewBox="0 0 24 24"><path d="M12 2a7 7 0 017 7c0 5-7 13-7 13S5 14 5 9a7 7 0 017-7z" fill="currentColor" opacity=".5" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="9" r="2.5" fill="white"/></symbol>
+    <!-- close/x -->
+    <symbol id="ic-close" viewBox="0 0 16 16"><line x1="3" y1="3" x2="13" y2="13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><line x1="13" y1="3" x2="3" y2="13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+    <!-- upload/camera -->
+    <symbol id="ic-camera" viewBox="0 0 16 16"><rect x="1" y="4" width="14" height="10" rx="1.5" fill="currentColor" opacity=".5"/><circle cx="8" cy="9" r="3" stroke="currentColor" stroke-width="1.3" fill="none"/><path d="M5 4l1-2h4l1 2" fill="currentColor" opacity=".7"/><circle cx="13" cy="6" r="1" fill="currentColor"/></symbol>
+    <!-- arrow left/right (slider) -->
+    <symbol id="ic-arrows-lr" viewBox="0 0 24 24"><path d="M8 12H3m0 0l3-3m-3 3l3 3M16 12h5m0 0l-3-3m3 3l-3 3" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/><line x1="12" y1="4" x2="12" y2="20" stroke="currentColor" stroke-width="1.5" opacity=".3"/></symbol>
+    <!-- wavy/texture wallpaper icon -->
+    <symbol id="ic-wallpaper" viewBox="0 0 16 16"><path d="M1 4c2-2 4 2 6 0s4-2 4 0" stroke="currentColor" stroke-width="1.3" fill="none"/><path d="M1 8c2-2 4 2 6 0s4-2 4 0" stroke="currentColor" stroke-width="1.3" fill="none"/><path d="M1 12c2-2 4 2 6 0s4-2 4 0" stroke="currentColor" stroke-width="1.3" fill="none"/></symbol>
+  </defs>
+</svg>
+
+<!-- TICKER -->
+<div class="ticker-wrap">
+  <div class="ticker-track" id="ticker">
+    <span class="ticker-item"><svg width="13" height="13"><use href="#ic-spark"/></svg> NEW: Crimson Rose Collection 2026 <span class="ticker-dot">◆</span></span>
+    <span class="ticker-item"><svg width="13" height="13"><use href="#ic-fire"/></svg> TRENDING: Marble Classic Series <span class="ticker-dot">◆</span></span>
+    <span class="ticker-item"><svg width="13" height="13"><use href="#ic-gift"/></svg> OFFER: Buy 10 Rolls Get 1 FREE <span class="ticker-dot">◆</span></span>
+    <span class="ticker-item"><svg width="13" height="13"><use href="#ic-truck"/></svg> FREE Delivery on orders above ₹5,000 <span class="ticker-dot">◆</span></span>
+    <span class="ticker-item"><svg width="13" height="13"><use href="#ic-star"/></svg> 4.8 Rating · 10,000+ Happy Customers <span class="ticker-dot">◆</span></span>
+    <span class="ticker-item"><svg width="13" height="13"><use href="#ic-box"/></svg> FREE Samples Available — Request Now! <span class="ticker-dot">◆</span></span>
+    <span class="ticker-item"><svg width="13" height="13"><use href="#ic-handshake"/></svg> B2B Dealer Pricing Available <span class="ticker-dot">◆</span></span>
+    <span class="ticker-item"><svg width="13" height="13"><use href="#ic-spark"/></svg> NEW: Crimson Rose Collection 2026 <span class="ticker-dot">◆</span></span>
+    <span class="ticker-item"><svg width="13" height="13"><use href="#ic-fire"/></svg> TRENDING: Marble Classic Series <span class="ticker-dot">◆</span></span>
+    <span class="ticker-item"><svg width="13" height="13"><use href="#ic-gift"/></svg> OFFER: Buy 10 Rolls Get 1 FREE <span class="ticker-dot">◆</span></span>
+    <span class="ticker-item"><svg width="13" height="13"><use href="#ic-truck"/></svg> FREE Delivery on orders above ₹5,000 <span class="ticker-dot">◆</span></span>
+    <span class="ticker-item"><svg width="13" height="13"><use href="#ic-star"/></svg> 4.8 Rating · 10,000+ Happy Customers <span class="ticker-dot">◆</span></span>
+    <span class="ticker-item"><svg width="13" height="13"><use href="#ic-box"/></svg> FREE Samples Available — Request Now! <span class="ticker-dot">◆</span></span>
+    <span class="ticker-item"><svg width="13" height="13"><use href="#ic-handshake"/></svg> B2B Dealer Pricing Available <span class="ticker-dot">◆</span></span>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="logo">F<span>&</span>I Dekor</div>
+  <div class="tabs">
+    <button class="tab active" onclick="go('website',this)">Website</button>
+    <button class="tab" onclick="go('app',this)">App</button>
+    <button class="tab" onclick="go('calculator',this)">Calculator</button>
+    <button class="tab" onclick="go('visualiser',this)">Visualiser</button>
+    <button class="tab" onclick="go('order',this)">Order System</button>
+  </div>
+</nav>
+<div class="mob-nav">
+  <button class="mob-tab active" onclick="go('website',this)"><span class="mi"><svg width="16" height="16"><use href="#ic-home"/></svg></span>Website</button>
+  <button class="mob-tab" onclick="go('app',this)"><span class="mi"><svg width="16" height="16"><use href="#ic-layers"/></svg></span>App</button>
+  <button class="mob-tab" onclick="go('calculator',this)"><span class="mi"><svg width="16" height="16"><use href="#ic-ruler"/></svg></span>Calc</button>
+  <button class="mob-tab" onclick="go('visualiser',this)"><span class="mi"><svg width="16" height="16"><use href="#ic-eye"/></svg></span>Visual</button>
+  <button class="mob-tab" onclick="go('order',this)"><span class="mi"><svg width="16" height="16"><use href="#ic-cart"/></svg></span>Order</button>
+</div>
+
+<!-- ══════════ WEBSITE ══════════ -->
+<div id="view-website" class="view active">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-left">
+      <div class="hero-badge"><span class="dot"></span> New Collection 2026</div>
+      <h1 class="hero-h1">
+        <span class="line">Transform</span>
+        <span class="line">Your Walls with</span>
+        <span class="line red">F&I Dekor.</span>
+      </h1>
+      <p class="hero-p">India's most trusted wallpaper brand — 500+ exclusive designs for homes, offices and luxury spaces. Based in Agra, delivering pan-India with free samples.</p>
+      <div class="btn-row">
+        <button class="btn-red">Explore Collection →</button>
+        <button class="btn-outline">Request Free Sample</button>
+      </div>
+      <div class="trust-strip">
+        <div class="tbadge"><span class="ti"><svg width="14" height="14"><use href="#ic-shield"/></svg></span> <strong>ISO Certified</strong></div>
+        <div class="tbadge"><span class="ti"><svg width="14" height="14"><use href="#ic-truck"/></svg></span> <strong>Free Delivery</strong></div>
+        <div class="tbadge"><span class="ti"><svg width="14" height="14"><use href="#ic-gift"/></svg></span> <strong>Free Samples</strong></div>
+        <div class="tbadge"><span class="ti"><svg width="14" height="14"><use href="#ic-star"/></svg></span> <strong>4.8</strong> Rating</div>
+        <div class="tbadge"><span class="ti"><svg width="14" height="14"><use href="#ic-handshake"/></svg></span> 10K+ Customers</div>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="float-cards">
+        <div class="fc" style="background:linear-gradient(160deg,#2d0010,#6b0026)">
+          <div class="fc-badge">New</div>
+          <div class="fc-info"><div class="fc-name">Crimson Rose Floral</div><div class="fc-price">₹950/roll</div></div>
+        </div>
+        <div class="fc" style="background:linear-gradient(160deg,#f5f0eb,#e8ddd4)">
+          <div class="fc-info" style="background:linear-gradient(transparent,rgba(0,0,0,0.55))"><div class="fc-name">Marble Classic</div><div class="fc-price">₹1,050/roll</div></div>
+        </div>
+        <div class="fc" style="background:linear-gradient(160deg,#1a1a2e,#2e2e4a)">
+          <div class="fc-badge">Hot</div>
+          <div class="fc-info"><div class="fc-name">Midnight Abstract</div><div class="fc-price">₹1,100/roll</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRUST BADGES STRIP -->
+  <div class="badges-strip">
+    <div class="badges-scroll">
+      <div class="badge-item"><span class="bi"><svg width="15" height="15"><use href="#ic-shield"/></svg></span> <strong>ISO Certified</strong> Quality</div>
+      <div class="badge-item"><span class="bi"><svg width="15" height="15"><use href="#ic-truck"/></svg></span> <strong>Free Delivery</strong> above ₹5,000</div>
+      <div class="badge-item"><span class="bi"><svg width="15" height="15"><use href="#ic-gift"/></svg></span> <strong>Free Samples</strong> Available</div>
+      <div class="badge-item"><span class="bi"><svg width="15" height="15"><use href="#ic-star"/></svg></span> <strong>4.8 Rating</strong> on Google</div>
+      <div class="badge-item"><span class="bi"><svg width="15" height="15"><use href="#ic-handshake"/></svg></span> <strong>10,000+</strong> Happy Customers</div>
+      <div class="badge-item"><span class="bi"><svg width="15" height="15"><use href="#ic-trophy"/></svg></span> <strong>12+ Years</strong> of Trust</div>
+      <div class="badge-item"><span class="bi"><svg width="15" height="15"><use href="#ic-box"/></svg></span> <strong>48hr</strong> Dispatch</div>
+      <!-- duplicate -->
+      <div class="badge-item"><span class="bi"><svg width="15" height="15"><use href="#ic-shield"/></svg></span> <strong>ISO Certified</strong> Quality</div>
+      <div class="badge-item"><span class="bi"><svg width="15" height="15"><use href="#ic-truck"/></svg></span> <strong>Free Delivery</strong> above ₹5,000</div>
+      <div class="badge-item"><span class="bi"><svg width="15" height="15"><use href="#ic-gift"/></svg></span> <strong>Free Samples</strong> Available</div>
+      <div class="badge-item"><span class="bi"><svg width="15" height="15"><use href="#ic-star"/></svg></span> <strong>4.8 Rating</strong> on Google</div>
+      <div class="badge-item"><span class="bi"><svg width="15" height="15"><use href="#ic-handshake"/></svg></span> <strong>10,000+</strong> Happy Customers</div>
+      <div class="badge-item"><span class="bi"><svg width="15" height="15"><use href="#ic-trophy"/></svg></span> <strong>12+ Years</strong> of Trust</div>
+      <div class="badge-item"><span class="bi"><svg width="15" height="15"><use href="#ic-box"/></svg></span> <strong>48hr</strong> Dispatch</div>
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <div class="stats-bar">
+    <div class="stat"><div class="stat-n">500<span class="r">+</span></div><div class="stat-l">Exclusive Designs</div></div>
+    <div class="stat"><div class="stat-n">12<span class="r">+</span></div><div class="stat-l">Years of Trust</div></div>
+    <div class="stat"><div class="stat-n">4.8<span class="r" style="font-size:1.2rem">★</span></div><div class="stat-l">Customer Rating</div></div>
+    <div class="stat"><div class="stat-n">10K<span class="r">+</span></div><div class="stat-l">Happy Customers</div></div>
+  </div>
+
+  <!-- PRODUCTS -->
+  <section class="section section-alt">
+    <div class="s-tag">Browse by Type</div>
+    <h2 class="s-h2">Shop by <em>Category</em></h2>
+    <div class="cat-chips">
+      <div class="cchip active" onclick="setChip(this)">All Products</div>
+      <div class="cchip" onclick="setChip(this)">Wallpapers</div>
+      <div class="cchip" onclick="setChip(this)">PVC Wall Panels</div>
+      <div class="cchip" onclick="setChip(this)">Louvers</div>
+      <div class="cchip" onclick="setChip(this)">PU Stones</div>
+      <div class="cchip" onclick="setChip(this)">WPC Exterior</div>
+      <div class="cchip" onclick="setChip(this)">Other Decor</div>
+    </div>
+    <!-- Color filter -->
+    <div class="color-filter">
+      <span class="cf-label">Filter by Color:</span>
+      <div class="col-dot a" style="background:#2d0010" title="Dark Red" onclick="setCol(this)"></div>
+      <div class="col-dot" style="background:#f5f0eb" title="Cream/Beige" onclick="setCol(this)"></div>
+      <div class="col-dot" style="background:#1a1a2e" title="Navy/Dark" onclick="setCol(this)"></div>
+      <div class="col-dot" style="background:#e8f4e8" title="Green/Nature" onclick="setCol(this)"></div>
+      <div class="col-dot" style="background:#e8e8f0" title="Grey/Neutral" onclick="setCol(this)"></div>
+      <div class="col-dot" style="background:#f5e8d4" title="Brown/Stone" onclick="setCol(this)"></div>
+      <div class="col-dot" style="background:#fff" title="White/Light" onclick="setCol(this)" style="border:1px solid #ddd"></div>
+    </div>
+    <div class="prod-grid">
+      <div class="prod-card"><div class="prod-img" style="background:linear-gradient(140deg,#2d0010,#6b0026)"><div class="prod-badge">New</div><div class="prod-img-inner"><svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.85)" stroke-width="1.2" stroke-linecap="round"><path d="M12 21.593c-5.63-5.539-11-10.297-11-14.402C1 3.731 4.068 2 6.5 2 8.98 2 10.55 3.58 12 5.407 13.45 3.58 15.02 2 17.5 2 19.932 2 23 3.731 23 7.191c0 4.105-5.37 8.863-11 14.402z"/></svg></div></div><div class="prod-info"><div class="prod-name">Crimson Rose Floral</div><div class="prod-sub">Luxury Wallpapers</div><div class="prod-foot"><span class="prod-price">₹950/roll</span><span class="calc-link" onclick="go('calculator',null)"><svg width="12" height="12" viewBox="0 0 16 16" style="vertical-align:-1px"><use href="#ic-ruler"/></svg> Rolls needed?</span></div></div></div>
+      <div class="prod-card"><div class="prod-img" style="background:linear-gradient(140deg,#f2ece4,#ddd0c4)"><div class="prod-img-inner"><svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="rgba(120,100,80,0.7)" stroke-width="1.2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18M15 3v18" opacity=".5"/></svg></div></div><div class="prod-info"><div class="prod-name">Marble Classic White</div><div class="prod-sub">Classic Wallpapers</div><div class="prod-foot"><span class="prod-price">₹1,050/roll</span><span class="calc-link" onclick="go('calculator',null)"><svg width="12" height="12" viewBox="0 0 16 16" style="vertical-align:-1px"><use href="#ic-ruler"/></svg> Rolls needed?</span></div></div></div>
+      <div class="prod-card"><div class="prod-img" style="background:linear-gradient(140deg,#1a1a2e,#2e2e4a)"><div class="prod-badge">Hot</div><div class="prod-img-inner"><svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.75)" stroke-width="1.2" stroke-linecap="round"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg></div></div><div class="prod-info"><div class="prod-name">Midnight Abstract</div><div class="prod-sub">Modern Wallpapers</div><div class="prod-foot"><span class="prod-price">₹1,100/roll</span><span class="calc-link" onclick="go('calculator',null)"><svg width="12" height="12" viewBox="0 0 16 16" style="vertical-align:-1px"><use href="#ic-ruler"/></svg> Rolls needed?</span></div></div></div>
+      <div class="prod-card"><div class="prod-img" style="background:linear-gradient(140deg,#e8f4e8,#c4d8c4)"><div class="prod-img-inner"><svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="rgba(60,120,60,0.75)" stroke-width="1.2" stroke-linecap="round"><path d="M17 8C8 10 5.9 16.17 3.82 19.5A11.6 11.6 0 0012 22c6.37 0 10.62-5.43 9-14"/><path d="M17 8l2-4"/></svg></div></div><div class="prod-info"><div class="prod-name">Botanical Garden</div><div class="prod-sub">Nature Wallpapers</div><div class="prod-foot"><span class="prod-price">₹920/roll</span><span class="calc-link" onclick="go('calculator',null)"><svg width="12" height="12" viewBox="0 0 16 16" style="vertical-align:-1px"><use href="#ic-ruler"/></svg> Rolls needed?</span></div></div></div>
+    </div>
+  </section>
+
+  <!-- BEFORE/AFTER SLIDER -->
+  <section class="ba-section">
+    <div class="s-tag">See the Transformation</div>
+    <h2 class="s-h2" style="margin-bottom:4px">Before <em style="color:#fff">vs</em> After</h2>
+    <p class="s-sub">Drag the slider — see how F&I Dekor transforms a plain wall instantly.</p>
+    <div class="ba-container ba-aspect" id="baContainer">
+      <div class="ba-before" id="baBefore">
+        <div class="ba-placeholder" style="filter:grayscale(1);opacity:0.4"><svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="2" y="2" width="9" height="6" rx="1"/><rect x="13" y="2" width="9" height="6" rx="1"/><rect x="2" y="10" width="9" height="6" rx="1"/><rect x="13" y="10" width="9" height="6" rx="1"/><rect x="2" y="18" width="9" height="4" rx="1"/><rect x="13" y="18" width="9" height="4" rx="1"/></svg></div>
+        <div class="ba-placeholder-txt" style="color:rgba(0,0,0,0.5);background:rgba(0,0,0,0.1)">Plain Bare Wall</div>
+        <div class="ba-lbl b">BEFORE</div>
+      </div>
+      <div class="ba-after" id="baAfter">
+        <div class="ba-placeholder"><svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M12 21.593c-5.63-5.539-11-10.297-11-14.402C1 3.731 4.068 2 6.5 2 8.98 2 10.55 3.58 12 5.407 13.45 3.58 15.02 2 17.5 2 19.932 2 23 3.731 23 7.191c0 4.105-5.37 8.863-11 14.402z"/></svg></div>
+        <div class="ba-placeholder-txt">F&I Dekor — Crimson Rose</div>
+        <div class="ba-lbl a">AFTER</div>
+      </div>
+      <div class="ba-reveal" id="baReveal"></div>
+      <div class="ba-handle" id="baHandle" style="left:50%">
+        <div class="ba-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M8 3L3 8l5 5M3 8h18M16 21l5-5-5-5M21 16H3"/></svg></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ROOM INSPIRATION -->
+  <section class="section">
+    <div class="s-tag">Get Inspired</div>
+    <h2 class="s-h2">See It in a <em>Real Room</em></h2>
+    <p class="s-sub">Real rooms, real customers — transformed with F&I Dekor wallpapers and wall panels.</p>
+    <div class="rooms-grid">
+      <div class="room-card"><div class="room-bg" style="background:linear-gradient(160deg,#2d0010,#6b0026);height:100%;display:flex;align-items:center;justify-content:center"><svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.55)" stroke-width="1.1" stroke-linecap="round"><path d="M20 9V6a2 2 0 00-2-2H6a2 2 0 00-2 2v3"/><path d="M2 11v6a2 2 0 002 2h1"/><path d="M22 11v6a2 2 0 01-2 2h-1"/><rect x="6" y="11" width="12" height="10" rx="1"/><path d="M6 15h12"/></svg></div><div class="room-overlay"><div class="room-tag">Living Room</div><div class="room-name">Crimson Luxury Lounge</div></div></div>
+      <div class="room-card"><div class="room-bg" style="background:linear-gradient(160deg,#f5f0eb,#e8ddd4);display:flex;align-items:center;justify-content:center"><svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="rgba(120,100,80,0.55)" stroke-width="1.1" stroke-linecap="round"><rect x="2" y="11" width="20" height="10" rx="2"/><path d="M2 13V7a2 2 0 012-2h6v8"/><path d="M22 13V7a2 2 0 00-2-2h-6v8"/><path d="M2 17h20"/></svg></div><div class="room-overlay"><div class="room-tag">Bedroom</div><div class="room-name">Marble Classic Suite</div></div></div>
+      <div class="room-card"><div class="room-bg" style="background:linear-gradient(160deg,#1a1a2e,#2e2e4a);display:flex;align-items:center;justify-content:center"><svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.45)" stroke-width="1.1" stroke-linecap="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/></svg></div><div class="room-overlay"><div class="room-tag">Office</div><div class="room-name">Midnight Executive Office</div></div></div>
+      <div class="room-card"><div class="room-bg" style="background:linear-gradient(160deg,#e8f4e8,#c4d8c4);display:flex;align-items:center;justify-content:center"><svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="rgba(60,120,60,0.55)" stroke-width="1.1" stroke-linecap="round"><path d="M17 8C8 10 5.9 16.17 3.82 19.5A11.6 11.6 0 0012 22c6.37 0 10.62-5.43 9-14"/><path d="M17 8l2-4"/></svg></div><div class="room-overlay"><div class="room-tag">Kids Room</div><div class="room-name">Botanical Nursery</div></div></div>
+      <div class="room-card"><div class="room-bg" style="background:linear-gradient(160deg,#f5e8d4,#e8d0b0);display:flex;align-items:center;justify-content:center"><svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="rgba(140,100,60,0.55)" stroke-width="1.1" stroke-linecap="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div><div class="room-overlay"><div class="room-tag">Entrance</div><div class="room-name">Stone Foyer Design</div></div></div>
+    </div>
+  </section>
+
+  <!-- WHY US -->
+  <section class="section section-alt">
+    <div class="s-tag">Our Promise</div>
+    <h2 class="s-h2">Why Choose <em>F&I Dekor</em></h2>
+    <p class="s-sub">Trusted by 10,000+ customers across India for premium quality wallpapers and wall decor.</p>
+    <div class="why-grid">
+      <div class="why-card"><div class="why-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="13.5" cy="6.5" r="0.5" fill="currentColor"/><circle cx="17.5" cy="10.5" r="0.5" fill="currentColor"/><circle cx="8.5" cy="7.5" r="0.5" fill="currentColor"/><circle cx="6.5" cy="12.5" r="0.5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 011.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></svg></div><div class="why-t">500+ Designs</div><div class="why-p">Curated textures, prints, murals and abstracts for every interior style and budget.</div></div>
+      <div class="why-card"><div class="why-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 5v4h-7"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div><div class="why-t">Pan-India Delivery</div><div class="why-p">Orders dispatched within 48 hours with safe packaging, delivered to your doorstep.</div></div>
+      <div class="why-card"><div class="why-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v11m0 0H5a2 2 0 00-2 2v4a2 2 0 002 2h4m0-6h10m0 0a2 2 0 012 2v4a2 2 0 01-2 2H13m6-13v6"/></svg></div><div class="why-t">Free Samples</div><div class="why-p">Request up to 3 free samples before you commit — no questions asked.</div></div>
+      <div class="why-card"><div class="why-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></div><div class="why-t">B2B Network</div><div class="why-p">Exclusive pricing for dealers, interior designers, architects and contractors.</div></div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="section">
+    <div class="s-tag">Customer Reviews</div>
+    <h2 class="s-h2">What Customers <em>Say</em></h2>
+    <p class="s-sub">Real reviews from real customers across Agra, Delhi and beyond.</p>
+    <div class="testi-grid">
+      <div class="tcard"><div class="t-stars">★★★★★</div><div class="t-text">"Absolutely stunning wallpapers! The quality is top notch and delivery was super fast. My bedroom looks like a 5-star hotel now."</div><div class="t-author"><div class="t-avatar" style="background:linear-gradient(135deg,#ffd6e0,#ffb3c6);display:flex;align-items:center;justify-content:center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#c8102e" stroke-width="1.8" stroke-linecap="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div><div><div class="t-name">Priya Sharma</div><div class="t-city">Delhi · Marble Classic buyer</div></div></div></div>
+      <div class="tcard"><div class="t-stars">★★★★★</div><div class="t-text">"Ordered 15 rolls for my office renovation. F&I Dekor gave us a great bulk discount and the team was very helpful throughout."</div><div class="t-author"><div class="t-avatar" style="background:linear-gradient(135deg,#d0e8ff,#a8ccf0);display:flex;align-items:center;justify-content:center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1a6eb5" stroke-width="1.8" stroke-linecap="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div><div><div class="t-name">Rajesh Gupta</div><div class="t-city">Agra · Bulk B2B order</div></div></div></div>
+      <div class="tcard"><div class="t-stars">★★★★☆</div><div class="t-text">"Loved the free sample service! Got 3 samples home, picked the one I liked, ordered the rest. Whole process was seamless."</div><div class="t-author"><div class="t-avatar" style="background:linear-gradient(135deg,#ffd6e0,#ffb3c6);display:flex;align-items:center;justify-content:center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#c8102e" stroke-width="1.8" stroke-linecap="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div><div><div class="t-name">Anjali Verma</div><div class="t-city">Noida · Crimson Rose buyer</div></div></div></div>
+    </div>
+  </section>
+
+  <!-- LOCATION -->
+  <section class="section section-alt">
+    <div class="s-tag">Visit Us</div>
+    <h2 class="s-h2">Find Our <em>Showroom</em></h2>
+    <div class="loc-grid">
+      <div class="map-box">
+        <div class="map-icon-big"><svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+        <div class="map-lbl">Google Maps — F&I Dekor, Agra</div>
+        <button class="btn-red" style="margin-top:14px;font-size:0.8rem;padding:10px 22px">Open in Maps</button>
+      </div>
+      <div class="contact-items">
+        <div class="c-item"><div class="c-ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div><div><div class="c-lbl">Address</div><div class="c-val">F&I Dekor Showroom, Agra, Uttar Pradesh — 282001</div></div></div>
+        <div class="c-item"><div class="c-ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.5 19.79 19.79 0 01.25 5.18 2 2 0 012.22 3h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 10.09a16 16 0 006 6l1.27-.63a2 2 0 012.11.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg></div><div><div class="c-lbl">Toll-Free</div><div class="c-val">1800-XXX-XXXX (10 AM – 7 PM)</div></div></div>
+        <div class="c-item"><div class="c-ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg></div><div><div class="c-lbl">WhatsApp</div><div class="c-val">+91 XXXXX XXXXX — Quick replies!</div></div></div>
+        <div class="c-item"><div class="c-ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><div><div class="c-lbl">Showroom Hours</div><div class="c-val">Mon–Sat 10 AM–7 PM · Sun 11 AM–5 PM</div></div></div>
+        <button class="btn-red" style="width:100%;display:flex;align-items:center;justify-content:center;gap:8px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg> Chat on WhatsApp Now</button>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="logo">F<span>&</span>I Dekor</div>
+    <div class="footer-links">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms</a>
+      <a href="#">Contact</a>
+      <a href="#">B2B Partners</a>
+    </div>
+    <div class="footer-copy">© 2026 F&I Dekor, Agra · All Rights Reserved</div>
+  </footer>
+
+  <!-- FLOAT BTNS -->
+  <div class="floats" id="floats">
+    <div class="fb fb-wa" onclick="document.getElementById('waPopup').classList.toggle('show')"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg></div>
+    <div class="fb fb-call"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.5 19.79 19.79 0 01.25 5.18 2 2 0 012.22 3h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 10.09a16 16 0 006 6l1.27-.63a2 2 0 012.11.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg></div>
+  </div>
+
+  <!-- WHATSAPP POPUP -->
+  <div class="wa-popup" id="waPopup">
+    <button class="wa-popup-close" onclick="document.getElementById('waPopup').classList.remove('show')">✕</button>
+    <div class="wa-popup-head">
+      <div class="wa-popup-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg></div>
+      <div>
+        <div class="wa-popup-title">F&I Dekor Support</div>
+        <div class="wa-popup-sub">Usually replies in minutes</div>
+      </div>
+    </div>
+    <div class="wa-popup-msg">Hi! Need help choosing the perfect wallpaper? Chat with us — we'll help you pick the right design, calculate rolls, and arrange a free sample!</div>
+    <button class="wa-popup-btn">Start Chat on WhatsApp →</button>
+  </div>
+</div>
+
+<!-- ══════════ APP VIEW ══════════ -->
+<div id="view-app" class="view">
+  <div class="app-view">
+    <div class="app-topbar">
+      <div class="app-logo">F<span>&</span>I Dekor</div>
+      <div class="app-search-bar"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="opacity:0.5;flex-shrink:0"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg> Search wallpapers, panels, decor...</div>
+      <div class="app-topbar-right">
+        <div class="app-icon-btn"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg></div>
+        <div class="app-icon-btn"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></div>
+        <button class="cart-btn"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg> Cart (2)</button>
+      </div>
+    </div>
+    <div class="app-layout">
+      <div class="app-sidebar">
+        <div class="sidebar-section">
+          <div class="sidebar-label">Main Menu</div>
+          <div class="sidebar-item active"><span class="sidebar-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span>Home</div>
+          <div class="sidebar-item"><span class="sidebar-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg></span>Catalogue</div>
+          <div class="sidebar-item"><span class="sidebar-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg></span>My Orders <span class="sidebar-count">3</span></div>
+          <div class="sidebar-item"><span class="sidebar-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></span>Wishlist</div>
+        </div>
+        <hr class="sidebar-divider">
+        <div class="sidebar-section">
+          <div class="sidebar-label">Categories</div>
+          <div class="sidebar-item"><span class="sidebar-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/></svg></span>Wallpapers</div>
+          <div class="sidebar-item"><span class="sidebar-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="2" y="3" width="4" height="18" rx="1"/><rect x="8" y="3" width="4" height="18" rx="1"/><rect x="14" y="3" width="4" height="18" rx="1"/><rect x="20" y="3" width="2" height="18" rx="1"/></svg></span>PVC Wall Panels</div>
+          <div class="sidebar-item"><span class="sidebar-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="2" y="4" width="20" height="4" rx="1"/><rect x="2" y="10" width="20" height="4" rx="1"/><rect x="2" y="16" width="20" height="4" rx="1"/></svg></span>Louvers</div>
+          <div class="sidebar-item"><span class="sidebar-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><polygon points="12,2 2,19 22,19"/><path d="M7 19l5-10 5 10" opacity=".5"/></svg></span>PU Stones</div>
+          <div class="sidebar-item"><span class="sidebar-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M17 8C8 10 5.9 16.17 3.82 19.5A11.6 11.6 0 0012 22c6.37 0 10.62-5.43 9-14"/><path d="M17 8l2-4"/></svg></span>WPC Exterior</div>
+          <div class="sidebar-item"><span class="sidebar-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg></span>Other Decor</div>
+        </div>
+        <hr class="sidebar-divider">
+        <div class="sidebar-section">
+          <div class="sidebar-label">Tools</div>
+          <div class="sidebar-item"><span class="sidebar-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 002 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg></span>Wall Calculator</div>
+          <div class="sidebar-item"><span class="sidebar-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></span>Visualiser</div>
+          <div class="sidebar-item"><span class="sidebar-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span>Download Catalogue</div>
+        </div>
+        <hr class="sidebar-divider">
+        <div class="sidebar-section">
+          <div class="sidebar-item"><span class="sidebar-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>My Account</div>
+          <div class="sidebar-item"><span class="sidebar-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg></span>WhatsApp Support</div>
+        </div>
+      </div>
+      <div class="app-main">
+        <div class="app-hero-banner">
+          <div class="banner-left">
+            <div class="banner-tag">New Collection 2026</div>
+            <div class="banner-title">Premium Walls<span>Start Here.</span></div>
+            <div class="banner-sub">500+ exclusive designs · Free samples available</div>
+            <div style="display:flex;gap:10px;margin-top:20px">
+              <button class="btn-red" style="font-size:0.8rem;padding:10px 22px">Shop Now</button>
+              <button style="background:rgba(255,255,255,0.1);color:#fff;border:1px solid rgba(255,255,255,0.2);padding:10px 22px;border-radius:8px;font-family:'Poppins',sans-serif;font-size:0.8rem;cursor:pointer">Free Sample</button>
+            </div>
+          </div>
+          <div class="banner-right">
+            <div class="banner-stat"><div class="bs-n">500<span>+</span></div><div class="bs-l">Designs</div></div>
+            <div class="banner-stat"><div class="bs-n">4.8<span>★</span></div><div class="bs-l">Rating</div></div>
+            <div class="banner-stat"><div class="bs-n">48<span style="font-size:0.9rem">h</span></div><div class="bs-l">Dispatch</div></div>
+          </div>
+        </div>
+        <div class="filter-row">
+          <div class="filter-chips">
+            <div class="fchip active">All</div>
+            <div class="fchip">Wallpapers</div>
+            <div class="fchip">PVC Panels</div>
+            <div class="fchip">Louvers</div>
+            <div class="fchip">New Arrivals</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px">
+            <div style="font-size:0.78rem;color:var(--fg-dim)">Sort: <strong style="color:var(--black)">Popular</strong></div>
+            <div class="view-toggle"><button class="vt-btn active">⊞</button><button class="vt-btn">≡</button></div>
+          </div>
+        </div>
+        <div class="app-prod-grid">
+          <div class="ap-card"><div class="ap-img" style="background:linear-gradient(140deg,#2d0010,#6b0026)"><div class="ap-badge">New</div><div class="ap-wish"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></div><div class="ap-img-emoji"><svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.7)" stroke-width="1.2" stroke-linecap="round"><path d="M12 21.593c-5.63-5.539-11-10.297-11-14.402C1 3.731 4.068 2 6.5 2 8.98 2 10.55 3.58 12 5.407 13.45 3.58 15.02 2 17.5 2 19.932 2 23 3.731 23 7.191c0 4.105-5.37 8.863-11 14.402z"/></svg></div></div><div class="ap-info"><div class="ap-name">Crimson Rose Floral</div><div class="ap-cat">Luxury Wallpapers</div><div class="ap-foot"><span class="ap-price">₹950/roll</span><button class="ap-add">+</button></div></div></div>
+          <div class="ap-card"><div class="ap-img" style="background:linear-gradient(140deg,#f2ece4,#ddd0c4)"><div class="ap-wish"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></div><div class="ap-img-emoji"><svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="rgba(120,100,80,0.6)" stroke-width="1.2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18M15 3v18" opacity=".5"/></svg></div></div><div class="ap-info"><div class="ap-name">Marble Classic White</div><div class="ap-cat">Classic Wallpapers</div><div class="ap-foot"><span class="ap-price">₹1,050/roll</span><button class="ap-add">+</button></div></div></div>
+          <div class="ap-card"><div class="ap-img" style="background:linear-gradient(140deg,#1a0800,#3d1a00)"><div class="ap-badge">Hot</div><div class="ap-wish"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></div><div class="ap-img-emoji"><svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="rgba(255,220,150,0.7)" stroke-width="1.2" stroke-linecap="round"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg></div></div><div class="ap-info"><div class="ap-name">Velvet Luxe Texture</div><div class="ap-cat">Premium Wallpapers</div><div class="ap-foot"><span class="ap-price">₹1,200/roll</span><button class="ap-add">+</button></div></div></div>
+          <div class="ap-card"><div class="ap-img" style="background:linear-gradient(140deg,#e8e8f0,#d0d0e8)"><div class="ap-wish"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></div><div class="ap-img-emoji"><svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="rgba(80,80,160,0.6)" stroke-width="1.2" stroke-linecap="round"><polygon points="3,6 21,6 18,18 6,18"/><line x1="3" y1="6" x2="12" y2="18"/><line x1="21" y1="6" x2="12" y2="18"/></svg></div></div><div class="ap-info"><div class="ap-name">Geometric Modern</div><div class="ap-cat">Modern Wallpapers</div><div class="ap-foot"><span class="ap-price">₹850/roll</span><button class="ap-add">+</button></div></div></div>
+          <div class="ap-card"><div class="ap-img" style="background:linear-gradient(140deg,#e8f4e8,#c4d8c4)"><div class="ap-wish"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></div><div class="ap-img-emoji"><svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="rgba(60,120,60,0.65)" stroke-width="1.2" stroke-linecap="round"><path d="M17 8C8 10 5.9 16.17 3.82 19.5A11.6 11.6 0 0012 22c6.37 0 10.62-5.43 9-14"/><path d="M17 8l2-4"/></svg></div></div><div class="ap-info"><div class="ap-name">Botanical Garden</div><div class="ap-cat">Nature Wallpapers</div><div class="ap-foot"><span class="ap-price">₹920/roll</span><button class="ap-add">+</button></div></div></div>
+          <div class="ap-card"><div class="ap-img" style="background:linear-gradient(140deg,#1a1a2e,#2e2e4a)"><div class="ap-badge">New</div><div class="ap-wish"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></div><div class="ap-img-emoji"><svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="rgba(200,200,255,0.65)" stroke-width="1.2" stroke-linecap="round"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/><circle cx="19" cy="4" r="1.5" fill="rgba(200,200,255,0.5)"/><circle cx="4" cy="18" r="1" fill="rgba(200,200,255,0.4)"/></svg></div></div><div class="ap-info"><div class="ap-name">Midnight Abstract</div><div class="ap-cat">Abstract Wallpapers</div><div class="ap-foot"><span class="ap-price">₹1,100/roll</span><button class="ap-add">+</button></div></div></div>
+        </div>
+        <div class="pagination">
+          <button class="pg-btn">←</button>
+          <button class="pg-btn active">1</button>
+          <button class="pg-btn">2</button>
+          <button class="pg-btn">3</button>
+          <button class="pg-btn">→</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ CALCULATOR ══════════ -->
+<div id="view-calculator" class="view">
+  <div class="calc-page">
+    <div class="calc-wrap">
+      <div class="calc-head">
+        <div class="s-tag" style="color:rgba(255,255,255,0.5)"><span style="background:rgba(255,255,255,0.3);width:20px;height:2px;border-radius:2px;display:inline-block"></span>Phase 3 Feature</div>
+        <div class="calc-title">Wall Measurement Calculator</div>
+        <div class="calc-desc">Enter your room dimensions — get the exact number of rolls needed instantly.</div>
+      </div>
+      <div class="calc-body">
+        <div class="f-row">
+          <div class="f"><label class="f-label">Room Length</label><input class="f-input" type="number" id="rL" value="14" oninput="calc()"><div class="f-hint">in feet</div></div>
+          <div class="f"><label class="f-label">Room Width</label><input class="f-input" type="number" id="rW" value="12" oninput="calc()"><div class="f-hint">in feet</div></div>
+        </div>
+        <div class="f-row">
+          <div class="f"><label class="f-label">Wall Height</label><input class="f-input" type="number" id="rH" value="10" oninput="calc()"><div class="f-hint">in feet</div></div>
+          <div class="f"><label class="f-label">Doors & Windows</label><input class="f-input" type="number" id="rD" value="2" oninput="calc()"><div class="f-hint">number of openings</div></div>
+        </div>
+        <div class="result-panel">
+          <div class="r-main"><div class="rl">Rolls Required</div><div class="r-num" id="rRolls">18</div><div style="font-size:0.7rem;color:var(--fg-mute);margin-top:4px">standard 10m × 53cm rolls</div></div>
+          <div class="bdown">
+            <div class="br"><span>Total wall area</span><span id="rArea">520 sq ft</span></div>
+            <div class="br"><span>After deductions</span><span id="rNet">478 sq ft</span></div>
+            <div class="br"><span>+10% wastage buffer</span><span id="rBuf">18 rolls</span></div>
+            <div class="br hl"><span>Estimated cost</span><span id="rCost">₹17,100</span></div>
+          </div>
+        </div>
+        <button class="btn-red" style="align-self:flex-start;display:inline-flex;align-items:center;gap:8px"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg> Get Quote on WhatsApp →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ VISUALISER ══════════ -->
+<div id="view-visualiser" class="view">
+  <div class="vis-page">
+    <div class="s-tag">Phase 3 Feature</div>
+    <h2 class="s-h2" style="margin-top:8px">Visualise <em>on Your Wall</em></h2>
+    <p class="s-sub">Customer uploads their room photo and sees the wallpaper — before buying!</p>
+    <div class="vis-layout">
+      <div>
+        <div class="vis-stage" id="visStage">
+          <canvas id="vCanvas"></canvas>
+          <div class="vis-overlay" id="vLabel">Crimson Rose — Applied to Your Wall</div>
+        </div>
+      </div>
+      <div class="vis-panel">
+        <div class="vp-title">Choose Wallpaper</div>
+        <div class="swatches">
+          <div class="sw a" style="background:linear-gradient(135deg,#2d0010,#6b0026)" onclick="doSw(this,'Crimson Rose','#2d0010','#6b0026')"></div>
+          <div class="sw" style="background:linear-gradient(135deg,#f2ece4,#ddd0c4)" onclick="doSw(this,'Marble Classic','#f2ece4','#ddd0c4')"></div>
+          <div class="sw" style="background:linear-gradient(135deg,#1a0800,#3d1a00)" onclick="doSw(this,'Velvet Luxe','#1a0800','#3d1a00')"></div>
+          <div class="sw" style="background:linear-gradient(135deg,#e8e8f0,#d0d0e8)" onclick="doSw(this,'Geometric Modern','#e8e8f0','#d0d0e8')"></div>
+          <div class="sw" style="background:linear-gradient(135deg,#e8f4e8,#c4d8c4)" onclick="doSw(this,'Botanical Garden','#e8f4e8','#c4d8c4')"></div>
+          <div class="sw" style="background:linear-gradient(135deg,#1a1a2e,#2e2e4a)" onclick="doSw(this,'Midnight Abstract','#1a1a2e','#2e2e4a')"></div>
+        </div>
+        <div>
+          <div class="vp-label">Opacity</div>
+          <div class="vp-range"><input type="range" id="opSlider" min="30" max="100" value="80" oninput="drawVis()"></div>
+        </div>
+        <div class="upload-zone"><div class="ui"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>Upload Your Room Photo<div style="font-size:0.65rem;margin-top:3px;opacity:0.5">Live feature in final version</div></div>
+        <button class="btn-red" style="width:100%">Order This Wallpaper</button>
+        <button class="btn-outline-red" style="width:100%;display:flex;align-items:center;justify-content:center;gap:8px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg> Share Preview</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ ORDER ══════════ -->
+<div id="view-order" class="view">
+  <div class="order-page">
+    <div class="s-tag">Phase 3 Feature</div>
+    <h2 class="s-h2" style="margin-top:8px">Online <em>Order System</em></h2>
+    <p class="s-sub">Customer places order from website or app — GST invoice auto-sent on WhatsApp.</p>
+    <div class="order-layout">
+      <div>
+        <div class="steps">
+          <div class="ostep"><div class="ostep-dot done">✓</div><span style="color:var(--black);font-weight:500">Products</span></div>
+          <div class="ostep-line"></div>
+          <div class="ostep"><div class="ostep-dot cur">2</div><span style="color:var(--red);font-weight:600">Details</span></div>
+          <div class="ostep-line"></div>
+          <div class="ostep"><div class="ostep-dot">3</div>Payment</div>
+          <div class="ostep-line"></div>
+          <div class="ostep"><div class="ostep-dot">4</div>Invoice</div>
+        </div>
+        <div class="form-card">
+          <div class="form-title">Customer Details</div>
+          <div class="form-fields">
+            <div class="form-2">
+              <div class="f"><label class="f-label">Full Name</label><input class="f-input" type="text" placeholder="Rahul Sharma"></div>
+              <div class="f"><label class="f-label">Phone Number</label><input class="f-input" type="tel" placeholder="+91 XXXXX XXXXX"></div>
+            </div>
+            <div class="f"><label class="f-label">Delivery Address</label><input class="f-input" type="text" placeholder="House No., Street, Area, City"></div>
+            <div class="form-2">
+              <div class="f"><label class="f-label">City</label><input class="f-input" type="text" placeholder="Agra"></div>
+              <div class="f"><label class="f-label">PIN Code</label><input class="f-input" type="text" placeholder="282001"></div>
+            </div>
+            <div class="f"><label class="f-label">GST Number (Optional)</label><input class="f-input" type="text" placeholder="For business orders"></div>
+            <button class="btn-red" style="margin-top:8px">Continue to Payment →</button>
+          </div>
+        </div>
+      </div>
+      <div class="order-sidebar">
+        <div class="os-title">Order Summary</div>
+        <div class="oi"><div><div class="oi-name">Crimson Rose Floral</div><div class="oi-qty">3 rolls × ₹950</div></div><div class="oi-price">₹2,850</div></div>
+        <div class="oi"><div><div class="oi-name">Marble Classic White</div><div class="oi-qty">2 rolls × ₹1,050</div></div><div class="oi-price">₹2,100</div></div>
+        <div class="oi"><div><div class="oi-name">Delivery Charges</div></div><div class="oi-price" style="color:#16a34a">Free</div></div>
+        <div class="ot"><span class="ot-l">Total (incl. GST)</span><span class="ot-v">₹4,950</span></div>
+        <button class="btn-red" style="width:100%;margin-top:16px">Place Order →</button>
+        <button class="btn-outline-red" style="width:100%;margin-top:8px;display:flex;align-items:center;justify-content:center;gap:8px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg> Order via WhatsApp</button>
+        <div class="inv-note"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" style="vertical-align:-2px;margin-right:5px"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg> GST invoice auto-generated and sent to your WhatsApp after order is confirmed.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ── TAB NAVIGATION ───────────────── */
+function go(id, btn) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.getElementById('view-' + id).classList.add('active');
+  document.querySelectorAll('.tab,.mob-tab').forEach(t => {
+    const oc = t.getAttribute('onclick') || '';
+    t.classList.toggle('active', oc.includes("'" + id + "'"));
+  });
+  const f = document.getElementById('floats');
+  if (f) f.style.display = id === 'website' ? 'flex' : 'none';
+  if (id === 'visualiser') setTimeout(drawVis, 80);
+}
+
+/* ── CHIP HELPERS ─────────────────── */
+function setChip(el) { document.querySelectorAll('.cat-chips .cchip').forEach(c => c.classList.remove('active')); el.classList.add('active'); }
+function setCol(el) { document.querySelectorAll('.col-dot').forEach(c => c.classList.remove('a')); el.classList.add('a'); }
+
+/* ── CALCULATOR ───────────────────── */
+function calc() {
+  const L = +document.getElementById('rL').value || 0;
+  const W = +document.getElementById('rW').value || 0;
+  const H = +document.getElementById('rH').value || 0;
+  const D = +document.getElementById('rD').value || 0;
+  const total = 2 * (L + W) * H;
+  const net = Math.max(0, total - D * 21);
+  const rolls = Math.ceil(net / 57 * 1.1);
+  const cost = rolls * 950;
+  document.getElementById('rArea').textContent = total.toFixed(0) + ' sq ft';
+  document.getElementById('rNet').textContent = net.toFixed(0) + ' sq ft';
+  document.getElementById('rRolls').textContent = rolls;
+  document.getElementById('rBuf').textContent = rolls + ' rolls';
+  document.getElementById('rCost').textContent = '₹' + cost.toLocaleString('en-IN');
+}
+
+/* ── BEFORE/AFTER SLIDER ──────────── */
+(function() {
+  const cont = document.getElementById('baContainer');
+  const handle = document.getElementById('baHandle');
+  const before = document.getElementById('baBefore');
+  if (!cont) return;
+  let dragging = false;
+  let pct = 50;
+
+  function setSlider(x) {
+    const rect = cont.getBoundingClientRect();
+    pct = Math.min(95, Math.max(5, ((x - rect.left) / rect.width) * 100));
+    handle.style.left = pct + '%';
+    before.style.clipPath = 'inset(0 ' + (100 - pct) + '% 0 0)';
+  }
+
+  setSlider(cont.getBoundingClientRect().left + cont.getBoundingClientRect().width * 0.5);
+
+  cont.addEventListener('mousedown', e => { dragging = true; setSlider(e.clientX); });
+  cont.addEventListener('touchstart', e => { dragging = true; setSlider(e.touches[0].clientX); }, {passive:true});
+  window.addEventListener('mousemove', e => { if (dragging) setSlider(e.clientX); });
+  window.addEventListener('touchmove', e => { if (dragging) setSlider(e.touches[0].clientX); }, {passive:true});
+  window.addEventListener('mouseup', () => dragging = false);
+  window.addEventListener('touchend', () => dragging = false);
+})();
+
+/* ── VISUALISER ───────────────────── */
+let pat = { c1: '#2d0010', c2: '#6b0026', name: 'Crimson Rose' };
+function doSw(el, name, c1, c2) {
+  document.querySelectorAll('.sw').forEach(s => s.classList.remove('a'));
+  el.classList.add('a');
+  pat = { c1, c2, name };
+  document.getElementById('vLabel').textContent = name + ' — Applied to Your Wall';
+  drawVis();
+}
+function drawVis() {
+  const stage = document.getElementById('visStage');
+  const cv = document.getElementById('vCanvas');
+  if (!stage || !cv) return;
+  cv.width = stage.clientWidth; cv.height = stage.clientHeight;
+  const W = cv.width, H = cv.height;
+  const ctx = cv.getContext('2d');
+  const op = (+document.getElementById('opSlider').value) / 100;
+  ctx.clearRect(0, 0, W, H);
+  const fg = ctx.createLinearGradient(0, H * 0.65, 0, H);
+  fg.addColorStop(0, '#c8a882'); fg.addColorStop(1, '#8b6f47');
+  ctx.fillStyle = fg;
+  ctx.fillRect(0, H * 0.65, W, H);
+  const wg = ctx.createLinearGradient(0, 0, 0, H * 0.65);
+  wg.addColorStop(0, pat.c1); wg.addColorStop(1, pat.c2);
+  ctx.globalAlpha = op; ctx.fillStyle = wg;
+  ctx.fillRect(W * 0.1, 0, W * 0.8, H * 0.65);
+  ctx.globalAlpha = 1;
+  ctx.fillStyle = '#e8e0d8'; ctx.fillRect(0, 0, W * 0.1, H * 0.65);
+  ctx.fillStyle = '#d4c8bc'; ctx.fillRect(W * 0.9, 0, W * 0.1, H * 0.65);
+  ctx.fillStyle = '#d4c4a8';
+  ctx.beginPath();
+  if (ctx.roundRect) ctx.roundRect(W*0.18, H*0.53, W*0.64, H*0.14, 8);
+  else ctx.rect(W*0.18, H*0.53, W*0.64, H*0.14);
+  ctx.fill();
+  ctx.fillStyle = '#C8102E'; ctx.globalAlpha = 0.9;
+  ctx.beginPath(); if (ctx.roundRect) ctx.roundRect(W*0.32,H*0.48,W*0.1,H*0.05,4); else ctx.rect(W*0.32,H*0.48,W*0.1,H*0.05); ctx.fill();
+  ctx.beginPath(); if (ctx.roundRect) ctx.roundRect(W*0.58,H*0.48,W*0.1,H*0.05,4); else ctx.rect(W*0.58,H*0.48,W*0.1,H*0.05); ctx.fill();
+  ctx.globalAlpha = 1;
+}
+
+/* ── WHATSAPP POPUP (auto after 8s) ── */
+setTimeout(() => {
+  const p = document.getElementById('waPopup');
+  if (p && document.getElementById('view-website').classList.contains('active')) {
+    p.classList.add('show');
+  }
+}, 8000);
+
+/* ── INIT ─────────────────────────── */
+window.addEventListener('load', () => { calc(); });
+window.addEventListener('resize', () => {
+  if (document.getElementById('view-visualiser').classList.contains('active')) drawVis();
+});
+</script>
