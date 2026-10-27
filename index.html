@@ -69,21 +69,193 @@ body {
   position: sticky;
   top: 0;
   z-index: 300;
-  background: rgba(255,255,255,0.96);
-  backdrop-filter: blur(18px);
+  background: rgba(255,255,255,0.97);
+  backdrop-filter: blur(24px) saturate(1.8);
+  -webkit-backdrop-filter: blur(24px) saturate(1.8);
   border-bottom: 1px solid var(--border);
-  height: 64px;
+  height: 72px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 max(28px, env(safe-area-inset-left,0px));
-  padding-right: max(28px, env(safe-area-inset-right,0px));
-  box-shadow: 0 1px 12px rgba(0,0,0,0.05);
+  gap: 24px;
+  padding: 0 max(36px, env(safe-area-inset-left,0px));
+  padding-right: max(36px, env(safe-area-inset-right,0px));
+  box-shadow: 0 1px 0 var(--border), 0 4px 24px rgba(0,0,0,0.04);
 }
-.logo { font-size: 1.25rem; font-weight: 800; letter-spacing: -0.02em; color: var(--black); }
+
+/* Logo */
+.logo {
+  font-size: 1.35rem;
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  color: var(--black);
+  white-space: nowrap;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+.logo-icon {
+  width: 32px; height: 32px;
+  background: var(--red);
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 8px;
+  flex-shrink: 0;
+}
+.logo-icon svg { display: block; }
 .logo span { color: var(--red); }
-.tabs { display: flex; gap: 4px; background: var(--bg); border: 1px solid var(--border); border-radius: 10px; padding: 4px; }
-.tab { padding: 6px 16px; border-radius: 7px; border: none; background: transparent; color: var(--fg-dim); font-family: 'Poppins',sans-serif; font-size: 0.76rem; font-weight: 500; cursor: pointer; transition: all 0.18s; white-space: nowrap; }
+.logo-tag {
+  font-size: 0.55rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--fg-mute);
+  margin-left: 8px;
+  padding: 3px 7px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  align-self: center;
+  margin-top: 2px;
+}
+
+/* Nav links */
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  flex: 1;
+  justify-content: center;
+}
+.nav-link {
+  padding: 7px 14px;
+  border-radius: 8px;
+  border: none;
+  background: transparent;
+  color: var(--fg-dim);
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.18s;
+  white-space: nowrap;
+  position: relative;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.nav-link:hover { color: var(--black); background: var(--bg); }
+.nav-link.active { color: var(--red); font-weight: 600; }
+.nav-link.active::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 14px; right: 14px;
+  height: 2px;
+  background: var(--red);
+  border-radius: 2px 2px 0 0;
+}
+.nav-link-dot {
+  width: 5px; height: 5px;
+  background: var(--red);
+  border-radius: 50%;
+  display: none;
+}
+.nav-link.active .nav-link-dot { display: block; }
+
+/* Nav search */
+.nav-search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 7px 14px;
+  cursor: pointer;
+  transition: all 0.18s;
+  min-width: 160px;
+}
+.nav-search:hover { border-color: var(--red); background: #fff; }
+.nav-search span {
+  font-size: 0.75rem;
+  color: var(--fg-mute);
+  font-family: 'Poppins', sans-serif;
+  flex: 1;
+}
+.nav-search-kbd {
+  font-size: 0.6rem;
+  background: var(--border);
+  border-radius: 4px;
+  padding: 2px 5px;
+  color: var(--fg-mute);
+  font-family: monospace;
+}
+
+/* Nav right actions */
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+.nav-icon-btn {
+  width: 38px; height: 38px;
+  border-radius: 9px;
+  border: 1px solid var(--border);
+  background: #fff;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  transition: all 0.18s;
+  position: relative;
+  color: var(--fg-dim);
+}
+.nav-icon-btn:hover { border-color: var(--red); color: var(--red); background: var(--red-dim); }
+.nav-icon-badge {
+  position: absolute;
+  top: -4px; right: -4px;
+  width: 16px; height: 16px;
+  background: var(--red);
+  border-radius: 50%;
+  border: 2px solid #fff;
+  font-size: 0.52rem;
+  font-weight: 700;
+  color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Poppins', sans-serif;
+}
+.nav-cta {
+  background: var(--black);
+  color: #fff;
+  border: none;
+  padding: 9px 20px;
+  border-radius: 9px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.nav-cta:hover { background: var(--red); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(200,16,46,0.3); }
+.nav-cta-arrow {
+  width: 18px; height: 18px;
+  background: rgba(255,255,255,0.15);
+  border-radius: 5px;
+  display: flex; align-items: center; justify-content: center;
+  transition: transform 0.2s;
+}
+.nav-cta:hover .nav-cta-arrow { transform: translateX(2px); }
+
+/* prototype tab pill — kept but secondary */
+.tabs { display: flex; gap: 3px; background: var(--bg); border: 1px solid var(--border); border-radius: 10px; padding: 3px; }
+.tab { padding: 5px 13px; border-radius: 7px; border: none; background: transparent; color: var(--fg-dim); font-family: 'Poppins',sans-serif; font-size: 0.72rem; font-weight: 500; cursor: pointer; transition: all 0.18s; white-space: nowrap; }
 .tab.active { background: var(--red); color: #fff; box-shadow: 0 2px 10px rgba(200,16,46,0.35); }
 .tab:hover:not(.active) { color: var(--black); background: rgba(0,0,0,0.04); }
 
@@ -504,6 +676,11 @@ body {
 .inv-note { margin-top: 14px; padding: 12px; background: var(--red-dim); border: 1px solid var(--border-r); border-radius: 8px; font-size: 0.73rem; color: var(--red); line-height: 1.5; font-weight: 500; }
 
 /* ── RESPONSIVE ────────────────────── */
+@media (max-width: 1100px) {
+  .nav-search { display: none; }
+  .nav-links { gap: 0; }
+  .nav-link { padding: 7px 10px; font-size: 0.73rem; }
+}
 @media (max-width: 900px) {
   .hero { grid-template-columns: 1fr; }
   .hero::before,.hero::after { display: none; }
@@ -515,9 +692,12 @@ body {
   .app-sidebar { display: none; }
   .tabs { display: none; }
   .mob-nav { display: flex !important; }
+  .nav-links { display: none; }
+  .nav-cta span.nav-cta-arrow { display: none; }
   .stats-bar { grid-template-columns: 1fr 1fr; }
   .rooms-grid { grid-template-columns: 1fr 1fr; }
   .rooms-grid .room-card:first-child { grid-row: span 1; }
+  .logo-tag { display: none; }
 }
 @media (max-width: 560px) {
   .why-grid,.testi-grid,.rooms-grid { grid-template-columns: 1fr; }
@@ -525,6 +705,10 @@ body {
   .section { padding-inline: max(20px,env(safe-area-inset-left,0px)); }
   .banner-right { display: none; }
   .badges-strip { display: none; }
+  .nav-search { display: none; }
+  .nav-icon-btn { width: 34px; height: 34px; }
+  .nav-cta { padding: 8px 14px; font-size: 0.72rem; }
+  .nav { height: 60px; padding: 0 max(16px,env(safe-area-inset-left,0px)); padding-right: max(16px,env(safe-area-inset-right,0px)); }
 }
 
 /* Mobile nav */
@@ -637,13 +821,52 @@ body {
 
 <!-- NAV -->
 <nav class="nav">
-  <div class="logo">F<span>&</span>I Dekor</div>
-  <div class="tabs">
-    <button class="tab active" onclick="go('website',this)">Website</button>
-    <button class="tab" onclick="go('app',this)">App</button>
-    <button class="tab" onclick="go('calculator',this)">Calculator</button>
-    <button class="tab" onclick="go('visualiser',this)">Visualiser</button>
-    <button class="tab" onclick="go('order',this)">Order System</button>
+  <!-- Logo -->
+  <div class="logo" style="cursor:pointer" onclick="go('website',null)">
+    <div class="logo-icon">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="9" height="9" rx="2" fill="#fff" opacity=".9"/><rect x="13" y="2" width="9" height="9" rx="2" fill="#fff" opacity=".6"/><rect x="2" y="13" width="9" height="9" rx="2" fill="#fff" opacity=".6"/><rect x="13" y="13" width="9" height="9" rx="2" fill="#fff" opacity=".35"/></svg>
+    </div>
+    F<span>&amp;</span>I Dekor
+    <span class="logo-tag">Agra</span>
+  </div>
+
+  <!-- Nav links (website sections) -->
+  <div class="nav-links">
+    <button class="nav-link active" onclick="go('website',null);scrollToSec('hero')">
+      <span class="nav-link-dot"></span>Home
+    </button>
+    <button class="nav-link" onclick="go('website',null);scrollToSec('prodSection')">Collection</button>
+    <button class="nav-link" onclick="go('website',null);scrollToSec('baSection')">Before &amp; After</button>
+    <button class="nav-link" onclick="go('calculator',null)">Calculator</button>
+    <button class="nav-link" onclick="go('visualiser',null)">Visualiser</button>
+    <button class="nav-link" onclick="go('website',null);scrollToSec('contactSection')">Contact</button>
+  </div>
+
+  <!-- Right actions -->
+  <div class="nav-actions">
+    <!-- Search -->
+    <div class="nav-search" onclick="showToast('Search — coming soon in the live website 🔍','info')">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <span>Search designs…</span>
+      <span class="nav-search-kbd">⌘K</span>
+    </div>
+
+    <!-- Wishlist -->
+    <div class="nav-icon-btn" title="Wishlist" onclick="showToast('Wishlist — Your saved designs ❤️','success')">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+    </div>
+
+    <!-- Cart -->
+    <div class="nav-icon-btn" title="Cart" onclick="showToast('Cart — Review items before checkout 🛒','cart')" style="min-width:38px">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+      <span class="nav-icon-badge" id="navCartBadge">2</span>
+    </div>
+
+    <!-- CTA -->
+    <button class="nav-cta" onclick="openSampleModal()">
+      Free Sample
+      <span class="nav-cta-arrow"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+    </button>
   </div>
 </nav>
 <div class="mob-nav">
@@ -658,7 +881,7 @@ body {
 <div id="view-website" class="view active">
 
   <!-- HERO -->
-  <section class="hero">
+  <section class="hero" id="hero">
     <div class="hero-left">
       <div class="hero-badge"><span class="dot"></span> New Collection 2026</div>
       <h1 class="hero-h1">
@@ -789,7 +1012,7 @@ body {
   </section>
 
   <!-- BEFORE/AFTER SLIDER -->
-  <section class="ba-section">
+  <section class="ba-section" id="baSection">
     <div class="s-tag">See the Transformation</div>
     <h2 class="s-h2" style="margin-bottom:4px">Before <em style="color:#fff">vs</em> After</h2>
     <p class="s-sub">Drag the slider — see how F&I Dekor transforms a plain wall instantly.</p>
@@ -851,7 +1074,7 @@ body {
   </section>
 
   <!-- LOCATION -->
-  <section class="section section-alt">
+  <section class="section section-alt" id="contactSection">
     <div class="s-tag">Visit Us</div>
     <h2 class="s-h2">Find Our <em>Showroom</em></h2>
     <div class="loc-grid">
@@ -1216,6 +1439,41 @@ body {
 
 <script>
 /* ── TAB NAVIGATION ───────────────── */
+/* ── SCROLL TO SECTION ──────────────── */
+function scrollToSec(id) {
+  const el = document.getElementById(id);
+  if (el) { setTimeout(() => el.scrollIntoView({ behavior: 'smooth', block: 'start' }), 60); }
+}
+
+/* ── SYNC NAV LINKS ON SCROLL ───────── */
+(function() {
+  const secs = [
+    { id:'hero',        link:'Home' },
+    { id:'prodSection', link:'Collection' },
+    { id:'baSection',   link:'Before & After' },
+    { id:'contactSection', link:'Contact' }
+  ];
+  function syncNav() {
+    const scrollY = window.scrollY + 100;
+    let active = secs[0];
+    for (const s of secs) {
+      const el = document.getElementById(s.id);
+      if (el && el.offsetTop <= scrollY) active = s;
+    }
+    document.querySelectorAll('.nav-link').forEach(l => {
+      const isActive = l.textContent.trim() === active.link;
+      l.classList.toggle('active', isActive);
+    });
+  }
+  window.addEventListener('scroll', syncNav, { passive: true });
+})();
+
+/* ── UPDATE NAV CART BADGE ──────────── */
+function _syncNavCart() {
+  const b = document.getElementById('navCartBadge');
+  if (b) b.textContent = _cartCount || 2;
+}
+
 function go(id, btn) {
   document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
   document.getElementById('view-' + id).classList.add('active');
@@ -1295,6 +1553,7 @@ function addToCart() {
   if (cb) cb.style.background = 'var(--red)';
   setTimeout(() => { if (cb) cb.style.background = ''; }, 600);
   showToast((_currentProduct.name || 'Item') + ' added to cart 🛒','cart');
+  _syncNavCart();
   closeProductModal();
 }
 function addToCartItem(name, price) {
@@ -1302,6 +1561,7 @@ function addToCartItem(name, price) {
   const cc = document.getElementById('cartCount');
   if (cc) cc.textContent = _cartCount;
   showToast(name + ' added to cart! (' + _cartCount + ' items)','cart');
+  _syncNavCart();
 }
 
 /* ── WISHLIST ──────────────────────── */
