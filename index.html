@@ -444,35 +444,50 @@ body {
 .stat-l { font-size: 0.75rem; color: var(--fg-dim); margin-top: 4px; }
 
 /* ── CATEGORY CHIPS ───────────────── */
-.cat-chips { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 28px; }
-.cchip { padding: 7px 18px; border-radius: 100px; border: 1.5px solid var(--border); background: #fff; color: var(--fg-dim); font-family: 'Poppins',sans-serif; font-size: 0.78rem; font-weight: 500; cursor: pointer; transition: all 0.18s; }
-.cchip.active,.cchip:hover { background: var(--red); border-color: var(--red); color: #fff; }
+/* ── SHOP BY CATEGORY (new slider layout) ── */
+.cat-tabs-row { display: flex; align-items: center; gap: 0; margin-bottom: 32px; border-bottom: 2px solid var(--border); overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+.cat-tabs-row::-webkit-scrollbar { display: none; }
+.ctab { padding: 12px 22px; border: none; background: transparent; color: var(--fg-dim); font-family: 'Poppins',sans-serif; font-size: 0.82rem; font-weight: 500; cursor: pointer; white-space: nowrap; position: relative; transition: color 0.2s; flex-shrink: 0; }
+.ctab::after { content: ''; position: absolute; bottom: -2px; left: 0; right: 0; height: 2px; background: var(--red); transform: scaleX(0); transition: transform 0.25s cubic-bezier(0.4,0,0.2,1); border-radius: 2px 2px 0 0; }
+.ctab.active { color: var(--red); font-weight: 700; }
+.ctab.active::after { transform: scaleX(1); }
+.ctab:hover:not(.active) { color: var(--black); }
 
-/* COLOR FILTER */
-.color-filter { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
-.cf-label { font-size: 0.72rem; font-weight: 600; color: var(--fg-dim); text-transform: uppercase; letter-spacing: 0.1em; }
-.col-dot { width: 28px; height: 28px; border-radius: 50%; cursor: pointer; border: 2.5px solid transparent; transition: all 0.18s; box-shadow: 0 2px 6px rgba(0,0,0,0.12); }
-.col-dot:hover,.col-dot.a { border-color: var(--black); transform: scale(1.15); }
-.col-dot.a { box-shadow: 0 0 0 3px rgba(0,0,0,0.15); }
+/* product slider wrapper */
+.prod-slider-wrap { position: relative; }
+.prod-slider { display: flex; gap: 18px; overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; padding-bottom: 6px; }
+.prod-slider::-webkit-scrollbar { display: none; }
+.prod-slider-nav { display: flex; justify-content: flex-end; gap: 8px; margin-top: 18px; align-items: center; }
+.ps-arrow { width: 38px; height: 38px; border-radius: 50%; border: 1.5px solid var(--border); background: #fff; cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--fg-dim); transition: all 0.2s; }
+.ps-arrow:hover { border-color: var(--red); color: var(--red); background: var(--red-dim); }
+.ps-count { font-size: 0.72rem; color: var(--fg-mute); font-weight: 500; margin: 0 4px; }
 
-/* ── PRODUCT GRID ──────────────────── */
-.prod-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(210px,1fr)); gap: 16px; }
+/* product card */
 .prod-card {
-  background: #fff; border: 1px solid var(--border); border-radius: 14px; overflow: hidden;
-  cursor: pointer; transition: all 0.22s; box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-  transform-style: preserve-3d; perspective: 800px;
+  flex: 0 0 220px; scroll-snap-align: start;
+  background: #fff; border: 1px solid var(--border); border-radius: 16px; overflow: hidden;
+  cursor: pointer; transition: all 0.22s; box-shadow: 0 2px 10px rgba(0,0,0,0.05);
 }
-.prod-card:hover { border-color: var(--border-r); transform: translateY(-5px) rotateX(2deg) rotateY(-2deg); box-shadow: 0 16px 40px rgba(0,0,0,0.12); }
-.prod-img { aspect-ratio: 4/3; display: flex; align-items: center; justify-content: center; font-size: 3rem; position: relative; overflow: hidden; }
-.prod-img-inner { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 3rem; transition: transform 0.4s cubic-bezier(.34,1.56,.64,1); }
-.prod-card:hover .prod-img-inner { transform: scale(1.08); }
-.prod-badge { position: absolute; top: 8px; left: 8px; background: var(--red); color: #fff; font-size: 0.56rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 8px; border-radius: 5px; z-index: 1; }
-.prod-info { padding: 14px 16px; }
-.prod-name { font-size: 0.88rem; font-weight: 600; color: var(--black); }
-.prod-sub { font-size: 0.7rem; color: var(--fg-mute); margin-top: 2px; }
+.prod-card:hover { border-color: var(--border-r); transform: translateY(-5px); box-shadow: 0 16px 40px rgba(200,16,46,0.1); }
+.prod-img { aspect-ratio: 3/4; display: flex; align-items: center; justify-content: center; font-size: 3rem; position: relative; overflow: hidden; }
+.prod-img img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s cubic-bezier(.34,1.56,.64,1); }
+.prod-card:hover .prod-img img { transform: scale(1.08); }
+.prod-badge { position: absolute; top: 10px; left: 10px; background: var(--red); color: #fff; font-size: 0.55rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 9px; border-radius: 6px; z-index: 1; }
+.prod-badge.hot { background: #f59e0b; }
+.prod-badge.best { background: #16a34a; }
+.prod-badge.trend { background: #7c3aed; }
+.prod-info { padding: 14px 16px 16px; }
+.prod-name { font-size: 0.88rem; font-weight: 700; color: var(--black); line-height: 1.3; }
+.prod-sub { font-size: 0.68rem; color: var(--fg-mute); margin-top: 2px; }
 .prod-foot { display: flex; justify-content: space-between; align-items: center; margin-top: 12px; }
 .prod-price { font-size: 0.92rem; font-weight: 700; color: var(--red); }
-.calc-link { font-size: 0.62rem; color: var(--red); font-weight: 500; cursor: pointer; border-bottom: 1px dashed var(--border-r); }
+.prod-add { width: 30px; height: 30px; border-radius: 8px; border: 1.5px solid var(--border-r); background: var(--red-dim); color: var(--red); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.18s; flex-shrink: 0; }
+.prod-add:hover { background: var(--red); color: #fff; border-color: var(--red); }
+
+/* old compat */
+.cat-chips { display: none; }
+.color-filter { display: none; }
+.prod-grid { display: none; }
 
 /* ── BEFORE/AFTER SLIDER ───────────── */
 .ba-section { padding: 72px max(48px,env(safe-area-inset-left,0px)); padding-right: max(48px,env(safe-area-inset-right,0px)); padding-block: 72px; background: var(--black); }
@@ -785,6 +800,8 @@ body {
   .rooms-grid { grid-template-columns: 1fr 1fr; }
   .rooms-grid .room-card:first-child { grid-row: span 1; }
   .logo-tag { display: none; }
+  .prod-card { flex: 0 0 180px; }
+  .ctab { padding: 10px 16px; font-size: 0.76rem; }
 }
 @media (max-width: 560px) {
   .why-grid,.testi-grid,.rooms-grid { grid-template-columns: 1fr; }
@@ -1170,63 +1187,286 @@ body {
   </div>
 
   <!-- PRODUCTS -->
-  <section class="section section-alt">
+  <section class="section section-alt" style="padding-bottom:52px">
     <div class="s-tag">Browse by Type</div>
     <h2 class="s-h2">Shop by <em>Category</em></h2>
-    <div class="cat-chips">
-      <div class="cchip active" onclick="setChip(this)">All Products</div>
-      <div class="cchip" onclick="setChip(this)">Wallpapers</div>
-      <div class="cchip" onclick="setChip(this)">PVC Wall Panels</div>
-      <div class="cchip" onclick="setChip(this)">Louvers</div>
-      <div class="cchip" onclick="setChip(this)">PU Stones</div>
-      <div class="cchip" onclick="setChip(this)">WPC Exterior</div>
-      <div class="cchip" onclick="setChip(this)">Other Decor</div>
+
+    <!-- Tab bar -->
+    <div class="cat-tabs-row" id="catTabsRow">
+      <button class="ctab active" data-cat="all" onclick="setCat(this)">All Products</button>
+      <button class="ctab" data-cat="wallpapers" onclick="setCat(this)">Wallpapers</button>
+      <button class="ctab" data-cat="pvc" onclick="setCat(this)">PVC Wall Panels</button>
+      <button class="ctab" data-cat="louvers" onclick="setCat(this)">Louvers</button>
+      <button class="ctab" data-cat="pu" onclick="setCat(this)">PU Stones</button>
+      <button class="ctab" data-cat="wpc" onclick="setCat(this)">WPC Exterior</button>
+      <button class="ctab" data-cat="decor" onclick="setCat(this)">Other Decor</button>
     </div>
-    <!-- Color filter -->
-    <div class="color-filter">
-      <span class="cf-label">Filter by Color:</span>
-      <div class="col-dot a" style="background:#2d0010" title="Dark Red" onclick="setCol(this)"></div>
-      <div class="col-dot" style="background:#f5f0eb" title="Cream/Beige" onclick="setCol(this)"></div>
-      <div class="col-dot" style="background:#1a1a2e" title="Navy/Dark" onclick="setCol(this)"></div>
-      <div class="col-dot" style="background:#e8f4e8" title="Green/Nature" onclick="setCol(this)"></div>
-      <div class="col-dot" style="background:#e8e8f0" title="Grey/Neutral" onclick="setCol(this)"></div>
-      <div class="col-dot" style="background:#f5e8d4" title="Brown/Stone" onclick="setCol(this)"></div>
-      <div class="col-dot" style="background:#fff" title="White/Light" onclick="setCol(this)" style="border:1px solid #ddd"></div>
-    </div>
-    <div class="prod-grid" id="prodSection">
-      <div class="prod-card" onclick="openProductModal('Crimson Rose Floral','₹950/roll','Luxury floral wallpaper with hand-drawn rose motifs on a deep burgundy base. Perfect for bedrooms, dining rooms, and accent walls.')">
-        <div class="prod-img" style="background:#2d0010"><div class="prod-badge">New</div>
-          <img src="https://images.unsplash.com/photo-1615529328331-f8917597711f?w=600&q=80" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;opacity:0.9" alt="Crimson Rose Floral wallpaper on bedroom wall"/>
+
+    <!-- Slider -->
+    <div class="prod-slider-wrap">
+      <div class="prod-slider" id="prodSlider">
+
+        <!-- ALL / WALLPAPERS -->
+        <div class="prod-card" data-cat="wallpapers" onclick="openProductModal('Crimson Rose Floral','₹950/roll','Luxury floral wallpaper with hand-drawn rose motifs on a deep burgundy base. Perfect for bedrooms, dining rooms and accent walls.')">
+          <div class="prod-img" style="background:#2d0010">
+            <div class="prod-badge">New</div>
+            <img src="https://images.unsplash.com/photo-1615529328331-f8917597711f?w=500&q=80" alt="Crimson Rose Floral"/>
+          </div>
+          <div class="prod-info">
+            <div class="prod-name">Crimson Rose Floral</div><div class="prod-sub">Luxury Wallpapers</div>
+            <div class="prod-foot"><span class="prod-price">₹950/roll</span><div class="prod-add" onclick="event.stopPropagation();addToCartItem('Crimson Rose Floral','₹950')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div></div>
+          </div>
         </div>
-        <div class="prod-info"><div class="prod-name">Crimson Rose Floral</div><div class="prod-sub">Luxury Wallpapers</div>
-          <div class="prod-foot"><span class="prod-price">₹950/roll</span><span class="calc-link" onclick="event.stopPropagation();go('calculator',null)"><svg width="12" height="12" viewBox="0 0 16 16" style="vertical-align:-1px"><use href="#ic-ruler"/></svg> Rolls needed?</span></div>
+
+        <div class="prod-card" data-cat="wallpapers" onclick="openProductModal('Marble Classic White','₹1,050/roll','Elegant marble-effect wallpaper with soft white and grey veining. Gives any room a luxury stone finish without the cost.')">
+          <div class="prod-img" style="background:#f2ece4">
+            <div class="prod-badge best">Best</div>
+            <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=500&q=80" alt="Marble Classic White"/>
+          </div>
+          <div class="prod-info">
+            <div class="prod-name">Marble Classic White</div><div class="prod-sub">Classic Wallpapers</div>
+            <div class="prod-foot"><span class="prod-price">₹1,050/roll</span><div class="prod-add" onclick="event.stopPropagation();addToCartItem('Marble Classic White','₹1,050')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div></div>
+          </div>
         </div>
+
+        <div class="prod-card" data-cat="wallpapers" onclick="openProductModal('Velvet Luxe Texture','₹1,250/roll','Deep velvet-like texture with subtle sheen — adds warmth and sophistication. Perfect for living rooms and hotel lobbies.')">
+          <div class="prod-img" style="background:#2a1628">
+            <div class="prod-badge">Premium</div>
+            <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=500&q=80" alt="Velvet Luxe Texture"/>
+          </div>
+          <div class="prod-info">
+            <div class="prod-name">Velvet Luxe Texture</div><div class="prod-sub">Premium Wallpapers</div>
+            <div class="prod-foot"><span class="prod-price">₹1,250/roll</span><div class="prod-add" onclick="event.stopPropagation();addToCartItem('Velvet Luxe Texture','₹1,250')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div></div>
+          </div>
+        </div>
+
+        <div class="prod-card" data-cat="wallpapers" onclick="openProductModal('Botanical Garden','₹875/roll','Lush tropical botanical print with oversized leaves and blooms. Brings nature indoors — ideal for kids rooms, bathrooms and hallways.')">
+          <div class="prod-img" style="background:#e8f4e8">
+            <div class="prod-badge trend">Trending</div>
+            <img src="https://images.unsplash.com/photo-1554995207-c18c203602cb?w=500&q=80" alt="Botanical Garden"/>
+          </div>
+          <div class="prod-info">
+            <div class="prod-name">Botanical Garden</div><div class="prod-sub">Nature Wallpapers</div>
+            <div class="prod-foot"><span class="prod-price">₹875/roll</span><div class="prod-add" onclick="event.stopPropagation();addToCartItem('Botanical Garden','₹875')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div></div>
+          </div>
+        </div>
+
+        <div class="prod-card" data-cat="wallpapers" onclick="openProductModal('Midnight Abstract','₹1,100/roll','Bold abstract geometric wallpaper in deep navy and slate. Makes a dramatic statement in offices and contemporary living spaces.')">
+          <div class="prod-img" style="background:#1a1a2e">
+            <div class="prod-badge hot">Hot</div>
+            <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=500&q=80" alt="Midnight Abstract"/>
+          </div>
+          <div class="prod-info">
+            <div class="prod-name">Midnight Abstract</div><div class="prod-sub">Modern Wallpapers</div>
+            <div class="prod-foot"><span class="prod-price">₹1,100/roll</span><div class="prod-add" onclick="event.stopPropagation();addToCartItem('Midnight Abstract','₹1,100')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div></div>
+          </div>
+        </div>
+
+        <div class="prod-card" data-cat="wallpapers" onclick="openProductModal('Golden Damask','₹1,350/roll','Opulent damask pattern in warm gold tones on a cream base. Brings old-world luxury to dining rooms and study areas.')">
+          <div class="prod-img" style="background:#f5e8c0">
+            <div class="prod-badge">Luxury</div>
+            <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=500&q=80" alt="Golden Damask"/>
+          </div>
+          <div class="prod-info">
+            <div class="prod-name">Golden Damask</div><div class="prod-sub">Luxury Wallpapers</div>
+            <div class="prod-foot"><span class="prod-price">₹1,350/roll</span><div class="prod-add" onclick="event.stopPropagation();addToCartItem('Golden Damask','₹1,350')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div></div>
+          </div>
+        </div>
+
+        <div class="prod-card" data-cat="wallpapers" onclick="openProductModal('Brick & Mortar','₹780/roll','Realistic exposed brick-effect wallpaper in warm terracotta. Adds an industrial-chic or rustic charm to any space.')">
+          <div class="prod-img" style="background:#c17a5a">
+            <div class="prod-badge New">New</div>
+            <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=500&q=80" alt="Brick and Mortar"/>
+          </div>
+          <div class="prod-info">
+            <div class="prod-name">Brick &amp; Mortar</div><div class="prod-sub">Texture Wallpapers</div>
+            <div class="prod-foot"><span class="prod-price">₹780/roll</span><div class="prod-add" onclick="event.stopPropagation();addToCartItem('Brick & Mortar','₹780')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div></div>
+          </div>
+        </div>
+
+        <!-- PVC WALL PANELS -->
+        <div class="prod-card" data-cat="pvc" onclick="openProductModal('Ivory Gloss Panel','₹420/sq.ft','High-gloss ivory PVC wall panel with seamless finish. Waterproof, durable and easy to clean — ideal for kitchens and bathrooms.')">
+          <div class="prod-img" style="background:#f0ece4">
+            <div class="prod-badge best">Best</div>
+            <img src="https://images.unsplash.com/photo-1600607687644-c7171b46bbe2?w=500&q=80" alt="Ivory Gloss PVC Panel"/>
+          </div>
+          <div class="prod-info">
+            <div class="prod-name">Ivory Gloss Panel</div><div class="prod-sub">PVC Wall Panels</div>
+            <div class="prod-foot"><span class="prod-price">₹420/sq.ft</span><div class="prod-add" onclick="event.stopPropagation();addToCartItem('Ivory Gloss Panel','₹420')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div></div>
+          </div>
+        </div>
+
+        <div class="prod-card" data-cat="pvc" onclick="openProductModal('Charcoal Matte Panel','₹480/sq.ft','Deep charcoal matte PVC panel — contemporary and bold. Scratch-resistant surface with premium look for living rooms and offices.')">
+          <div class="prod-img" style="background:#2a2a2a">
+            <div class="prod-badge hot">Hot</div>
+            <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=500&q=80" alt="Charcoal Matte Panel"/>
+          </div>
+          <div class="prod-info">
+            <div class="prod-name">Charcoal Matte Panel</div><div class="prod-sub">PVC Wall Panels</div>
+            <div class="prod-foot"><span class="prod-price">₹480/sq.ft</span><div class="prod-add" onclick="event.stopPropagation();addToCartItem('Charcoal Matte Panel','₹480')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div></div>
+          </div>
+        </div>
+
+        <div class="prod-card" data-cat="pvc" onclick="openProductModal('Marble Luxe Panel','₹560/sq.ft','PVC panel with photographic marble print — the look of Carrara marble at a fraction of the cost. Waterproof and termite-proof.')">
+          <div class="prod-img" style="background:#e8e2da">
+            <div class="prod-badge">Premium</div>
+            <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=500&q=80" alt="Marble Luxe PVC Panel"/>
+          </div>
+          <div class="prod-info">
+            <div class="prod-name">Marble Luxe Panel</div><div class="prod-sub">PVC Wall Panels</div>
+            <div class="prod-foot"><span class="prod-price">₹560/sq.ft</span><div class="prod-add" onclick="event.stopPropagation();addToCartItem('Marble Luxe Panel','₹560')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div></div>
+          </div>
+        </div>
+
+        <div class="prod-card" data-cat="pvc" onclick="openProductModal('Walnut Wood Panel','₹390/sq.ft','Realistic walnut wood-grain PVC panel — warm, earthy tones with micro-texture finish. No maintenance, no termites.')">
+          <div class="prod-img" style="background:#7a5230">
+            <div class="prod-badge trend">Trending</div>
+            <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=500&q=80" alt="Walnut Wood PVC Panel"/>
+          </div>
+          <div class="prod-info">
+            <div class="prod-name">Walnut Wood Panel</div><div class="prod-sub">PVC Wall Panels</div>
+            <div class="prod-foot"><span class="prod-price">₹390/sq.ft</span><div class="prod-add" onclick="event.stopPropagation();addToCartItem('Walnut Wood Panel','₹390')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div></div>
+          </div>
+        </div>
+
+        <!-- LOUVERS -->
+        <div class="prod-card" data-cat="louvers" onclick="openProductModal('Natural Oak Louver','₹550/sq.ft','Premium natural oak wood-finish slat louver panels. Create depth, shadow play and texture on any accent wall.')">
+          <div class="prod-img" style="background:#c89a60">
+            <div class="prod-badge best">Best</div>
+            <img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=500&q=80" alt="Natural Oak Louver"/>
+          </div>
+          <div class="prod-info">
+            <div class="prod-name">Natural Oak Louver</div><div class="prod-sub">Wood Louvers</div>
+            <div class="prod-foot"><span class="prod-price">₹550/sq.ft</span><div class="prod-add" onclick="event.stopPropagation();addToCartItem('Natural Oak Louver','₹550')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div></div>
+          </div>
+        </div>
+
+        <div class="prod-card" data-cat="louvers" onclick="openProductModal('Charcoal Slat Louver','₹620/sq.ft','Sleek charcoal PVC slat louvers with a smooth matte finish. Modern, minimalist design perfect for TV backdrops.')">
+          <div class="prod-img" style="background:#1e1e1e">
+            <div class="prod-badge hot">Hot</div>
+            <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=500&q=80" alt="Charcoal Slat Louver"/>
+          </div>
+          <div class="prod-info">
+            <div class="prod-name">Charcoal Slat Louver</div><div class="prod-sub">PVC Louvers</div>
+            <div class="prod-foot"><span class="prod-price">₹620/sq.ft</span><div class="prod-add" onclick="event.stopPropagation();addToCartItem('Charcoal Slat Louver','₹620')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div></div>
+          </div>
+        </div>
+
+        <div class="prod-card" data-cat="louvers" onclick="openProductModal('White Grid Louver','₹490/sq.ft','Crisp white horizontal slat louvers — fresh, airy and timeless. Works beautifully in Scandinavian and coastal interiors.')">
+          <div class="prod-img" style="background:#f5f2ed">
+            <div class="prod-badge New">New</div>
+            <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=500&q=80" alt="White Grid Louver"/>
+          </div>
+          <div class="prod-info">
+            <div class="prod-name">White Grid Louver</div><div class="prod-sub">PVC Louvers</div>
+            <div class="prod-foot"><span class="prod-price">₹490/sq.ft</span><div class="prod-add" onclick="event.stopPropagation();addToCartItem('White Grid Louver','₹490')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div></div>
+          </div>
+        </div>
+
+        <!-- PU STONES -->
+        <div class="prod-card" data-cat="pu" onclick="openProductModal('Grey Slate Stone','₹380/sq.ft','Lightweight PU polyurethane slate stone panels — realistic texture, zero weight. Perfect for feature walls and fireplaces.')">
+          <div class="prod-img" style="background:#6b6b6b">
+            <div class="prod-badge best">Best</div>
+            <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=500&q=80" alt="Grey Slate Stone"/>
+          </div>
+          <div class="prod-info">
+            <div class="prod-name">Grey Slate Stone</div><div class="prod-sub">PU Stone Panels</div>
+            <div class="prod-foot"><span class="prod-price">₹380/sq.ft</span><div class="prod-add" onclick="event.stopPropagation();addToCartItem('Grey Slate Stone','₹380')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div></div>
+          </div>
+        </div>
+
+        <div class="prod-card" data-cat="pu" onclick="openProductModal('Red Brick Stone','₹340/sq.ft','Classic red brick PU stone panel — authentic exposed brick look without the construction mess. Easy peel-and-stick installation.')">
+          <div class="prod-img" style="background:#8b3a20">
+            <div class="prod-badge trend">Trending</div>
+            <img src="https://images.unsplash.com/photo-1615529328331-f8917597711f?w=500&q=80" alt="Red Brick Stone"/>
+          </div>
+          <div class="prod-info">
+            <div class="prod-name">Red Brick Stone</div><div class="prod-sub">PU Stone Panels</div>
+            <div class="prod-foot"><span class="prod-price">₹340/sq.ft</span><div class="prod-add" onclick="event.stopPropagation();addToCartItem('Red Brick Stone','₹340')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div></div>
+          </div>
+        </div>
+
+        <div class="prod-card" data-cat="pu" onclick="openProductModal('White Stacked Stone','₹420/sq.ft','White stacked ledger stone PU panels — clean, contemporary, architectural. A favourite for living room TV walls.')">
+          <div class="prod-img" style="background:#e8e4df">
+            <div class="prod-badge hot">Hot</div>
+            <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=500&q=80" alt="White Stacked Stone"/>
+          </div>
+          <div class="prod-info">
+            <div class="prod-name">White Stacked Stone</div><div class="prod-sub">PU Stone Panels</div>
+            <div class="prod-foot"><span class="prod-price">₹420/sq.ft</span><div class="prod-add" onclick="event.stopPropagation();addToCartItem('White Stacked Stone','₹420')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div></div>
+          </div>
+        </div>
+
+        <!-- WPC EXTERIOR -->
+        <div class="prod-card" data-cat="wpc" onclick="openProductModal('Teak WPC Cladding','₹680/sq.ft','Wood-Plastic Composite exterior cladding in teak finish. UV-resistant, anti-fade, waterproof — built for Indian climates.')">
+          <div class="prod-img" style="background:#8b6540">
+            <div class="prod-badge best">Best</div>
+            <img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=500&q=80" alt="Teak WPC Cladding"/>
+          </div>
+          <div class="prod-info">
+            <div class="prod-name">Teak WPC Cladding</div><div class="prod-sub">WPC Exterior</div>
+            <div class="prod-foot"><span class="prod-price">₹680/sq.ft</span><div class="prod-add" onclick="event.stopPropagation();addToCartItem('Teak WPC Cladding','₹680')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div></div>
+          </div>
+        </div>
+
+        <div class="prod-card" data-cat="wpc" onclick="openProductModal('Charcoal WPC Deck','₹720/sq.ft','Heavy-duty charcoal WPC deck and wall cladding. Anti-slip, termite-proof and maintenance-free for balconies and gardens.')">
+          <div class="prod-img" style="background:#2c2c2c">
+            <div class="prod-badge hot">Hot</div>
+            <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=500&q=80" alt="Charcoal WPC Deck"/>
+          </div>
+          <div class="prod-info">
+            <div class="prod-name">Charcoal WPC Deck</div><div class="prod-sub">WPC Exterior</div>
+            <div class="prod-foot"><span class="prod-price">₹720/sq.ft</span><div class="prod-add" onclick="event.stopPropagation();addToCartItem('Charcoal WPC Deck','₹720')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div></div>
+          </div>
+        </div>
+
+        <!-- OTHER DECOR -->
+        <div class="prod-card" data-cat="decor" onclick="openProductModal('Fluted Mirror Panel','₹890/sq.ft','Fluted decorative mirror panel — creates an illusion of space and light. Trending in luxury hotels and designer homes.')">
+          <div class="prod-img" style="background:#c8c8d4">
+            <div class="prod-badge trend">Trending</div>
+            <img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=500&q=80" alt="Fluted Mirror Panel"/>
+          </div>
+          <div class="prod-info">
+            <div class="prod-name">Fluted Mirror Panel</div><div class="prod-sub">Decorative Panels</div>
+            <div class="prod-foot"><span class="prod-price">₹890/sq.ft</span><div class="prod-add" onclick="event.stopPropagation();addToCartItem('Fluted Mirror Panel','₹890')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div></div>
+          </div>
+        </div>
+
+        <div class="prod-card" data-cat="decor" onclick="openProductModal('3D Geometric Wall Art','₹1,100/sq.ft','Bold 3D geometric wall art panels in white and gold. Adds dramatic depth and architectural interest to any feature wall.')">
+          <div class="prod-img" style="background:#e8d8b4">
+            <div class="prod-badge">New</div>
+            <img src="https://images.unsplash.com/photo-1554995207-c18c203602cb?w=500&q=80" alt="3D Geometric Wall Art"/>
+          </div>
+          <div class="prod-info">
+            <div class="prod-name">3D Geometric Art</div><div class="prod-sub">Wall Art Panels</div>
+            <div class="prod-foot"><span class="prod-price">₹1,100/sq.ft</span><div class="prod-add" onclick="event.stopPropagation();addToCartItem('3D Geometric Art','₹1,100')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div></div>
+          </div>
+        </div>
+
+        <div class="prod-card" data-cat="decor" onclick="openProductModal('Fabric Stretch Panel','₹650/sq.ft','Fabric-covered acoustic stretch panel — adds texture, softness and sound insulation. Available in 20+ fabric options.')">
+          <div class="prod-img" style="background:#b8a898">
+            <div class="prod-badge hot">Hot</div>
+            <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=500&q=80" alt="Fabric Stretch Panel"/>
+          </div>
+          <div class="prod-info">
+            <div class="prod-name">Fabric Stretch Panel</div><div class="prod-sub">Acoustic Panels</div>
+            <div class="prod-foot"><span class="prod-price">₹650/sq.ft</span><div class="prod-add" onclick="event.stopPropagation();addToCartItem('Fabric Stretch Panel','₹650')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div></div>
+          </div>
+        </div>
+
+      </div><!-- /prod-slider -->
+
+      <!-- Nav arrows + counter -->
+      <div class="prod-slider-nav">
+        <span class="ps-count" id="psCount">7 products</span>
+        <button class="ps-arrow" onclick="slideProducts(-1)" aria-label="Previous">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <button class="ps-arrow" onclick="slideProducts(1)" aria-label="Next">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
       </div>
-      <div class="prod-card" onclick="openProductModal('Marble Classic White','₹1,050/roll','Elegant marble-effect wallpaper with soft white and grey veining. Gives any room a luxury stone finish without the cost.')">
-        <div class="prod-img" style="background:#f2ece4">
-          <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=600&q=80" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;opacity:0.9" alt="Marble wallpaper in modern living room"/>
-        </div>
-        <div class="prod-info"><div class="prod-name">Marble Classic White</div><div class="prod-sub">Classic Wallpapers</div>
-          <div class="prod-foot"><span class="prod-price">₹1,050/roll</span><span class="calc-link" onclick="event.stopPropagation();go('calculator',null)"><svg width="12" height="12" viewBox="0 0 16 16" style="vertical-align:-1px"><use href="#ic-ruler"/></svg> Rolls needed?</span></div>
-        </div>
-      </div>
-      <div class="prod-card" onclick="openProductModal('Midnight Abstract','₹1,100/roll','Bold abstract geometric wallpaper in deep navy and slate. Makes a dramatic statement in offices and contemporary living spaces.')">
-        <div class="prod-img" style="background:#1a1a2e"><div class="prod-badge">Hot</div>
-          <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=600&q=80" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;opacity:0.88" alt="Dark abstract wallpaper in luxury office"/>
-        </div>
-        <div class="prod-info"><div class="prod-name">Midnight Abstract</div><div class="prod-sub">Modern Wallpapers</div>
-          <div class="prod-foot"><span class="prod-price">₹1,100/roll</span><span class="calc-link" onclick="event.stopPropagation();go('calculator',null)"><svg width="12" height="12" viewBox="0 0 16 16" style="vertical-align:-1px"><use href="#ic-ruler"/></svg> Rolls needed?</span></div>
-        </div>
-      </div>
-      <div class="prod-card" onclick="openProductModal('Botanical Garden','₹920/roll','Lush tropical botanical print wallpaper with oversized leaves and blooms. Brings nature indoors — ideal for kids rooms, bathrooms, and hallways.')">
-        <div class="prod-img" style="background:#e8f4e8">
-          <img src="https://images.unsplash.com/photo-1554995207-c18c203602cb?w=600&q=80" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;opacity:0.9" alt="Botanical wallpaper in cozy bedroom"/>
-        </div>
-        <div class="prod-info"><div class="prod-name">Botanical Garden</div><div class="prod-sub">Nature Wallpapers</div>
-          <div class="prod-foot"><span class="prod-price">₹920/roll</span><span class="calc-link" onclick="event.stopPropagation();go('calculator',null)"><svg width="12" height="12" viewBox="0 0 16 16" style="vertical-align:-1px"><use href="#ic-ruler"/></svg> Rolls needed?</span></div>
-        </div>
-      </div>
-    </div>
+    </div><!-- /prod-slider-wrap -->
   </section>
 
   <!-- BEFORE/AFTER SLIDER -->
@@ -2086,6 +2326,35 @@ function sendCalcWhatsApp() {
 }
 
 /* ── CHIP HELPERS ─────────────────── */
+/* ── Category tab + product slider ── */
+function setCat(btn) {
+  document.querySelectorAll('.ctab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  const cat = btn.dataset.cat;
+  const slider = document.getElementById('prodSlider');
+  const cards = slider.querySelectorAll('.prod-card');
+  cards.forEach(c => {
+    const show = cat === 'all' || c.dataset.cat === cat;
+    c.style.display = show ? '' : 'none';
+  });
+  slider.scrollLeft = 0;
+  updatePsCount(cat);
+}
+function updatePsCount(cat) {
+  const slider = document.getElementById('prodSlider');
+  const n = slider ? slider.querySelectorAll('.prod-card[style=""], .prod-card:not([style])').length : 0;
+  const visCount = cat === 'all'
+    ? slider.querySelectorAll('.prod-card').length
+    : slider.querySelectorAll('.prod-card[data-cat="'+cat+'"]').length;
+  const el = document.getElementById('psCount');
+  if (el) el.textContent = visCount + ' product' + (visCount !== 1 ? 's' : '');
+}
+function slideProducts(dir) {
+  const slider = document.getElementById('prodSlider');
+  if (!slider) return;
+  const cardW = 220 + 18; // card width + gap
+  slider.scrollBy({ left: dir * cardW * 2, behavior: 'smooth' });
+}
 function setChip(el) { document.querySelectorAll('.cat-chips .cchip').forEach(c => c.classList.remove('active')); el.classList.add('active'); }
 function setCol(el) { document.querySelectorAll('.col-dot').forEach(c => c.classList.remove('a')); el.classList.add('a'); }
 
